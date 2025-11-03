@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispatch Archive | TheAlexIs.me</title>
+    <style>
+        /* BASE STYLES (Shared with index.html) */
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+        /* HEADER/NAV */
+        .header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #1a1a1a;
+        }
+        /* MENU BUTTON STYLES (The Hamburger) */
+        .menu-toggle {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            position: relative;
+            z-index: 200;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #1a1a1a;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        /* SIDEBAR NAVIGATION */
+        .sidebar {
+            height: 100%;
+            width: 0; /* Initially closed */
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #ccc;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #fff;
+            background-color: #333;
+        }
+        /* Close Button (X) */
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: white;
+        }
+        /* Archive Specific Styles */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #1a1a1a;
+            padding-bottom: 10px;
+        }
+        .category-section {
+            margin-bottom: 60px;
+        }
+        .category-section h2 {
+            font-size: 1.8em;
+            color: #555;
+            margin-bottom: 25px;
+            border-left: 5px solid #1a1a1a;
+            padding-left: 10px;
+        }
+        .post-list {
+            list-style: none;
+            padding: 0;
+        }
+        .post-list li {
+            padding: 15px 0;
+            border-bottom: 1px dashed #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .post-list li:last-child {
+            border-bottom: none;
+        }
+        .post-title a {
+            font-size: 1.2em;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        .post-title a:hover {
+            color: #007bff;
+        }
+        .post-date {
+            font-size: 0.9em;
+            color: #888;
+        }
+        /* FOOTER */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Dispatch Archive</a>
+        <a href="visuals.html">The Visuals</a>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">TheAlexIs.me</a>
+        </div>
+        <div class="menu-toggle" onclick="openNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>The Dispatch Archive</h1>
+        <p style="text-align: center; color: #555; margin-top: -20px;">Every unfiltered thought, sorted by focus.</p>
+
+        <div class="category-section">
+            <h2>School & Theory (The Academic Spin)</h2>
+            <ul class="post-list">
+                <li>
+                    <span class="post-title"><a href="latest-post.html">The Exhausting Performance of Online Authenticity</a></span>
+                    <span class="post-date">March 18, 2025</span>
+                </li>
+                <li>
+                    <span class="post-title"><a href="#">The Post-Photo Era: When Everyone Is a Creator</a></span>
+                    <span class="post-date">Feb 25, 2025</span>
+                </li>
+                <li>
+                    <span class="post-title"><a href="#">Analyzing the Visual Language of Brand Messaging</a></span>
+                    <span class="post-date">Jan 10, 2025</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="category-section">
+            <h2>Life & Culture (The Real-World Spin)</h2>
+            <ul class="post-list">
+                <li>
+                    <span class="post-title"><a href="#">Why I Quit My Most Popular Social Media Account</a></span>
+                    <span class="post-date">Mar 10, 2025</span>
+                </li>
+                <li>
+                    <span class="post-title"><a href="#">A Houston Student's Guide to Surviving Finals Week</a></span>
+                    <span class="post-date">Dec 5, 2024</span>
+                </li>
+                <li>
+                    <span class="post-title"><a href="#">The Hidden Power of Long, Boring Commutes</a></span>
+                    <span class="post-date">Nov 1, 2024</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved.</p>
+        <p>
+            <a href="#" target="_blank">Twitter/X</a> |
+            <a href="#" target="_blank">Substack</a> |
+            <a href="#" target="_blank">RSS Feed</a>
+        </p>
+    </footer>
+    
+    <script>
+        /* Function to open the sidebar */
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "250px";
+        }
+        
+        /* Function to close the sidebar */
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+
+</body>
+</html>
