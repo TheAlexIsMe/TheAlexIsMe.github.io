@@ -7,7 +7,7 @@
     <style>
         /* BASE STYLES */
         body {
-            font-family: Georgia, serif; /* Classic, readable font for writing */
+            font-family: Georgia, serif;
             margin: 0;
             padding: 0;
             background-color: #ffffff;
@@ -39,12 +39,16 @@
         .nav a:hover {
             color: #000;
         }
-        /* HERO SECTION - The "Alex Is" Statement */
+        /* MAIN CONTENT CONTAINERS */
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        /* HERO SECTION */
         .hero {
             text-align: center;
-            padding: 80px 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 80px 20px 40px; /* Reduced bottom padding */
         }
         .hero h1 {
             font-family: 'Georgia', serif;
@@ -58,35 +62,21 @@
             color: #555;
             margin-bottom: 30px;
         }
-        /* CTA Button */
-        .cta-button {
-            display: inline-block;
-            background-color: #1a1a1a; 
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-        .cta-button:hover {
-            background-color: #555;
-        }
-        /* LATEST POST SECTION */
-        .latest-post {
-            max-width: 800px;
-            margin: 50px auto;
+        /* POST STYLES */
+        .latest-post, .bio-section {
             padding: 40px;
             background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 50px;
         }
-        .latest-post h2 {
+        .section-title {
             text-align: center;
-            font-size: 2em;
-            margin-bottom: 30px;
-            color: #333;
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            font-weight: 600;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
         }
         .post-card h3 {
             font-size: 1.8em;
@@ -97,17 +87,14 @@
             text-decoration: none;
             color: #1a1a1a;
         }
-        .post-card a:hover {
-            color: #555;
-            text-decoration: underline;
-        }
-        .post-card p {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
         .post-card .read-more {
             font-weight: bold;
             color: #007bff;
+        }
+        /* BIO STYLES */
+        .bio-section p {
+            font-size: 1.1em;
+            text-align: center;
         }
         /* FOOTER */
         .footer {
@@ -134,20 +121,18 @@
             <a href="index.html">TheAlexIs.me</a>
         </div>
         <nav class="nav">
-            <a href="archive.html">Archive</a>
-            <a href="about.html">About Alex</a>
-            <a href="contact.html">Contact</a>
+            <a href="archive.html">Dispatch Archive</a>
+            <a href="visuals.html">The Visuals</a>
         </nav>
     </div>
 
     <div class="hero">
         <h1>The Unscripted Perspective.</h1>
-        <p>This is where the real Alex writes: sharp commentary, deep dives, and thoughts on culture, society, and technology, delivered with zero filter.</p>
-        <a href="#latest" class="cta-button">Start Reading</a>
+        <p>Sharp commentary on media, culture, and the digital landscape. Thoughts straight from the source.</p>
     </div>
 
-    <section id="latest" class="latest-post">
-        <h2>Latest Dispatch: The REALEXis</h2>
+    <section id="latest" class="container latest-post">
+        <h2 class="section-title">Latest Dispatch</h2>
         <div class="post-card">
             <a href="latest-post.html">
                 <h3>The Exhausting Performance of Online Authenticity</h3>
@@ -156,6 +141,13 @@
             <p>The constant pressure to be "real" on social media has ironically manufactured a new layer of phoniness. We need to talk about who benefits from this performance—and how to simply log off and find your actual voice...</p>
             <a href="latest-post.html" class="read-more">Continue Reading &rarr;</a>
         </div>
+    </section>
+
+    <section id="bio" class="container bio-section">
+        <h2 class="section-title">Who Is Alex?</h2>
+        <p>I'm a 20-year-old **Photography/Digital Media** student at the **University of Houston**, using this space to analyze the visual culture I study every day.</p>
+        <p>This blog is my zero-filter outlet: a dedicated space for deep dives into photography theory, sharp critiques of digital trends, and unvarnished commentary on the noise of modern life. No face, just perspective.</p>
+        <p>**My mission: To find the reality behind the lens.**</p>
     </section>
 
     <footer class="footer">
