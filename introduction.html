@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World: Who I Am and Why I'm Here | TheAlexIs.me</title>
+    <style>
+        /* Shared Styles */
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+        .header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #1a1a1a;
+        }
+        /* Menu setup (CSS only, JavaScript is at the bottom) */
+        .menu-toggle {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            position: relative;
+            z-index: 200;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #1a1a1a;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #ccc;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #fff;
+            background-color: #333;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: white;
+        }
+        /* Post Content Specific Styles */
+        .post-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .post-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .post-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        .post-header .date {
+            color: #888;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        .post-content h2 {
+            margin-top: 40px;
+            font-size: 1.5em;
+            border-left: 4px solid #1a1a1a;
+            padding-left: 10px;
+        }
+        .post-content p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+        .post-content blockquote {
+            border-left: 4px solid #ccc;
+            padding: 10px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            background-color: #f7f7f7;
+        }
+        /* FOOTER */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Dispatch Archive</a>
+        <a href="visuals.html">The Visuals</a>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">TheAlexIs.me</a>
+        </div>
+        <div class="menu-toggle" onclick="openNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="post-container">
+        <header class="post-header">
+            <h1>Hello World: Who I Am and Why I'm Here</h1>
+            <p class="date">Published: November 3, 2025</p>
+        </header>
+
+        <section class="post-content">
+            <p>If you're reading this, you probably stumbled upon a link, perhaps on social media or maybe through my photography portfolio. My name is Alex, and I am a 20-year-old **Digital Media/Photography student at the University of Houston**.</p>
+            
+            <p>This space, **TheAlexIs.me**, is my answer to the overwhelming pressure to perform online. I won't be showing my face, and I won't be making sponsored content. This is a space dedicated entirely to my thoughts, critiques, and analysis of the world around us.</p>
+
+            <h2>What is the "Unfiltered Perspective"?</h2>
+            <p>The name of this blog is meant to be a promise. My major requires me to constantly analyze visual culture—how media is constructed, why trends emerge, and the psychology behind consumption. This blog is where that academic knowledge meets my personal, uncensored opinions.</p>
+            
+            <p>You can expect two types of writing:</p>
+
+            <ol>
+                <li>**The Academic Spin:** Deep-dive analysis and critiques on photography theory, digital ethics, and media trends (all posts that will live in the **School & Theory** section of the archive).</li>
+                <li>**The Real-World Spin:** Unvarnished commentary on life, culture, technology, and what it’s like to navigate college life in Houston (these will be in the **Life & Culture** section).</li>
+            </ol>
+
+            <blockquote>
+                My commitment is simple: **No performance, just perspective.** I want this to be the one place online where the noise is turned off, and the real discussion can happen.
+            </blockquote>
+            
+            <h2>What's Next?</h2>
+            <p>My first full dispatch, **"The Exhausting Performance of Online Authenticity,"** is coming soon. In the meantime, feel free to check out my visual work in **The Visuals** section to see what I'm currently studying and creating, and follow me on [Social Media Platform] for quick updates.</p>
+
+            <p style="text-align: right;">— Alex</p>
+        </section>
+        
+        <p style="text-align: center; margin-top: 50px;"><a href="archive.html" style="color: #1a1a1a;">&larr; View the Dispatch Archive</a></p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved.</p>
+        <p>
+            <a href="#" target="_blank">Twitter/X</a> |
+            <a href="#" target="_blank">Substack</a> |
+            <a href="#" target="_blank">RSS Feed</a>
+        </p>
+    </footer>
+    
+    <script>
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "250px";
+        }
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+
+</body>
+</html>
