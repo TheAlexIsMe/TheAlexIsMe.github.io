@@ -190,44 +190,79 @@
             font-size: 1em;
             color: #ccc;
         }
-        /* --- DAILY PUZZLE STYLES --- */
+        /* --- DAILY PUZZLE STYLES (Vertical Stack for Mobile) --- */
         .puzzle-links {
             display: flex;
+            flex-direction: column; /* Stacks vertically */
             justify-content: center;
             gap: 20px;
             margin-top: 20px;
+            max-width: 400px; /* Constrain width for a better centered look */
+            margin-left: auto;
+            margin-right: auto;
         }
         .puzzle-item {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            max-width: 45%;
+            width: 100%; /* Take full width of parent */
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: white;
         }
-        .puzzle-item a, .puzzle-completed {
-            display: block;
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: opacity 0.3s;
-            width: 100%;
+        .puzzle-item h3 {
+            margin: 0;
+            color: #1a1a1a;
+            font-size: 1.3em;
+            padding-bottom: 5px;
         }
-        .puzzle-item a {
+        .puzzle-item button {
             background-color: #1a1a1a;
             color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            width: 100%;
         }
-        .puzzle-item a:hover {
-            opacity: 0.8;
+        .puzzle-item button:hover {
+            background-color: #333;
         }
         .puzzle-completed {
             background-color: #ddd;
             color: #555;
             cursor: default;
             font-style: italic;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
         }
+        .puzzle-input {
+            margin-top: 10px;
+            display: flex;
+            gap: 5px;
+            width: 100%;
+        }
+        .puzzle-input input {
+            padding: 8px;
+            flex-grow: 1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        .puzzle-message {
+            margin-top: 10px;
+            font-size: 0.9em;
+            min-height: 20px;
+        }
+
 
         /* FOOTER */
         .footer {
@@ -304,27 +339,29 @@
     
     <section class="container daily-puzzles-section">
         <h2 class="section-title">Today's Daily Diversions 🗞️</h2>
-        <p style="text-align: center; margin-bottom: 30px; font-style: italic;">Links to the current free puzzles from the New York Times Games.</p>
+        <p style="text-align: center; margin-bottom: 30px; font-style: italic;">A quick mental workout from the dispatch desk.</p>
 
         <div class="puzzle-links">
-            <div class="puzzle-item">
-                <div id="puzzle-sudoku">
-                    <a href="https://www.nytimes.com/puzzles/sudoku/easy" target="_blank" onclick="markPuzzleCompleted('sudoku')">
-                        Daily Sudoku 🔢
-                    </a>
+            <div class="puzzle-item" id="daily-anagram">
+                <h3>Daily Anagram</h3>
+                <p>Unscramble the phrase: <b><span id="anagram-puzzle"></span></b></p>
+                <div class="puzzle-input">
+                    <input type="text" id="anagram-input" placeholder="Enter solution" onkeypress="if(event.keyCode==13) checkAnagram()">
+                    <button onclick="checkAnagram()">Solve</button>
                 </div>
-                <p>Simple 9x9 Sudoku</p>
+                <div class="puzzle-message" id="anagram-message"></div>
             </div>
-            <div class="puzzle-item">
-                <div id="puzzle-mini">
-                    <a href="https://www.nytimes.com/crosswords/game/mini" target="_blank" onclick="markPuzzleCompleted('mini')">
-                        Mini Crossword ✖️
-                    </a>
+
+            <div class="puzzle-item" id="daily-scramble">
+                <h3>Daily Scramble</h3>
+                <p>Unscramble the word: <b><span id="scramble-puzzle"></span></b></p>
+                <div class="puzzle-input">
+                    <input type="text" id="scramble-input" placeholder="Enter solution" onkeypress="if(event.keyCode==13) checkScramble()">
+                    <button onclick="checkScramble()">Solve</button>
                 </div>
-                <p>The Fast 5x5 Crossword</p>
+                <div class="puzzle-message" id="scramble-message"></div>
             </div>
         </div>
-        <p style="text-align: center; margin-top: 30px; font-size: 0.9em;">(Links open in a new tab and are external to this site)</p>
     </section>
 
     <footer class="footer">
@@ -345,13 +382,13 @@
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
         }
-
-        /* --- THE PERSPECTIVE FILTER QUIZ JAVASCRIPT (50 UNIQUE, NON-REPEATING QUESTIONS) --- */
+        
+        // --- QUIZ GAME JAVASCRIPT (Previous step, remains unchanged) ---
         let totalAnswered = 0;
         let totalCorrect = 0;
         let availableIndexes = []; 
         const quizStatements = [
-            // [50 questions were here, same as previous step. Keeping concise for readability.]
+            // [50 questions were here, same as previous step]
             { q: "The primary purpose of social media is connection, not commerce.", a: false, feedback: "False. Social media's primary incentive is selling attention, making it commerce, not pure connection." },
             { q: "Authenticity online is a performance, not a reality.", a: true, feedback: "True. You are always curating a version of yourself for an audience." },
             { q: "The image on your phone screen is more real than the reality outside your window.", a: false, feedback: "False (but debatable!). Don't let the digital feed replace the real world." },
@@ -439,56 +476,118 @@
             }, 3000); 
         }
 
-        /* --- DAILY PUZZLE TRACKING LOGIC --- */
 
-        // Get the current date in YYYY-MM-DD format for daily tracking
+        /* --- DAILY PUZZLE TRACKING & GAME LOGIC --- */
+
+        // Puzzles change daily, so we need a fixed list of puzzles indexed by the day of the year (1-366).
+        const todayDay = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
+        
+        // Define a large enough bank of puzzles that cycle yearly.
+        const dailyPuzzles = [
+            // Day 1: January 1st (Example 1)
+            { anagram: 'ANALYZE DIVERSE', anagram_solution: 'ADVERTISING LYE', scramble: 'TAUT', scramble_solution: 'AUTHORITY' },
+            // Day 2: January 2nd (Example 2)
+            { anagram: 'A CRUCIAL VISION', anagram_solution: 'CULTIVATION', scramble: 'CRAMBLE', scramble_solution: 'SCRAMBLE' },
+            // Day 3: January 3rd (Example 3)
+            { anagram: 'THE GOLDEN RATIO', anagram_solution: 'DIGITAL PHOTOGRAPHY', scramble: 'RITER', scramble_solution: 'WRITER' },
+            // Day 4: January 4th (Example 4)
+            { anagram: 'MEDIA NOISE', anagram_solution: 'IDEALISM', scramble: 'CESSUS', scramble_solution: 'SUCCESS' },
+            // Day 5: January 5th (Example 5)
+            { anagram: 'THE PIXEL ARMY', anagram_solution: 'PROXIMAL EYES', scramble: 'TIOCNA', scramble_solution: 'ACTION' },
+            // Day 6: January 6th (Example 6)
+            { anagram: 'SILENT PICTURES', anagram_solution: 'TRUE VISIONS', scramble: 'EHTICS', scramble_solution: 'ETHICS' },
+            // Day 7: January 7th (Example 7)
+            { anagram: 'FILTER CULTURE', anagram_solution: 'FRUIT LETTER CUE', scramble: 'PERON', scramble_solution: 'POWER' },
+            // We'll repeat these 7 days for the 366 days of the year to keep the file size reasonable
+            // The Day 8 puzzle will be the same as Day 1, and so on.
+        ];
+        
+        // Get the specific puzzle for today (using the modulo operator to cycle through the 7-day bank)
+        const todayPuzzle = dailyPuzzles[(todayDay - 1) % dailyPuzzles.length];
+
+
+        // Function to get the current date for local storage
         function getTodayDate() {
             return new Date().toISOString().split('T')[0];
         }
 
         function markPuzzleCompleted(puzzleId) {
             const today = getTodayDate();
-            // Store completion status in local storage, keyed by date
             localStorage.setItem(`${puzzleId}-completed-date`, today);
-            
-            // Re-render the puzzle section
             checkPuzzleCompletion();
+        }
+
+        // Helper function to normalize and check solutions
+        function checkSolution(input, solution) {
+            const normalizedInput = input.toUpperCase().replace(/[^A-Z]/g, '');
+            const normalizedSolution = solution.toUpperCase().replace(/[^A-Z]/g, '');
+            return normalizedInput === normalizedSolution;
+        }
+
+        function checkAnagram() {
+            const inputElement = document.getElementById('anagram-input');
+            const messageElement = document.getElementById('anagram-message');
+            
+            if (checkSolution(inputElement.value, todayPuzzle.anagram_solution)) {
+                messageElement.innerHTML = `<b>Correct!</b> The solution was "${todayPuzzle.anagram_solution}".`;
+                messageElement.style.color = '#7CFC00';
+                markPuzzleCompleted('anagram');
+            } else {
+                messageElement.innerHTML = `<b>Try Again.</b> Not quite the right word or phrase.`;
+                messageElement.style.color = '#ff424d';
+            }
+        }
+
+        function checkScramble() {
+            const inputElement = document.getElementById('scramble-input');
+            const messageElement = document.getElementById('scramble-message');
+            
+            if (checkSolution(inputElement.value, todayPuzzle.scramble_solution)) {
+                messageElement.innerHTML = `<b>Correct!</b> The solution was "${todayPuzzle.scramble_solution}".`;
+                messageElement.style.color = '#7CFC00';
+                markPuzzleCompleted('scramble');
+            } else {
+                messageElement.innerHTML = `<b>Try Again.</b> Not quite the right word.`;
+                messageElement.style.color = '#ff424d';
+            }
         }
 
         function checkPuzzleCompletion() {
             const today = getTodayDate();
-            const puzzles = [
-                { id: 'sudoku', element: 'puzzle-sudoku' },
-                { id: 'mini', element: 'puzzle-mini' }
-            ];
-
-            puzzles.forEach(puzzle => {
-                const completionDate = localStorage.getItem(`${puzzle.id}-completed-date`);
-                const container = document.getElementById(puzzle.element);
-
-                if (completionDate === today) {
-                    // Puzzle was completed today
-                    container.innerHTML = `<div class="puzzle-completed">Solved! Come back tomorrow for more.</div>`;
-                } else {
-                    // Puzzle is available or the date has reset
-                    // Ensure the original link structure is restored (if needed, though this is only run on load)
-                    if (!container.querySelector('a')) {
-                         if (puzzle.id === 'sudoku') {
-                             container.innerHTML = `<a href="https://www.nytimes.com/puzzles/sudoku/easy" target="_blank" onclick="markPuzzleCompleted('sudoku')">Daily Sudoku 🔢</a>`;
-                         } else if (puzzle.id === 'mini') {
-                             container.innerHTML = `<a href="https://www.nytimes.com/crosswords/game/mini" target="_blank" onclick="markPuzzleCompleted('mini')">Mini Crossword ✖️</a>`;
-                         }
-                    }
+            
+            // Anagram Check
+            const anagramDate = localStorage.getItem(`anagram-completed-date`);
+            const anagramContainer = document.getElementById('daily-anagram');
+            document.getElementById('anagram-puzzle').textContent = todayPuzzle.anagram;
+            if (anagramDate === today) {
+                anagramContainer.innerHTML = `<h3>Daily Anagram</h3><div class="puzzle-completed"><b>Solved!</b> Come back tomorrow for more.</div>`;
+            } else {
+                // Ensure inputs are visible if not completed
+                if (!anagramContainer.querySelector('.puzzle-input')) {
+                     anagramContainer.innerHTML = `<h3>Daily Anagram</h3><p>Unscramble the phrase: <b>${todayPuzzle.anagram}</b></p><div class="puzzle-input"><input type="text" id="anagram-input" placeholder="Enter solution" onkeypress="if(event.keyCode==13) checkAnagram()"><button onclick="checkAnagram()">Solve</button></div><div class="puzzle-message" id="anagram-message"></div>`;
                 }
-            });
+            }
+
+            // Scramble Check
+            const scrambleDate = localStorage.getItem(`scramble-completed-date`);
+            const scrambleContainer = document.getElementById('daily-scramble');
+            document.getElementById('scramble-puzzle').textContent = todayPuzzle.scramble;
+            if (scrambleDate === today) {
+                scrambleContainer.innerHTML = `<h3>Daily Scramble</h3><div class="puzzle-completed"><b>Solved!</b> Come back tomorrow for more.</div>`;
+            } else {
+                // Ensure inputs are visible if not completed
+                 if (!scrambleContainer.querySelector('.puzzle-input')) {
+                    scrambleContainer.innerHTML = `<h3>Daily Scramble</h3><p>Unscramble the word: <b>${todayPuzzle.scramble}</b></p><div class="puzzle-input"><input type="text" id="scramble-input" placeholder="Enter solution" onkeypress="if(event.keyCode==13) checkScramble()"><button onclick="checkScramble()">Solve</button></div><div class="puzzle-message" id="scramble-message"></div>`;
+                }
+            }
         }
 
-        // Initialize game and puzzle checks on page load
+        // Initialize all games and puzzles on page load
         document.addEventListener('DOMContentLoaded', () => {
             resetQuiz(); 
             loadNewStatement();
             updateScore();
-            checkPuzzleCompletion(); // Check puzzle status immediately
+            checkPuzzleCompletion(); 
         });
     </script>
 
