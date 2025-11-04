@@ -133,6 +133,47 @@
             font-size: 1.1em;
             text-align: center;
         }
+        /* --- NEW GAME STYLES --- */
+        #rps-game-container {
+            max-width: 500px;
+            margin: 40px auto;
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: #fcfcfc;
+        }
+        #game-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .choices button {
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+        .choices button:hover {
+            background-color: #333;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+            min-height: 20px;
+        }
+        #score {
+            margin-top: 15px;
+            font-size: 1.1em;
+            color: #555;
+        }
         /* FOOTER */
         .footer {
             background-color: #1a1a1a;
@@ -169,13 +210,20 @@
         </div>
     </div>
 
-    <div style="text-align: center; font-size: 1.1em; font-weight: bold; margin: 20px 0; color: #ff424d;">
-        <span id="random-attention">Loading fresh perspective...</span>
-    </div>
-
     <div class="hero">
         <h1>The Unscripted Perspective.</h1>
         <p>Sharp commentary on media, culture, and the digital landscape. Thoughts straight from the source.</p>
+    </div>
+
+    <div id="rps-game-container">
+        <div id="game-title">Quick-Draw: Beat The Algorithmic Hand</div>
+        <div class="choices">
+            <button onclick="playGame('Rock')">🪨 Rock</button>
+            <button onclick="playGame('Paper')">📄 Paper</button>
+            <button onclick="playGame('Scissors')">✂️ Scissors</button>
+        </div>
+        <div id="result">Pick your move!</div>
+        <div id="score">Score: You 0 - 0 AI</div>
     </div>
 
     <section id="latest" class="container latest-post">
@@ -197,12 +245,6 @@
         <p><strong>My mission: To find the reality behind the lens.</strong></p>
     </section>
 
-    <div style="max-width: 800px; margin: 50px auto 20px; padding: 0 20px;">
-        <blockquote style="border-left: 4px solid #333; padding-left: 15px; font-size: 1.05em; color: #555;">
-            <p id="random-philosophy">A quote to chew on...</p>
-        </blockquote>
-    </div>
-
     <footer class="footer">
         <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
         <p>
@@ -222,46 +264,49 @@
           document.getElementById("mySidebar").style.width = "0";
         }
 
-        /* --- MINI-GAME JAVASCRIPT --- */
-        // ARRAY 1: Attention-Grabbing Statements for the Top of the Page
-        const attentionStatements = [
-            "Today's thought is unfiltered.",
-            "Welcome to the perspective nobody asked for.",
-            "You're not ready for this opinion.",
-            "What you see is not always what is real.",
-            "Your feed is watching you.",
-            "Click a link, risk an idea."
-        ];
+        /* --- ROCK-PAPER-SCISSORS GAME JAVASCRIPT --- */
+        let playerScore = 0;
+        let computerScore = 0;
+        const choices = ['Rock', 'Paper', 'Scissors'];
 
-        // ARRAY 2: Philosophical Quotes for the Bottom of the Page
-        const philosophyQuotes = [
-            "“The greatest obstacle to discovery is not ignorance—it is the illusion of knowledge.” – Daniel J. Boorstin",
-            "“We are too much accustomed to attribute to a single cause that which is the product of several, and the majority of our controversies come from that.” – Justus von Liebig",
-            "“In the province of the mind, there are no limits.” – John Lilly",
-            "“The only true wisdom is in knowing you know nothing.” – Socrates",
-            "“Judge a man by his questions rather than by his answers.” – Voltaire"
-        ];
+        const resultDisplay = document.getElementById('result');
+        const scoreDisplay = document.getElementById('score');
 
-        // Function to get a random item
-        function getRandomContent(arr) {
-            const randomIndex = Math.floor(Math.random() * arr.length);
-            return arr[randomIndex];
+        function getComputerChoice() {
+            const randomIndex = Math.floor(Math.random() * choices.length);
+            return choices[randomIndex];
         }
 
-        // Function to place content on the page
-        document.addEventListener('DOMContentLoaded', () => {
-            // Place the attention statement at the top
-            const topElement = document.getElementById('random-attention');
-            if (topElement) {
-                topElement.textContent = getRandomContent(attentionStatements);
+        function determineWinner(player, computer) {
+            if (player === computer) {
+                return "It's a tie!";
+            } else if (
+                (player === 'Rock' && computer === 'Scissors') ||
+                (player === 'Paper' && computer === 'Rock') ||
+                (player === 'Scissors' && computer === 'Paper')
+            ) {
+                playerScore++;
+                return "You win! The AI can't predict you.";
+            } else {
+                computerScore++;
+                return "You lose! The Algorithm has calculated your move.";
             }
+        }
 
-            // Place the philosophical quote at the bottom
-            const bottomElement = document.getElementById('random-philosophy');
-            if (bottomElement) {
-                bottomElement.textContent = getRandomContent(philosophyQuotes);
-            }
-        });
+        function updateScore() {
+            scoreDisplay.textContent = `Score: You ${playerScore} - ${computerScore} AI`;
+        }
+
+        function playGame(playerChoice) {
+            const computerChoice = getComputerChoice();
+            const winnerMessage = determineWinner(playerChoice, computerChoice);
+            
+            resultDisplay.innerHTML = `You chose **${playerChoice}**. AI chose **${computerChoice}**.<br>${winnerMessage}`;
+            updateScore();
+        }
+
+        // Initialize score on page load
+        document.addEventListener('DOMContentLoaded', updateScore);
     </script>
 
 </body>
