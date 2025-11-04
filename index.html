@@ -48,7 +48,7 @@
         /* SIDEBAR NAVIGATION */
         .sidebar {
             height: 100%;
-            width: 0; /* Initially closed */
+            width: 0; 
             position: fixed;
             z-index: 100;
             top: 0;
@@ -133,47 +133,64 @@
             font-size: 1.1em;
             text-align: center;
         }
-        /* --- NEW GAME STYLES --- */
-        #rps-game-container {
-            max-width: 500px;
+        /* --- NEW GAME STYLES: THE PERSPECTIVE FILTER --- */
+        #quiz-container {
+            max-width: 700px;
             margin: 40px auto;
+            padding: 30px;
+            background-color: #1a1a1a; /* Dark background for visual impact */
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             text-align: center;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-            background-color: #fcfcfc;
         }
-        #game-title {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
+        #quiz-container h2 {
+            font-size: 2em;
+            color: #ff424d; /* Use your accent color */
+            margin-bottom: 10px;
         }
-        .choices button {
-            background-color: #1a1a1a;
+        #quiz-statement {
+            font-size: 1.5em;
+            font-style: italic;
+            margin: 30px 0;
+            min-height: 80px; /* Ensures the box doesn't jump */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #333;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .quiz-buttons button {
+            background-color: #ff424d;
             color: white;
             border: none;
-            padding: 10px 15px;
-            margin: 5px;
+            padding: 15px 40px;
+            margin: 0 15px;
             cursor: pointer;
-            font-size: 1.1em;
-            border-radius: 4px;
-            transition: background-color 0.2s;
-        }
-        .choices button:hover {
-            background-color: #333;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: bold;
-            min-height: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.1s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        #score {
+        .quiz-buttons button:hover {
+            background-color: #ff666f;
+            transform: translateY(-2px);
+        }
+        #quiz-feedback {
+            margin-top: 25px;
+            font-size: 1.2em;
+            font-weight: bold;
+            min-height: 25px;
+        }
+        #quiz-score {
             margin-top: 15px;
-            font-size: 1.1em;
-            color: #555;
+            font-size: 1em;
+            color: #ccc;
         }
+
         /* FOOTER */
         .footer {
             background-color: #1a1a1a;
@@ -181,6 +198,7 @@
             text-align: center;
             padding: 30px 20px;
             font-size: 0.9em;
+            margin-top: 50px;
         }
         .footer a {
             color: #ccc;
@@ -215,15 +233,16 @@
         <p>Sharp commentary on media, culture, and the digital landscape. Thoughts straight from the source.</p>
     </div>
 
-    <div id="rps-game-container">
-        <div id="game-title">Quick-Draw: Beat The Algorithmic Hand</div>
-        <div class="choices">
-            <button onclick="playGame('Rock')">🪨 Rock</button>
-            <button onclick="playGame('Paper')">📄 Paper</button>
-            <button onclick="playGame('Scissors')">✂️ Scissors</button>
+    <div id="quiz-container">
+        <h2>The Perspective Filter: True or False?</h2>
+        <p>Challenge your assumptions. Do you agree with the current statement about reality?</p>
+        <div id="quiz-statement">Loading...</div>
+        <div class="quiz-buttons">
+            <button onclick="submitAnswer(true)">True</button>
+            <button onclick="submitAnswer(false)">False</button>
         </div>
-        <div id="result">Pick your move!</div>
-        <div id="score">Score: You 0 - 0 AI</div>
+        <div id="quiz-feedback"></div>
+        <div id="quiz-score">Score: 0 / 0</div>
     </div>
 
     <section id="latest" class="container latest-post">
@@ -242,7 +261,7 @@
         <h2 class="section-title">Who Is Alex?</h2>
         <p>I'm a 20-year-old <strong>Photography/Digital Media</strong> student at the <strong>University of Houston</strong>, using this space to analyze the visual culture I study every day.</p>
         <p>This blog is my zero-filter outlet: a dedicated space for deep dives into photography theory, sharp critiques of digital trends, and unvarnished commentary on the noise of modern life. No face, just perspective.</p>
-        <p><strong>My mission: To find the reality behind the lens.</strong></p>
+        <p><b>My mission: To find the reality behind the lens.</b></p>
     </section>
 
     <footer class="footer">
@@ -264,49 +283,71 @@
           document.getElementById("mySidebar").style.width = "0";
         }
 
-        /* --- ROCK-PAPER-SCISSORS GAME JAVASCRIPT --- */
-        let playerScore = 0;
-        let computerScore = 0;
-        const choices = ['Rock', 'Paper', 'Scissors'];
+        /* --- THE PERSPECTIVE FILTER QUIZ JAVASCRIPT --- */
+        let totalAnswered = 0;
+        let totalCorrect = 0;
+        let lastIndex = -1; // Tracks the last used question to prevent immediate repetition
 
-        const resultDisplay = document.getElementById('result');
-        const scoreDisplay = document.getElementById('score');
+        // Array of questions and their "correct" answers (which is the perspective/opinion of the site)
+        const quizStatements = [
+            { q: "The primary purpose of social media is connection, not commerce.", a: false, feedback: "False. Social media's primary incentive is selling attention, making it commerce, not pure connection." },
+            { q: "Authenticity online is a performance, not a reality.", a: true, feedback: "True. You are always curating a version of yourself for an audience." },
+            { q: "The image on your phone screen is more real than the reality outside your window.", a: false, feedback: "False (but debatable!). Don't let the digital feed replace the real world." },
+            { q: "AI generated art fundamentally devalues human creativity.", a: true, feedback: "True. While a tool, unchecked AI output shifts the value from skill to prompt, arguably devaluing the effort." },
+            { q: "You can fully understand a person from their curated profile.", a: false, feedback: "False. The filter always obscures more than it reveals." },
+            { q: "College is more about finding yourself than getting a job.", a: true, feedback: "True. The long-term value is often in the perspective gained, not just the degree." }
+        ];
 
-        function getComputerChoice() {
-            const randomIndex = Math.floor(Math.random() * choices.length);
-            return choices[randomIndex];
+        function getRandomStatement() {
+            let randomIndex;
+            // Loop until we get a new question index
+            do {
+                randomIndex = Math.floor(Math.random() * quizStatements.length);
+            } while (randomIndex === lastIndex);
+            
+            lastIndex = randomIndex;
+            return quizStatements[randomIndex];
         }
 
-        function determineWinner(player, computer) {
-            if (player === computer) {
-                return "It's a tie!";
-            } else if (
-                (player === 'Rock' && computer === 'Scissors') ||
-                (player === 'Paper' && computer === 'Rock') ||
-                (player === 'Scissors' && computer === 'Paper')
-            ) {
-                playerScore++;
-                return "You win! The AI can't predict you.";
-            } else {
-                computerScore++;
-                return "You lose! The Algorithm has calculated your move.";
-            }
+        let currentStatement = getRandomStatement();
+
+        function loadNewStatement() {
+            currentStatement = getRandomStatement();
+            document.getElementById('quiz-statement').textContent = currentStatement.q;
+            document.getElementById('quiz-feedback').textContent = "What's your take?";
         }
 
         function updateScore() {
-            scoreDisplay.textContent = `Score: You ${playerScore} - ${computerScore} AI`;
+            document.getElementById('quiz-score').textContent = `Score: ${totalCorrect} / ${totalAnswered}`;
         }
 
-        function playGame(playerChoice) {
-            const computerChoice = getComputerChoice();
-            const winnerMessage = determineWinner(playerChoice, computerChoice);
+        function submitAnswer(playerAnswer) {
+            totalAnswered++;
+            const feedbackElement = document.getElementById('quiz-feedback');
             
-            resultDisplay.innerHTML = `You chose **${playerChoice}**. AI chose **${computerChoice}**.<br>${winnerMessage}`;
+            if (playerAnswer === currentStatement.a) {
+                totalCorrect++;
+                feedbackElement.innerHTML = `<b>Correct!</b> ${currentStatement.feedback}`;
+                feedbackElement.style.color = '#7CFC00'; // Green
+            } else {
+                feedbackElement.innerHTML = `<b>Incorrect!</b> The expected perspective is: ${currentStatement.feedback}`;
+                feedbackElement.style.color = '#ff424d'; // Red
+            }
+
             updateScore();
+            
+            // Load the next question after a brief delay
+            setTimeout(() => {
+                loadNewStatement();
+                feedbackElement.style.color = 'white'; // Reset color
+            }, 3000); // 3-second delay
         }
 
-        // Initialize score on page load
-        document.addEventListener('DOMContentLoaded', updateScore);
+        // Initialize game on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNewStatement();
+            updateScore();
+        });
     </script>
 
 </body>
