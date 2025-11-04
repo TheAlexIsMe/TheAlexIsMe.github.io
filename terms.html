@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use & Disclaimer | TheAlexIs.me</title>
+    <link rel="icon" type="image/png" href="favicon.png"> 
+    <style>
+        /* Shared Styles (Copying the whole style block for consistency) */
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+        .header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #1a1a1a;
+        }
+        /* Menu setup (CSS only, JavaScript is at the bottom) */
+        .menu-toggle {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            position: relative;
+            z-index: 200;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #1a1a1a;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #ccc;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #fff;
+            background-color: #333;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: white;
+        }
+        /* Post Content Specific Styles */
+        .post-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .post-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .post-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        .post-header .date {
+            color: #888;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        .post-content h2 {
+            margin-top: 40px;
+            font-size: 1.5em;
+            border-left: 4px solid #1a1a1a;
+            padding-left: 10px;
+        }
+        .post-content p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+        .post-content blockquote {
+            border-left: 4px solid #ccc;
+            padding: 10px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            background-color: #f7f7f7;
+        }
+        /* FOOTER */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Dispatch Archive</a>
+        <a href="visuals.html">The Visuals</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #ff424d; font-weight: bold;">Support & TheAlexYap Podcast</a>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">TheAlexIs.me</a>
+        </div>
+        <div class="menu-toggle" onclick="openNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="post-container">
+        <header class="post-header">
+            <h1>Terms of Use & Disclaimer</h1>
+            <p class="date">Last Updated: <strong>November 5, 2025</strong></p>
+        </header>
+
+        <section class="post-content">
+            <h2>General Disclaimer</h2>
+            <p>The content published on **TheAlexIs.me** (including all dispatches, visual critiques, and podcast commentary) represents the personal, subjective opinions of the author, Alex. This content is provided for informational and entertainment purposes only and should not be construed as professional advice, fact, or official representation of any entity, including the University of Houston.</p>
+
+            <h2>No Warranties</h2>
+            <p>All information provided on this site is done so without any warranties or guarantees of accuracy, completeness, or suitability. The author is not liable for any errors or omissions in this information, nor for the availability of this information.</p>
+            
+            <h2>Opinion, Not Fact</h2>
+            <p>By accessing this website, the user acknowledges that the material presented is **opinion-based** and is not intended to maliciously harm, libel, or defame any individual, group, or organization. Criticism and analysis are provided strictly in the context of academic critique and personal experience.</p>
+            
+            <h2>Jurisdiction</h2>
+            <p>All content is published from the United States and is intended to be protected under the principles of **Fair Use** and **Freedom of Expression** applicable to opinion and critique.</p>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
+        <p>
+            <a href="#" target="_blank">Twitter/X</a> |
+            <a href="#" target="_blank">Substack</a> |
+            <a href="#" target="_blank">RSS Feed</a> |
+            <a href="https://www.patreon.com/TheAlexIsMe" target="_blank">Support / TheAlexYap</a>
+        </p>
+    </footer>
+    
+    <script>
+        function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+    </script>
+</body>
+</html>
