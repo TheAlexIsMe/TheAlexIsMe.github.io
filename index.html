@@ -101,7 +101,7 @@
             color: #555;
             margin-bottom: 30px;
         }
-        .latest-post, .bio-section {
+        .latest-post, .bio-section, .daily-puzzles-section {
             padding: 40px;
             background-color: #f9f9f9;
             border-radius: 8px;
@@ -138,7 +138,7 @@
             max-width: 700px;
             margin: 40px auto;
             padding: 30px;
-            background-color: #1a1a1a; /* Dark background for visual impact */
+            background-color: #1a1a1a; 
             color: white;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -146,14 +146,14 @@
         }
         #quiz-container h2 {
             font-size: 2em;
-            color: #ff424d; /* Use your accent color */
+            color: #ff424d; 
             margin-bottom: 10px;
         }
         #quiz-statement {
             font-size: 1.5em;
             font-style: italic;
             margin: 30px 0;
-            min-height: 80px; /* Ensures the box doesn't jump */
+            min-height: 80px; 
             display: flex;
             align-items: center;
             justify-content: center;
@@ -189,6 +189,44 @@
             margin-top: 15px;
             font-size: 1em;
             color: #ccc;
+        }
+        /* --- DAILY PUZZLE STYLES --- */
+        .puzzle-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .puzzle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 45%;
+        }
+        .puzzle-item a, .puzzle-completed {
+            display: block;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            width: 100%;
+        }
+        .puzzle-item a {
+            background-color: #1a1a1a;
+            color: white;
+        }
+        .puzzle-item a:hover {
+            opacity: 0.8;
+        }
+        .puzzle-completed {
+            background-color: #ddd;
+            color: #555;
+            cursor: default;
+            font-style: italic;
         }
 
         /* FOOTER */
@@ -263,6 +301,31 @@
         <p>This blog is my zero-filter outlet: a dedicated space for deep dives into photography theory, sharp critiques of digital trends, and unvarnished commentary on the noise of modern life. No face, just perspective.</p>
         <p><b>My mission: To find the reality behind the lens.</b></p>
     </section>
+    
+    <section class="container daily-puzzles-section">
+        <h2 class="section-title">Today's Daily Diversions 🗞️</h2>
+        <p style="text-align: center; margin-bottom: 30px; font-style: italic;">Links to the current free puzzles from the New York Times Games.</p>
+
+        <div class="puzzle-links">
+            <div class="puzzle-item">
+                <div id="puzzle-sudoku">
+                    <a href="https://www.nytimes.com/puzzles/sudoku/easy" target="_blank" onclick="markPuzzleCompleted('sudoku')">
+                        Daily Sudoku 🔢
+                    </a>
+                </div>
+                <p>Simple 9x9 Sudoku</p>
+            </div>
+            <div class="puzzle-item">
+                <div id="puzzle-mini">
+                    <a href="https://www.nytimes.com/crosswords/game/mini" target="_blank" onclick="markPuzzleCompleted('mini')">
+                        Mini Crossword ✖️
+                    </a>
+                </div>
+                <p>The Fast 5x5 Crossword</p>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 30px; font-size: 0.9em;">(Links open in a new tab and are external to this site)</p>
+    </section>
 
     <footer class="footer">
         <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
@@ -286,10 +349,9 @@
         /* --- THE PERSPECTIVE FILTER QUIZ JAVASCRIPT (50 UNIQUE, NON-REPEATING QUESTIONS) --- */
         let totalAnswered = 0;
         let totalCorrect = 0;
-        let availableIndexes = []; // Tracks which questions haven't been asked yet
-
-        // **50 Thought-Provoking Statements** - The "Correct" answer (a: true/false) is the site's perspective.
+        let availableIndexes = []; 
         const quizStatements = [
+            // [50 questions were here, same as previous step. Keeping concise for readability.]
             { q: "The primary purpose of social media is connection, not commerce.", a: false, feedback: "False. Social media's primary incentive is selling attention, making it commerce, not pure connection." },
             { q: "Authenticity online is a performance, not a reality.", a: true, feedback: "True. You are always curating a version of yourself for an audience." },
             { q: "The image on your phone screen is more real than the reality outside your window.", a: false, feedback: "False (but debatable!). Don't let the digital feed replace the real world." },
@@ -299,7 +361,7 @@
             { q: "Photography is inherently less truthful than painting.", a: false, feedback: "False. Both can be manipulated; photography merely offers the illusion of objectivity." },
             { q: "Personal privacy is an outdated concept in the digital age.", a: false, feedback: "False. Privacy is a necessary shield against commercial and state overreach, regardless of technology." },
             { q: "The more choices you have, the happier you are.", a: false, feedback: "False. Paradox of Choice often leads to anxiety and regret." },
-            { q: "Reading criticism about art is more important than simply experiencing it.", a: true, feedback: "True. Criticism teaches you *how* to look, enriching the experience." },
+            { q: "Reading criticism about art is more important than simply experiencing it.", a: true, feedback: "True. Criticism teaches you <b>how</b> to look, enriching the experience." },
             { q: "The constant need for digital validation is changing human behavior for the worse.", a: true, feedback: "True. Seeking approval via likes encourages performative rather than genuine actions." },
             { q: "All news outlets are equally biased, making true objectivity impossible.", a: false, feedback: "False. Degrees of bias vary wildly; dismissing all media as equal is intellectual laziness." },
             { q: "If a photo is beautiful, its ethical origins don't matter.", a: false, feedback: "False. The ethics of image creation (e.g., exploitation) are inseparable from its value." },
@@ -338,50 +400,30 @@
             { q: "Digital tools have destroyed the concept of unique handwriting.", a: true, feedback: "True. Typed communication has standardized expression, reducing unique penmanship." },
             { q: "Failure is always necessary for growth.", a: true, feedback: "True. Learning from mistakes provides insights that success often obscures." },
             { q: "It is possible to escape political polarization.", a: false, feedback: "False. Polarization is baked into modern information delivery; active avoidance is difficult." },
-            { q: "All art is subjective.", a: false, feedback: "False. While *enjoyment* is subjective, the *craft* and *historical impact* can be objectively analyzed." },
+            { q: "All art is subjective.", a: false, feedback: "False. While <b>enjoyment</b> is subjective, the <b>craft</b> and <b>historical impact</b> can be objectively analyzed." },
             { q: "The only person you should compete against is your past self.", a: true, feedback: "True. Focusing on self-improvement provides sustainable motivation over external comparison." }
         ];
 
-        // --- NON-REPEATING LOGIC ---
-
-        // Function to initialize or reset the availableIndexes array
-        function resetQuiz() {
-            availableIndexes = Array.from(quizStatements.keys()); // [0, 1, 2, ..., 49]
-        }
-
-        function getRandomStatement() {
-            if (availableIndexes.length === 0) {
-                // All 50 questions have been asked, reset the pool and tell the user!
-                resetQuiz();
-                alert("You've completed the full 50-question Perspective Filter cycle! Starting over now.");
-            }
-
-            // Pick a random index from the available list
+        function resetQuiz() { availableIndexes = Array.from(quizStatements.keys()); }
+        function getRandomStatement() { 
+            if (availableIndexes.length === 0) { resetQuiz(); alert("You've completed the full Perspective Filter cycle! Starting over now."); }
             const arrayIndex = Math.floor(Math.random() * availableIndexes.length);
             const statementIndex = availableIndexes[arrayIndex];
-
-            // Remove the index from the available list so it won't be repeated
             availableIndexes.splice(arrayIndex, 1); 
-
             return quizStatements[statementIndex];
         }
-
-        let currentStatement = {}; // Initial placeholder
-
-        function loadNewStatement() {
+        let currentStatement = {}; 
+        function loadNewStatement() { 
             currentStatement = getRandomStatement();
             document.getElementById('quiz-statement').textContent = currentStatement.q;
             document.getElementById('quiz-feedback').textContent = "What's your take?";
         }
-
         function updateScore() {
             document.getElementById('quiz-score').textContent = `Score: ${totalCorrect} / ${totalAnswered}`;
         }
-
         function submitAnswer(playerAnswer) {
             totalAnswered++;
             const feedbackElement = document.getElementById('quiz-feedback');
-            
             if (playerAnswer === currentStatement.a) {
                 totalCorrect++;
                 feedbackElement.innerHTML = `<b>Correct!</b> ${currentStatement.feedback}`;
@@ -390,21 +432,63 @@
                 feedbackElement.innerHTML = `<b>Incorrect!</b> The expected perspective is: ${currentStatement.feedback}`;
                 feedbackElement.style.color = '#ff424d'; // Red
             }
-
             updateScore();
-            
-            // Load the next question after a brief delay
             setTimeout(() => {
                 loadNewStatement();
-                feedbackElement.style.color = 'white'; // Reset color
-            }, 3000); // 3-second delay
+                feedbackElement.style.color = 'white'; 
+            }, 3000); 
         }
 
-        // Initialize game on page load
+        /* --- DAILY PUZZLE TRACKING LOGIC --- */
+
+        // Get the current date in YYYY-MM-DD format for daily tracking
+        function getTodayDate() {
+            return new Date().toISOString().split('T')[0];
+        }
+
+        function markPuzzleCompleted(puzzleId) {
+            const today = getTodayDate();
+            // Store completion status in local storage, keyed by date
+            localStorage.setItem(`${puzzleId}-completed-date`, today);
+            
+            // Re-render the puzzle section
+            checkPuzzleCompletion();
+        }
+
+        function checkPuzzleCompletion() {
+            const today = getTodayDate();
+            const puzzles = [
+                { id: 'sudoku', element: 'puzzle-sudoku' },
+                { id: 'mini', element: 'puzzle-mini' }
+            ];
+
+            puzzles.forEach(puzzle => {
+                const completionDate = localStorage.getItem(`${puzzle.id}-completed-date`);
+                const container = document.getElementById(puzzle.element);
+
+                if (completionDate === today) {
+                    // Puzzle was completed today
+                    container.innerHTML = `<div class="puzzle-completed">Solved! Come back tomorrow for more.</div>`;
+                } else {
+                    // Puzzle is available or the date has reset
+                    // Ensure the original link structure is restored (if needed, though this is only run on load)
+                    if (!container.querySelector('a')) {
+                         if (puzzle.id === 'sudoku') {
+                             container.innerHTML = `<a href="https://www.nytimes.com/puzzles/sudoku/easy" target="_blank" onclick="markPuzzleCompleted('sudoku')">Daily Sudoku 🔢</a>`;
+                         } else if (puzzle.id === 'mini') {
+                             container.innerHTML = `<a href="https://www.nytimes.com/crosswords/game/mini" target="_blank" onclick="markPuzzleCompleted('mini')">Mini Crossword ✖️</a>`;
+                         }
+                    }
+                }
+            });
+        }
+
+        // Initialize game and puzzle checks on page load
         document.addEventListener('DOMContentLoaded', () => {
-            resetQuiz(); // Start with all questions available
+            resetQuiz(); 
             loadNewStatement();
             updateScore();
+            checkPuzzleCompletion(); // Check puzzle status immediately
         });
     </script>
 
