@@ -6,127 +6,44 @@
     <title>Hello World: Who I Am and Why I'm Here | TheAlexIs.me</title>
     <link rel="icon" type="image/png" href="favicon.png"> 
     <style>
-        /* Shared Styles (Copying the whole style block for consistency) */
-        body {
-            font-family: Georgia, serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #1a1a1a;
-            line-height: 1.7;
+        /* Shared Styles (New Theme) */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #F0F0FF; color: #1E1F4B; line-height: 1.7; }
+        .header { max-width: 900px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #F0F0FF; }
+        .logo a { font-size: 1.8em; font-weight: bold; text-decoration: none; color: #FF10F0; text-shadow: 1px 1px 0 #00FFFF; }
+        .menu-toggle { cursor: pointer; display: block; padding: 10px; position: relative; z-index: 200; }
+        .bar { width: 25px; height: 3px; background-color: #1E1F4B; margin: 5px 0; transition: 0.4s; }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #2C073D; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.5em; color: #ccc; display: block; transition: 0.3s; }
+        .sidebar a:hover { color: #FF10F0; background-color: #4A0F6F; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: #00FFFF; }
+        /* Introduction Specific Styles */
+        .post-container { max-width: 700px; margin: 40px auto 80px; padding: 40px 20px; background-color: #FFF; border: 3px solid #FF10F0; border-radius: 10px; }
+        .post-header { text-align: center; margin-bottom: 40px; }
+        .post-header h1 { font-size: 3em; margin-bottom: 5px; color: #00FFFF; text-shadow: 1px 1px 0 #FF10F0; }
+        .post-header .date { color: #4A0F6F; font-size: 1em; font-style: normal; }
+        .post-content h2 { 
+            margin-top: 40px; 
+            font-size: 1.6em; 
+            border-left: 4px solid #FF10F0; 
+            padding-left: 10px; 
+            color: #1E1F4B;
+            border-bottom: 1px solid #00FFFF;
+            padding-bottom: 5px;
         }
-        .header {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo a {
-            font-size: 1.8em;
-            font-weight: bold;
-            text-decoration: none;
-            color: #1a1a1a;
-        }
-        /* Menu setup (CSS only, JavaScript is at the bottom) */
-        .menu-toggle {
-            cursor: pointer;
-            display: block;
-            padding: 10px;
-            position: relative;
-            z-index: 200;
-        }
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #1a1a1a;
-            margin: 5px 0;
-            transition: 0.4s;
-        }
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 100;
-            top: 0;
-            right: 0;
-            background-color: #1a1a1a;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-        .sidebar a {
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 1.5em;
-            color: #ccc;
-            display: block;
-            transition: 0.3s;
-        }
-        .sidebar a:hover {
-            color: #fff;
-            background-color: #333;
-        }
-        .sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-            color: white;
-        }
-        /* Post Content Specific Styles */
-        .post-container {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .post-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .post-header h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-        }
-        .post-header .date {
-            color: #888;
-            font-size: 0.9em;
-            font-style: italic;
-        }
-        .post-content h2 {
-            margin-top: 40px;
-            font-size: 1.5em;
-            border-left: 4px solid #1a1a1a;
-            padding-left: 10px;
-        }
-        .post-content p {
-            margin-bottom: 25px;
-            font-size: 1.1em;
-        }
+        .post-content p { margin-bottom: 25px; font-size: 1.1em; }
         .post-content blockquote {
-            border-left: 4px solid #ccc;
+            border-left: 4px solid #00FFFF;
             padding: 10px 20px;
             margin: 20px 0;
             font-style: italic;
-            color: #555;
-            background-color: #f7f7f7;
+            color: #1E1F4B;
+            background-color: #F5FFFF;
         }
-        /* FOOTER */
-        .footer {
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9em;
-            margin-top: 50px;
-        }
-        .footer a {
-            color: #ccc;
-            text-decoration: none;
-            margin: 0 10px;
-        }
+        .post-content ol { padding-left: 20px; }
+        .post-content li { margin-bottom: 10px; }
+        /* Footer */
+        .footer { background-color: #2C073D; color: #00FFFF; text-align: center; padding: 30px 20px; font-size: 0.9em; margin-top: 50px; }
+        .footer a { color: #FF10F0; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
@@ -136,7 +53,7 @@
         <a href="index.html">Home</a>
         <a href="archive.html">Dispatch Archive</a>
         <a href="visuals.html">The Visuals</a>
-        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #ff424d; font-weight: bold;">Support & TheAlexYap Podcast</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #FF10F0; font-weight: bold;">Support & TheAlexYap Podcast</a>
     </div>
 
     <div class="header">
@@ -152,12 +69,12 @@
 
     <div class="post-container">
         <header class="post-header">
-            <h1>Hello World: Who I Am and Why I'm Here</h1>
+            <h1>HELLO WORLD: WHO I AM AND WHY I'M HERE 👋</h1>
             <p class="date">Published: <strong>November 3, 2025</strong></p>
         </header>
 
         <section class="post-content">
-            <p>If you're reading this, you probably stumbled upon a link, perhaps on social media or maybe through my photography portfolio. My name is Alex, and I am a 20-year-old <strong>Digital Media/Photography student at the University of Houston</strong>.</p>
+            <p>If you're reading this, you probably stumbled upon a link, perhaps on social media or maybe through my photography portfolio. My name is Alex, and I am a 20-year-old **Digital Media/Photography student at the University of Houston**.</p>
             
             <p>This space, <strong>TheAlexIs.me</strong>, is my answer to the overwhelming pressure to perform online. I won't be showing my face, and I won't be making sponsored content. This is a space dedicated entirely to my thoughts, critiques, and analysis of the world around us.</p>
 
@@ -176,12 +93,12 @@
             </blockquote>
             
             <h2>What's Next?</h2>
-            <p>My first full dispatch, **"The Exhausting Performance of Online Authenticity,"** is coming soon. In the meantime, feel free to check out my visual work in <strong>The Visuals</strong> section to see what I'm currently studying and creating, and follow me on [Social Media Platform] for quick updates.</p>
+            <p>My first full dispatch, **"The Exhausting Performance of Online Authenticity,"** is coming soon. In the meantime, feel free to check out my visual work in **The Visuals** section to see what I'm currently studying and creating, and follow me on [Social Media Platform] for quick updates.</p>
 
             <p style="text-align: right;">— Alex</p>
         </section>
         
-        <p style="text-align: center; margin-top: 50px;"><a href="archive.html" style="color: #1a1a1a;">&larr; View the Dispatch Archive</a></p>
+        <p style="text-align: center; margin-top: 50px;"><a href="archive.html" style="color: #4A0F6F; text-decoration: none; font-weight: bold;">&larr; View the Dispatch Archive</a></p>
     </div>
 
     <footer class="footer">
