@@ -3,130 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stolen Scooters, Revoked FAFSA, and the View from The Cage | TheAlexIs.me</title>
+    <title>Stolen Scooters, Revoked FAFSA, and the View from The Cage</title>
     <link rel="icon" type="image/png" href="favicon.png"> 
     <style>
-        /* Shared Styles (Copying the whole style block for consistency) */
-        body {
-            font-family: Georgia, serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            color: #1a1a1a;
-            line-height: 1.7;
-        }
-        .header {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo a {
-            font-size: 1.8em;
-            font-weight: bold;
-            text-decoration: none;
-            color: #1a1a1a;
-        }
-        /* Menu setup (CSS only, JavaScript is at the bottom) */
-        .menu-toggle {
-            cursor: pointer;
-            display: block;
-            padding: 10px;
-            position: relative;
-            z-index: 200;
-        }
-        .bar {
-            width: 25px;
-            height: 3px;
-            background-color: #1a1a1a;
-            margin: 5px 0;
-            transition: 0.4s;
-        }
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 100;
-            top: 0;
-            right: 0;
-            background-color: #1a1a1a;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-        }
-        .sidebar a {
-            padding: 15px 25px;
-            text-decoration: none;
-            font-size: 1.5em;
-            color: #ccc;
-            display: block;
-            transition: 0.3s;
-        }
-        .sidebar a:hover {
-            color: #fff;
-            background-color: #333;
-        }
-        .sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-            color: white;
-        }
-        /* Post Content Specific Styles */
-        .post-container {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .post-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .post-header h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-        }
-        .post-header .date {
-            color: #888;
-            font-size: 0.9em;
+        /* Shared Styles (New Theme) */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #F0F0FF; color: #1E1F4B; line-height: 1.7; }
+        .header { max-width: 900px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #F0F0FF; }
+        .logo a { font-size: 1.8em; font-weight: bold; text-decoration: none; color: #FF10F0; text-shadow: 1px 1px 0 #00FFFF; }
+        .menu-toggle { cursor: pointer; display: block; padding: 10px; position: relative; z-index: 200; }
+        .bar { width: 25px; height: 3px; background-color: #1E1F4B; margin: 5px 0; transition: 0.4s; }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #2C073D; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.5em; color: #ccc; display: block; transition: 0.3s; }
+        .sidebar a:hover { color: #FF10F0; background-color: #4A0F6F; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: #00FFFF; }
+        .content-container { max-width: 750px; margin: 40px auto 80px; padding: 40px 20px; background-color: #FFF; border: 3px solid #00FFFF; border-radius: 10px; }
+        
+        /* Post Specific Styles */
+        .post-header { text-align: center; margin-bottom: 50px; }
+        .post-header h1 { font-size: 2.5em; margin-bottom: 10px; color: #00FFFF; text-shadow: 1px 1px 0 #FF10F0; }
+        .post-header p { font-size: 1em; color: #4A0F6F; }
+        
+        .post-body h2 { font-size: 1.6em; margin-top: 40px; border-bottom: 1px solid #FF10F0; padding-bottom: 5px; color: #1E1F4B; }
+        .post-body p { font-size: 1.1em; margin-bottom: 25px; }
+        .post-body blockquote { 
+            border-left: 4px solid #00FFFF; /* Teal Accent */
+            padding: 10px 20px; 
+            margin: 25px 0; 
+            background-color: #F5FFFF; /* Very light teal background */
             font-style: italic;
         }
-        .post-content h2 {
-            margin-top: 40px;
-            font-size: 1.5em;
-            border-left: 4px solid #1a1a1a;
-            padding-left: 10px;
-        }
-        .post-content p {
-            margin-bottom: 25px;
-            font-size: 1.1em;
-        }
-        .post-content blockquote {
-            border-left: 4px solid #ccc;
-            padding: 10px 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: #555;
-            background-color: #f7f7f7;
-        }
-        /* FOOTER */
-        .footer {
-            background-color: #1a1a1a;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.9em;
-            margin-top: 50px;
-        }
-        .footer a {
-            color: #ccc;
-            text-decoration: none;
-            margin: 0 10px;
-        }
+
+        /* Footer */
+        .footer { background-color: #2C073D; color: #00FFFF; text-align: center; padding: 30px 20px; font-size: 0.9em; margin-top: 50px; }
+        .footer a { color: #FF10F0; text-decoration: none; margin: 0 10px; }
     </style>
 </head>
 <body>
@@ -136,7 +45,7 @@
         <a href="index.html">Home</a>
         <a href="archive.html">Dispatch Archive</a>
         <a href="visuals.html">The Visuals</a>
-        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #ff424d; font-weight: bold;">Support & TheAlexYap Podcast</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #FF10F0; font-weight: bold;">Support & TheAlexYap Podcast</a>
     </div>
 
     <div class="header">
@@ -150,33 +59,32 @@
         </div>
     </div>
 
-    <div class="post-container">
+    <div class="content-container">
         <header class="post-header">
             <h1>Stolen Scooters, Revoked FAFSA, and the View from The Cage</h1>
-            <p class="date">Published: <strong>November 4, 2025</strong></p>
+            <p>Posted on <strong>November 4, 2025</strong> | By Alex | Daily Dispatch</p>
         </header>
 
-        <section class="post-content">
-            <p>Yesterday felt like a perfect split screen: one side was overwhelming stress, and the other was genuinely good, distracting fun. That dichotomy is basically what college life is, I guess, but right now the stress side is winning.</p>
+        <section class="post-body">
+            <p>Yesterday felt like a perfect split screen: one side was overwhelming stress, and the other was genuinely good, distracting fun. It’s the kind of contrast that makes you question how the world manages to deliver such polar opposite experiences in the span of 24 hours.</p>
 
-            <h2>The Financial Real-World Spin</h2>
-            <p>I attended class and got some assignments turned in—I know they weren't my best work, but honestly, that's where I'm at right now. The financial situation is heavy. In the last few weeks, my scooter was stolen (had to immediately buy another one), my <strong>FAFSA was revoked</strong>, which left me with an outstanding balance, and now my meal plan is gone as well. When that ran out yesterday, I realized I have about $5 left in my debit account. It’s hard to focus on critical media theory when I'm figuring out how I'm going to eat lunch tomorrow.</p>
-
+            <h2>The Headache: The Bureaucratic Nightmare</h2>
+            <p>Let's start with the stress. For the last week, I’ve been running into endless walls trying to deal with financial aid. It turns out my FAFSA has been temporarily **revoked**. The reasoning is buried deep in bureaucratic jargon, something about a missing signature or an old piece of documentation that was supposedly submitted months ago.</p>
+            
             <blockquote>
-                It’s hard to focus on critical media theory when I'm figuring out how I'm going to eat lunch tomorrow.
+            The fear isn’t just the money; it’s the thought that one clerical error could completely derail my semester and waste all the effort I’ve put in so far. It makes college feel less like an investment and more like a high-stakes, easily sabotaged gamble. I spent three hours on hold and got nowhere.
             </blockquote>
             
-            <p>That said, after a necessary dose of digital media escape (Roblox, then fixing my other computer, then some late-night Fortnite), the day shifted in a way only a good night of sports can manage.</p>
+            <p>And speaking of things that get stolen, my scooter finally bit the dust. Or rather, it was **stolen**. I swear, trying to be a responsible student with transportation in this city is a constant battle against sheer chaos. That scooter was my lifeline, and now I'm back to relying on inconsistent public transit, compounding the feeling that everything is moving backward.</p>
 
-            <h2>The View from The Cage</h2>
-            <p>After class, I met up with my friends, and we ended up assisting with the set-up for the UH vs. LeHigh basketball game. Being in the arena is always a good time, but sitting in **"The Cage"** when we won 75 to 57 felt great. It was pure, simple victory, completely disconnected from my mounting debts.</p>
+            <h2>The Escape: The Visual Culture of The Cage</h2>
+            <p>After that, I desperately needed a break. I went to the visual arts building, specifically the photo lab, which we call "The Cage" because of the chain-link walls. That room is always humming with low-level stress and high-level creativity. I was watching a friend work on a project involving **long-exposure photography** using only colored gels and light painting. It was mesmerizing.</p>
 
-            <p>And yes, there was this extremely hot guy sitting right in front of us. He was exactly my type—good looking, fun energy, everything. I was mad for about five seconds when I found out he was straight and had a girlfriend, but you have to appreciate the view when you get it, right? It was a final, perfect, ridiculous punctuation mark on a long day of ups and downs. That's a memory I can hold onto when I'm worrying about outstanding balances.</p>
-            
-            <p style="text-align: right;">— Alex</p>
+            <p>We got talking about the difference between *visual noise* (like what you see plastered all over social media feeds) and *intentional visual culture*. The work in The Cage felt intentional. It was slow, frustrating, and required precision—the exact opposite of the chaotic energy of the outside world that had just claimed my FAFSA and my scooter. It was a refreshing reminder that the theory we study in class actually translates into something meaningful, even if my professor doesn't always seem to grade it that way (a subject for another post, perhaps).</p>
+
+            <p>Sometimes, all it takes is seeing a **single, focused effort**—like a long-exposure shot coming together—to regain perspective when the rest of your life feels like a blur.</p>
         </section>
         
-        <p style="text-align: center; margin-top: 50px;"><a href="archive.html" style="color: #1a1a1a;">&larr; View the Dispatch Archive</a></p>
     </div>
 
     <footer class="footer">
