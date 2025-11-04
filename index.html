@@ -169,6 +169,10 @@
         </div>
     </div>
 
+    <div style="text-align: center; font-size: 1.1em; font-weight: bold; margin: 20px 0; color: #ff424d;">
+        <span id="random-attention">Loading fresh perspective...</span>
+    </div>
+
     <div class="hero">
         <h1>The Unscripted Perspective.</h1>
         <p>Sharp commentary on media, culture, and the digital landscape. Thoughts straight from the source.</p>
@@ -193,8 +197,14 @@
         <p><strong>My mission: To find the reality behind the lens.</strong></p>
     </section>
 
+    <div style="max-width: 800px; margin: 50px auto 20px; padding: 0 20px;">
+        <blockquote style="border-left: 4px solid #333; padding-left: 15px; font-size: 1.05em; color: #555;">
+            <p id="random-philosophy">A quote to chew on...</p>
+        </blockquote>
+    </div>
+
     <footer class="footer">
-        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved.</p>
+        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
         <p>
             <a href="#" target="_blank">Twitter/X</a> |
             <a href="#" target="_blank">Substack</a> |
@@ -204,15 +214,54 @@
     </footer>
     
     <script>
-        /* Function to open the sidebar */
+        /* Function to open/close the sidebar */
         function openNav() {
           document.getElementById("mySidebar").style.width = "250px";
         }
-        
-        /* Function to close the sidebar */
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
         }
+
+        /* --- MINI-GAME JAVASCRIPT --- */
+        // ARRAY 1: Attention-Grabbing Statements for the Top of the Page
+        const attentionStatements = [
+            "Today's thought is unfiltered.",
+            "Welcome to the perspective nobody asked for.",
+            "You're not ready for this opinion.",
+            "What you see is not always what is real.",
+            "Your feed is watching you.",
+            "Click a link, risk an idea."
+        ];
+
+        // ARRAY 2: Philosophical Quotes for the Bottom of the Page
+        const philosophyQuotes = [
+            "“The greatest obstacle to discovery is not ignorance—it is the illusion of knowledge.” – Daniel J. Boorstin",
+            "“We are too much accustomed to attribute to a single cause that which is the product of several, and the majority of our controversies come from that.” – Justus von Liebig",
+            "“In the province of the mind, there are no limits.” – John Lilly",
+            "“The only true wisdom is in knowing you know nothing.” – Socrates",
+            "“Judge a man by his questions rather than by his answers.” – Voltaire"
+        ];
+
+        // Function to get a random item
+        function getRandomContent(arr) {
+            const randomIndex = Math.floor(Math.random() * arr.length);
+            return arr[randomIndex];
+        }
+
+        // Function to place content on the page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Place the attention statement at the top
+            const topElement = document.getElementById('random-attention');
+            if (topElement) {
+                topElement.textContent = getRandomContent(attentionStatements);
+            }
+
+            // Place the philosophical quote at the bottom
+            const bottomElement = document.getElementById('random-philosophy');
+            if (bottomElement) {
+                bottomElement.textContent = getRandomContent(philosophyQuotes);
+            }
+        });
     </script>
 
 </body>
