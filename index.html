@@ -133,7 +133,7 @@
             font-size: 1.1em;
             text-align: center;
         }
-        /* --- NEW GAME STYLES: THE PERSPECTIVE FILTER --- */
+        /* --- GAME STYLES: THE PERSPECTIVE FILTER --- */
         #quiz-container {
             max-width: 700px;
             margin: 40px auto;
@@ -233,18 +233,6 @@
         <p>Sharp commentary on media, culture, and the digital landscape. Thoughts straight from the source.</p>
     </div>
 
-    <div id="quiz-container">
-        <h2>The Perspective Filter: True or False?</h2>
-        <p>Challenge your assumptions. Do you agree with the current statement about reality?</p>
-        <div id="quiz-statement">Loading...</div>
-        <div class="quiz-buttons">
-            <button onclick="submitAnswer(true)">True</button>
-            <button onclick="submitAnswer(false)">False</button>
-        </div>
-        <div id="quiz-feedback"></div>
-        <div id="quiz-score">Score: 0 / 0</div>
-    </div>
-
     <section id="latest" class="container latest-post">
         <h2 class="section-title">Latest Dispatch</h2>
         <div class="post-card">
@@ -257,9 +245,21 @@
         </div>
     </section>
 
+    <div id="quiz-container">
+        <h2>The Perspective Filter: True or False?</h2>
+        <p>Challenge your assumptions. Do you agree with the current statement about reality?</p>
+        <div id="quiz-statement">Loading...</div>
+        <div class="quiz-buttons">
+            <button onclick="submitAnswer(true)">True</button>
+            <button onclick="submitAnswer(false)">False</button>
+        </div>
+        <div id="quiz-feedback"></div>
+        <div id="quiz-score">Score: 0 / 0</div>
+    </div>
+
     <section id="bio" class="container bio-section">
         <h2 class="section-title">Who Is Alex?</h2>
-        <p>I'm a 20-year-old <strong>Photography/Digital Media</strong> student at the <strong>University of Houston</strong>, using this space to analyze the visual culture I study every day.</p>
+        <p>I'm a 20-year-old <b>Photography/Digital Media</b> student at the <b>University of Houston</b>, using this space to analyze the visual culture I study every day.</p>
         <p>This blog is my zero-filter outlet: a dedicated space for deep dives into photography theory, sharp critiques of digital trends, and unvarnished commentary on the noise of modern life. No face, just perspective.</p>
         <p><b>My mission: To find the reality behind the lens.</b></p>
     </section>
@@ -283,33 +283,90 @@
           document.getElementById("mySidebar").style.width = "0";
         }
 
-        /* --- THE PERSPECTIVE FILTER QUIZ JAVASCRIPT --- */
+        /* --- THE PERSPECTIVE FILTER QUIZ JAVASCRIPT (50 UNIQUE, NON-REPEATING QUESTIONS) --- */
         let totalAnswered = 0;
         let totalCorrect = 0;
-        let lastIndex = -1; // Tracks the last used question to prevent immediate repetition
+        let availableIndexes = []; // Tracks which questions haven't been asked yet
 
-        // Array of questions and their "correct" answers (which is the perspective/opinion of the site)
+        // **50 Thought-Provoking Statements** - The "Correct" answer (a: true/false) is the site's perspective.
         const quizStatements = [
             { q: "The primary purpose of social media is connection, not commerce.", a: false, feedback: "False. Social media's primary incentive is selling attention, making it commerce, not pure connection." },
             { q: "Authenticity online is a performance, not a reality.", a: true, feedback: "True. You are always curating a version of yourself for an audience." },
             { q: "The image on your phone screen is more real than the reality outside your window.", a: false, feedback: "False (but debatable!). Don't let the digital feed replace the real world." },
             { q: "AI generated art fundamentally devalues human creativity.", a: true, feedback: "True. While a tool, unchecked AI output shifts the value from skill to prompt, arguably devaluing the effort." },
             { q: "You can fully understand a person from their curated profile.", a: false, feedback: "False. The filter always obscures more than it reveals." },
-            { q: "College is more about finding yourself than getting a job.", a: true, feedback: "True. The long-term value is often in the perspective gained, not just the degree." }
+            { q: "College is more about finding yourself than getting a job.", a: true, feedback: "True. The long-term value is often in the perspective gained, not just the degree." },
+            { q: "Photography is inherently less truthful than painting.", a: false, feedback: "False. Both can be manipulated; photography merely offers the illusion of objectivity." },
+            { q: "Personal privacy is an outdated concept in the digital age.", a: false, feedback: "False. Privacy is a necessary shield against commercial and state overreach, regardless of technology." },
+            { q: "The more choices you have, the happier you are.", a: false, feedback: "False. Paradox of Choice often leads to anxiety and regret." },
+            { q: "Reading criticism about art is more important than simply experiencing it.", a: true, feedback: "True. Criticism teaches you *how* to look, enriching the experience." },
+            { q: "The constant need for digital validation is changing human behavior for the worse.", a: true, feedback: "True. Seeking approval via likes encourages performative rather than genuine actions." },
+            { q: "All news outlets are equally biased, making true objectivity impossible.", a: false, feedback: "False. Degrees of bias vary wildly; dismissing all media as equal is intellectual laziness." },
+            { q: "If a photo is beautiful, its ethical origins don't matter.", a: false, feedback: "False. The ethics of image creation (e.g., exploitation) are inseparable from its value." },
+            { q: "Humor is the highest form of defense against harsh reality.", a: true, feedback: "True. Comedy offers necessary distance and catharsis from overwhelming issues." },
+            { q: "The attention economy makes genuinely deep thought difficult.", a: true, feedback: "True. Our brains are conditioned for short, frequent distractions, undermining focus." },
+            { q: "You should avoid displaying vulnerability online.", a: true, feedback: "True. Genuine vulnerability is often exploited for content, not met with support." },
+            { q: "Money can buy happiness if spent on experiences, not material things.", a: true, feedback: "True. Investing in experiences generally leads to greater long-term satisfaction." },
+            { q: "Every piece of media is propaganda for something.", a: true, feedback: "True. Media inherently advocates a viewpoint, even if subtle." },
+            { q: "The use of filters on selfies is harmless fun.", a: false, feedback: "False. They contribute to unrealistic beauty standards and body dysmorphia." },
+            { q: "Technology always progresses; it never regresses.", a: false, feedback: "False. Technology can fail, become obsolete, or be weaponized, leading to cultural or societal regression." },
+            { q: "It is possible to be truly politically neutral.", a: false, feedback: "False. Inaction or silence on issues is, itself, a political stance." },
+            { q: "Art should always be challenging and uncomfortable.", a: true, feedback: "True. Art that only comforts fails to provoke necessary reflection or change." },
+            { q: "The majority opinion is usually the correct one.", a: false, feedback: "False. History is filled with examples of correct ideas starting as minority opinions." },
+            { q: "Every creative endeavor is essentially a form of self-therapy.", a: true, feedback: "True. The act of creating is often driven by a need to process and externalize inner thoughts." },
+            { q: "You need a mentor to achieve true professional success.", a: false, feedback: "False. While helpful, mentorship isn't required; self-direction and grit often matter more." },
+            { q: "Nostalgia is fundamentally a negative emotion.", a: false, feedback: "False. Nostalgia can be a positive source of comfort and identity, if not lived in excessively." },
+            { q: "The best critiques are always constructive, never destructive.", a: false, feedback: "False. Some destructive critiques are necessary to tear down harmful or incompetent structures." },
+            { q: "Free speech means you can say anything without consequence.", a: false, feedback: "False. Free speech protects you from government censorship, not social or employment consequences." },
+            { q: "The term 'Digital Nomad' romanticizes economic instability.", a: true, feedback: "True. It often glosses over visa issues, loneliness, and the high cost of perpetual travel." },
+            { q: "It is easier to be a creative person now than 50 years ago.", a: true, feedback: "True. Access to distribution (the internet) and tools is unprecedented." },
+            { q: "A world without competition would be better.", a: false, feedback: "False. Competition, in a healthy environment, drives innovation and quality." },
+            { q: "The idea of 'work-life balance' is a myth designed to make people overwork.", a: true, feedback: "True. It suggests work and life are equal but often demands work takes priority." },
+            { q: "Influencers have more real power than traditional politicians.", a: true, feedback: "True. Influencers often command more immediate, targeted engagement and cultural shaping power." },
+            { q: "It's wrong to derive joy from others' mistakes.", a: false, feedback: "False. Schadenfreude, or relief at not being the mistake-maker, is a natural human coping mechanism." },
+            { q: "All ethical dilemmas can be solved by logic.", a: false, feedback: "False. Ethics often involves conflicting values and emotion, which defy pure logic." },
+            { q: "The most important skill today is the ability to adapt, not deep knowledge.", a: true, feedback: "True. Knowledge rapidly changes; adaptability ensures survival in fluctuating fields." },
+            { q: "The true cost of fast fashion is worth the cheap price.", a: false, feedback: "False. Environmental and labor costs heavily outweigh the savings." },
+            { q: "Everyone should aspire to be a CEO or leader.", a: false, feedback: "False. Not all personality types or career goals align with leadership; contribution is key." },
+            { q: "The internet has made us lonelier, not more connected.", a: true, feedback: "True. Superficial digital connections often replace meaningful physical interaction." },
+            { q: "If you didn't document it, it didn't really happen.", a: false, feedback: "False. Experiences exist independently of their recording; live in the moment." },
+            { q: "True vulnerability requires acknowledging your weaknesses.", a: true, feedback: "True. It is about honesty regarding failure and imperfection, not just sharing sadness." },
+            { q: "Sarcasm is the lowest form of wit.", a: false, feedback: "False. Sarcasm is a highly nuanced form of communication, requiring subtle understanding." },
+            { q: "Being busy is the same as being productive.", a: false, feedback: "False. Busyness often involves low-value tasks; productivity focuses on impact." },
+            { q: "The best education comes from life experience, not institutions.", a: true, feedback: "True. While institutions provide structure, practical life experience provides irreversible wisdom." },
+            { q: "Happiness is a choice.", a: false, feedback: "False. While actions influence mood, happiness is also heavily influenced by genetics, environment, and external factors." },
+            { q: "Digital tools have destroyed the concept of unique handwriting.", a: true, feedback: "True. Typed communication has standardized expression, reducing unique penmanship." },
+            { q: "Failure is always necessary for growth.", a: true, feedback: "True. Learning from mistakes provides insights that success often obscures." },
+            { q: "It is possible to escape political polarization.", a: false, feedback: "False. Polarization is baked into modern information delivery; active avoidance is difficult." },
+            { q: "All art is subjective.", a: false, feedback: "False. While *enjoyment* is subjective, the *craft* and *historical impact* can be objectively analyzed." },
+            { q: "The only person you should compete against is your past self.", a: true, feedback: "True. Focusing on self-improvement provides sustainable motivation over external comparison." }
         ];
 
-        function getRandomStatement() {
-            let randomIndex;
-            // Loop until we get a new question index
-            do {
-                randomIndex = Math.floor(Math.random() * quizStatements.length);
-            } while (randomIndex === lastIndex);
-            
-            lastIndex = randomIndex;
-            return quizStatements[randomIndex];
+        // --- NON-REPEATING LOGIC ---
+
+        // Function to initialize or reset the availableIndexes array
+        function resetQuiz() {
+            availableIndexes = Array.from(quizStatements.keys()); // [0, 1, 2, ..., 49]
         }
 
-        let currentStatement = getRandomStatement();
+        function getRandomStatement() {
+            if (availableIndexes.length === 0) {
+                // All 50 questions have been asked, reset the pool and tell the user!
+                resetQuiz();
+                alert("You've completed the full 50-question Perspective Filter cycle! Starting over now.");
+            }
+
+            // Pick a random index from the available list
+            const arrayIndex = Math.floor(Math.random() * availableIndexes.length);
+            const statementIndex = availableIndexes[arrayIndex];
+
+            // Remove the index from the available list so it won't be repeated
+            availableIndexes.splice(arrayIndex, 1); 
+
+            return quizStatements[statementIndex];
+        }
+
+        let currentStatement = {}; // Initial placeholder
 
         function loadNewStatement() {
             currentStatement = getRandomStatement();
@@ -345,6 +402,7 @@
 
         // Initialize game on page load
         document.addEventListener('DOMContentLoaded', () => {
+            resetQuiz(); // Start with all questions available
             loadNewStatement();
             updateScore();
         });
