@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | TheAlexIs.me</title>
+    <link rel="icon" type="image/png" href="favicon.png"> 
+    <style>
+        /* Shared Styles (Copying the whole style block for consistency) */
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.7;
+        }
+        .header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo a {
+            font-size: 1.8em;
+            font-weight: bold;
+            text-decoration: none;
+            color: #1a1a1a;
+        }
+        /* Menu setup (CSS only, JavaScript is at the bottom) */
+        .menu-toggle {
+            cursor: pointer;
+            display: block;
+            padding: 10px;
+            position: relative;
+            z-index: 200;
+        }
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: #1a1a1a;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.5em;
+            color: #ccc;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            color: #fff;
+            background-color: #333;
+        }
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: white;
+        }
+        /* Post Content Specific Styles */
+        .post-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .post-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .post-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+        .post-header .date {
+            color: #888;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        .post-content h2 {
+            margin-top: 40px;
+            font-size: 1.5em;
+            border-left: 4px solid #1a1a1a;
+            padding-left: 10px;
+        }
+        .post-content p {
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+        .post-content blockquote {
+            border-left: 4px solid #ccc;
+            padding: 10px 20px;
+            margin: 20px 0;
+            font-style: italic;
+            color: #555;
+            background-color: #f7f7f7;
+        }
+        /* FOOTER */
+        .footer {
+            background-color: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            margin-top: 50px;
+        }
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Dispatch Archive</a>
+        <a href="visuals.html">The Visuals</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #ff424d; font-weight: bold;">Support & TheAlexYap Podcast</a>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">TheAlexIs.me</a>
+        </div>
+        <div class="menu-toggle" onclick="openNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="post-container">
+        <header class="post-header">
+            <h1>Privacy Policy</h1>
+            <p class="date">Last Updated: <strong>November 5, 2025</strong></p>
+        </header>
+
+        <section class="post-content">
+            <h2>Data Collection: None by the Site Itself</h2>
+            <p>TheAlexIs.me is a static website and does **not** use cookies, collect personal data, or utilize tracking scripts to monitor individual user activity.</p>
+
+            <h2>Third-Party Data (GitHub and Analytics)</h2>
+            <p>As this site is hosted on GitHub Pages, access logs and general traffic data are handled by GitHub. Any other third-party services linked (e.g., Patreon, Twitter/X, Substack) have their own privacy policies, and your interaction with them is governed by their terms.</p>
+            
+            <h2>External Links</h2>
+            <p>We are not responsible for the content or privacy practices of any external websites linked from this domain. Please exercise caution and review the privacy statements of any site you visit via a link on TheAlexIs.me.</p>
+            
+            <h2>Contact</h2>
+            <p>For any questions regarding this policy, please reach out via the contact methods listed on this site's social platforms.</p>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
+        <p>
+            <a href="#" target="_blank">Twitter/X</a> |
+            <a href="#" target="_blank">Substack</a> |
+            <a href="#" target="_blank">RSS Feed</a> |
+            <a href="https://www.patreon.com/TheAlexIsMe" target="_blank">Support / TheAlexYap</a>
+        </p>
+    </footer>
+    
+    <script>
+        function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+    </script>
+</body>
+</html>
