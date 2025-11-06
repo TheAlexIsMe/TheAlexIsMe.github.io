@@ -3,145 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheAlexIs.me | Unscripted Thought. Unfiltered Writing.</title>
+    <title>TheAlexIs.me | An Unfiltered Perspective</title>
     <link rel="icon" type="image/png" href="favicon.png"> 
     <style>
-        /* --- NEW VAPORWAVE/SYNTHWAVE STYLES --- */
-        
-        /* BASE STYLES */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #F0F0FF; /* Very Light Pink/Gray */
-            color: #1E1F4B; /* Deep Navy/Violet Text */
-            line-height: 1.7;
-            min-height: 100vh; 
-            position: relative; 
+        /* Vaporwave/Synthwave Perfected Theme */
+        :root {
+            --color-background: #190933; /* Deep Violet/Midnight */
+            --color-foreground: #FFFFFF; /* Pure White */
+            --color-accent-pink: #FF10F0; /* Neon Magenta */
+            --color-accent-blue: #00FFFF; /* Neon Cyan */
+            --color-text-body: #CCCCCC; /* Light Grey for readability */
+            --color-text-header: #FF70A6; /* Brighter Pink for Titles */
+            --color-shadow: #00FFFF;
         }
 
-        /* ANIMATION CANVAS (Color changed to match theme) */
-        #animationCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; 
-            opacity: 0.15; /* Slightly more visible */
-        }
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: var(--color-background); color: var(--color-text-body); line-height: 1.6; }
         
-        /* HEADER/NAV */
-        .header {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #F0F0FF; 
+        /* Layout & Header */
+        .header { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: transparent; }
+        .logo a { font-size: 2em; font-weight: bold; text-decoration: none; color: var(--color-accent-pink); text-shadow: 1px 1px 0 var(--color-accent-blue); }
+        
+        /* Navigation */
+        .menu-toggle { cursor: pointer; display: block; padding: 10px; position: relative; z-index: 200; }
+        .bar { width: 30px; height: 4px; background-color: var(--color-accent-blue); margin: 6px 0; transition: 0.4s; box-shadow: 0 0 5px var(--color-accent-blue); }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #331A56; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.6em; color: var(--color-text-body); display: block; transition: 0.3s; }
+        .sidebar a:hover { color: var(--color-accent-pink); background-color: #4B277A; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: var(--color-accent-blue); }
+
+        /* Hero Section */
+        .hero { 
+            text-align: center; 
+            padding: 100px 20px 80px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('grid-background.jpg'); /* Conceptual Grid/Stars background */
+            border: 3px solid var(--color-accent-blue);
+            box-shadow: 0 0 25px var(--color-accent-pink); 
+            border-radius: 5px;
         }
-        .logo a {
-            font-size: 1.8em;
+        .hero h1 { 
+            font-size: 5em; 
+            color: var(--color-accent-pink); 
+            text-shadow: 4px 4px 0 var(--color-accent-blue), 0 0 15px var(--color-accent-pink); 
+            margin-bottom: 0.1em; 
+            letter-spacing: 5px;
+        }
+        .hero p { 
+            font-size: 1.5em; 
+            color: var(--color-text-header); 
+            margin-bottom: 40px; 
+            font-style: italic;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.3em;
             font-weight: bold;
             text-decoration: none;
-            color: #FF10F0; /* Hot Pink Logo */
-            text-shadow: 1px 1px 0 #00FFFF; /* Teal Shadow */
+            color: var(--color-background);
+            background-color: var(--color-accent-blue);
+            border: 2px solid var(--color-accent-pink);
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 5px 5px 0 var(--color-accent-pink);
         }
-        
-        /* SIDEBAR NAVIGATION */
-        .sidebar {
-            background-color: #2C073D; /* Dark Violet Background */
-        }
-        .sidebar a:hover {
-            color: #FF10F0; /* Hot Pink on hover */
-            background-color: #4A0F6F;
-        }
-        
-        /* HERO & Containers */
-        .hero { background-color: #F0F0FF; }
-        .hero h1 {
-            font-family: 'Arial Black', sans-serif;
-            color: #1E1F4B;
-            text-shadow: 2px 2px 0 #FF10F0; /* Pink Shadow for Impact */
+        .cta-button:hover {
+            background-color: var(--color-accent-pink);
+            color: var(--color-foreground);
+            transform: translateY(-3px);
+            box-shadow: 7px 7px 0 var(--color-accent-blue);
         }
 
-        /* Section Titles */
-        .section-title {
-            color: #FF10F0;
-            border-bottom: 2px solid #00FFFF; /* Teal underline */
+        /* Recent Posts Section */
+        .recent-dispatches {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+        .recent-dispatches h2 {
+            text-align: center;
+            font-size: 3em;
+            color: var(--color-text-header);
+            text-shadow: 1px 1px 0 var(--color-accent-blue);
+            border-bottom: 2px dashed var(--color-accent-pink);
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+        }
+        .dispatch-list {
+            list-style: none;
+            padding: 0;
+        }
+        .dispatch-list li {
+            background-color: #1E0F36; /* Slightly lighter background for the card */
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--color-accent-blue);
+            box-shadow: 0 0 10px rgba(255, 16, 240, 0.4);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .dispatch-list li:hover {
+            transform: scale(1.02);
+            border-color: var(--color-accent-pink);
+            box-shadow: 0 0 15px var(--color-accent-blue);
+        }
+        .dispatch-list a {
+            text-decoration: none;
+            color: var(--color-text-body);
+            display: block;
+        }
+        .dispatch-list h3 {
+            font-size: 1.7em;
+            margin: 0 0 8px 0;
+            color: var(--color-accent-pink);
+            text-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+        }
+        .dispatch-list .date {
+            font-size: 0.9em;
+            color: var(--color-accent-blue);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .dispatch-list p {
+            font-size: 1.1em;
+            margin: 0;
         }
 
-        /* Post Cards */
-        .post-feed-container { max-width: 900px; margin: 50px auto; display: flex; gap: 20px; padding: 0 20px;}
-        .latest-post, .unfiltered-post {
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 50%;
-            box-sizing: border-box;
-            background-color: #fff;
-        }
-
-        /* Dispatch (Normal) Style */
-        .latest-post {
-             border: 2px solid #00FFFF; /* Teal Border */
-        }
-        .latest-post h3 { color: #00FFFF; }
-        .latest-post hr { border-color: #00FFFF; }
-
-        /* Unfiltered (Rant) Style */
-        .unfiltered-post {
-            border: 2px solid #FF10F0; /* Hot Pink Border */
-            background-color: #FFF0F5; /* Very light pink background */
-        }
-        .unfiltered-post h3 { color: #FF10F0; }
-        .unfiltered-post hr { border-color: #FF10F0; }
-
-        .post-card a, .unfiltered-post a { color: #1E1F4B; }
-        .post-card .read-more, .unfiltered-post .read-more { font-weight: bold; color: #4A0F6F; /* Dark Violet Link */ }
-
-        /* Quiz Game (High Contrast) */
-        #quiz-container {
-            background-color: #2C073D; /* Dark Violet */
-            color: #00FFFF; /* Teal Text */
-            box-shadow: 0 0 25px rgba(255, 16, 240, 0.7); /* Pink Glow */
-        }
-        #quiz-container h2 { color: #FF10F0; }
-        #quiz-statement { background-color: #4A0F6F; }
-        .quiz-buttons button { background-color: #FF10F0; /* Pink Button */ color: white; border: 2px solid #00FFFF; }
-        .quiz-buttons button:hover { background-color: #FF44FF; }
-        #quiz-feedback { color: #00FFFF; }
-        
         /* Footer */
-        .footer {
-            background-color: #2C073D; /* Dark Violet */
-            color: #00FFFF; /* Teal Text */
+        .footer { 
+            background-color: #0F071D; 
+            color: var(--color-text-body); 
+            text-align: center; 
+            padding: 40px 20px; 
+            font-size: 0.9em; 
+            margin-top: 50px; 
+            border-top: 2px solid var(--color-accent-blue);
+            box-shadow: 0 -5px 15px rgba(255, 16, 240, 0.2);
         }
-        .footer a {
-            color: #FF10F0; /* Pink Link */
-        }
-
-        /* Media Queries (Mobile Stack) */
-        @media (max-width: 768px) {
-            .post-feed-container { flex-direction: column; }
-            .latest-post, .unfiltered-post { width: 100%; }
-        }
-        /* Existing General Styles (omitted for brevity, assume they are included) */
-        .container { max-width: 800px; margin: 50px auto; padding: 0 20px; background-color: transparent; position: relative; z-index: 10; }
-        .bio-section { background-color: #fff; }
+        .footer a { color: var(--color-accent-pink); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
+        .footer a:hover { color: var(--color-accent-blue); }
     </style>
 </head>
 <body>
-
-    <canvas id="animationCanvas"></canvas>
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="index.html">Home</a>
         <a href="archive.html">Dispatch Archive</a>
         <a href="visuals.html">The Visuals</a>
-        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #FF10F0; font-weight: bold;">Support & TheAlexYap Podcast</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: var(--color-accent-pink); font-weight: bold;">Support & TheAlexYap Podcast</a>
     </div>
 
     <div class="header">
@@ -156,63 +166,39 @@
     </div>
 
     <div class="hero">
-        <h1>The Unscripted Perspective.</h1>
-        <p>Sharp commentary on media, culture, and the digital landscape. Thoughts straight from the source.</p>
+        <h1>THE UNFILTERED PERSPECTIVE</h1>
+        <p>Critique and commentary from a Digital Media student at UH. // SINCE 2025</p>
+        <a href="introduction.html" class="cta-button">START HERE: WHO IS ALEX?</a>
     </div>
 
-    <section class="container">
-        <h2 class="section-title">Latest Posts</h2>
-        
-        <div class="post-feed-container">
-            
-            <div class="latest-post">
-                <h3 style="color: #00FFFF;">The Dispatch 💾</h3>
-                <hr>
-                <div class="post-card">
-                    <a href="daily_dispatch_nov4.html">
-                        <h4>Stolen Scooters, Revoked FAFSA, and the View from The Cage</h4>
-                    </a>
-                    <p><strong>November 4, 2025</strong></p>
-                    <p>Yesterday felt like a perfect split screen: one side was overwhelming stress, and the other was genuinely good, distracting fun...</p>
-                    <a href="daily_dispatch_nov4.html" class="read-more">Continue Reading &rarr;</a>
-                </div>
-            </div>
-
-            <div class="unfiltered-post">
-                <h3 style="color: #FF10F0;">The Unfiltered 🔥</h3>
-                <hr style="border-color: #FF10F0;">
-                <div class="post-card">
-                    <a href="unfiltered_nov5.html">
-                        <h4>Stuck Between 'Art' and Logic: College is Testing My Limits</h4>
-                    </a>
-                    <p><strong>November 5, 2025</strong></p>
-                    <p>I feel compelled to write this because I'm genuinely starting to question if I made the right choice coming back to school...</p>
-                    <a href="unfiltered_nov5.html" class="read-more">Continue Reading &rarr;</a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <div id="quiz-container">
-        <h2>The Perspective Filter: True or False?</h2>
-        <p>Challenge your assumptions. Do you agree with the current statement about reality?</p>
-        <div id="quiz-statement">Loading...</div>
-        <div class="quiz-buttons">
-            <button onclick="submitAnswer(true)">True</button>
-            <button onclick="submitAnswer(false)">False</button>
-        </div>
-        <div id="quiz-feedback"></div>
-        <div id="quiz-score">Score: 0 / 0</div>
+    <div class="recent-dispatches">
+        <h2>Latest Dispatches 📡</h2>
+        <ul class="dispatch-list">
+            <li>
+                <a href="unfiltered_nov5.html">
+                    <h3>The Exhausting Performance of Online Authenticity</h3>
+                    <span class="date">November 5, 2025 | School & Theory</span>
+                    <p>A deep dive into how social media monetizes "being real" and why we're all tired of trying to keep up with the algorithm's version of truth.</p>
+                </a>
+            </li>
+            <li>
+                <a href="daily_dispatch_nov4.html">
+                    <h3>The Digital Identity Crisis of the Class of '26</h3>
+                    <span class="date">November 4, 2025 | Life & Culture</span>
+                    <p>On balancing student life, academic pressure, and the pressure to build a perfect professional online presence before graduation.</p>
+                </a>
+            </li>
+            <li>
+                <a href="introduction.html">
+                    <h3>Hello World: Who I Am and Why I'm Here</h3>
+                    <span class="date">November 3, 2025 | Announcement</span>
+                    <p>My first post outlining the purpose of TheAlexIs.me—opinion, not performance.</p>
+                </a>
+            </li>
+        </ul>
+        <p style="text-align: center; margin-top: 40px;"><a href="archive.html" class="cta-button" style="background-color: #331A56; border-color: var(--color-accent-pink); color: var(--color-accent-blue); box-shadow: 5px 5px 0 var(--color-accent-pink);">VIEW ALL DISPATCHES →</a></p>
     </div>
 
-    <section id="bio" class="container bio-section">
-        <h2 class="section-title">Who Is Alex?</h2>
-        <p>I'm a 20-year-old <b>Photography/Digital Media</b> student at the <b>University of Houston</b>, using this space to analyze the visual culture I study every day.</p>
-        <p>This blog is my zero-filter outlet: a dedicated space for deep dives into photography theory, sharp critiques of digital trends, and unvarnished commentary on the noise of modern life. No face, just perspective.</p>
-        <p><b>My mission: To find the reality behind the lens.</b></p>
-    </section>
-    
     <footer class="footer">
         <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
         <p>
@@ -222,187 +208,14 @@
             <a href="https://www.patreon.com/TheAlexIsMe" target="_blank">Support / TheAlexYap</a>
         </p>
     </footer>
-    
+
     <script>
-        /* Function to open/close the sidebar */
         function openNav() {
           document.getElementById("mySidebar").style.width = "250px";
         }
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
         }
-
-        // --- THE PERSPECTIVE FILTER QUIZ JAVASCRIPT (Content Omitted) ---
-        let totalAnswered = 0;
-        let totalCorrect = 0;
-        let availableIndexes = []; 
-        const quizStatements = [
-            // [50 questions from the previous step are included here]
-            { q: "The primary purpose of social media is connection, not commerce.", a: false, feedback: "False. Social media's primary incentive is selling attention, making it commerce, not pure connection." },
-            { q: "Authenticity online is a performance, not a reality.", a: true, feedback: "True. You are always curating a version of yourself for an audience." },
-            { q: "The image on your phone screen is more real than the reality outside your window.", a: false, feedback: "False (but debatable!). Don't let the digital feed replace the real world." },
-            { q: "AI generated art fundamentally devalues human creativity.", a: true, feedback: "True. While a tool, unchecked AI output shifts the value from skill to prompt, arguably devaluing the effort." },
-            { q: "You can fully understand a person from their curated profile.", a: false, feedback: "False. The filter always obscures more than it reveals." },
-            { q: "College is more about finding yourself than getting a job.", a: true, feedback: "True. The long-term value is often in the perspective gained, not just the degree." },
-            { q: "Photography is inherently less truthful than painting.", a: false, feedback: "False. Both can be manipulated; photography merely offers the illusion of objectivity." },
-            { q: "Personal privacy is an outdated concept in the digital age.", a: false, feedback: "False. Privacy is a necessary shield against commercial and state overreach, regardless of technology." },
-            { q: "The more choices you have, the happier you are.", a: false, feedback: "False. Paradox of Choice often leads to anxiety and regret." },
-            { q: "Reading criticism about art is more important than simply experiencing it.", a: true, feedback: "True. Criticism teaches you <b>how</b> to look, enriching the experience." },
-            { q: "The constant need for digital validation is changing human behavior for the worse.", a: true, feedback: "True. Seeking approval via likes encourages performative rather than genuine actions." },
-            { q: "All news outlets are equally biased, making true objectivity impossible.", a: false, feedback: "False. Degrees of bias vary wildly; dismissing all media as equal is intellectual laziness." },
-            { q: "If a photo is beautiful, its ethical origins don't matter.", a: false, feedback: "False. The ethics of image creation (e.g., exploitation) are inseparable from its value." },
-            { q: "Humor is the highest form of defense against harsh reality.", a: true, feedback: "True. Comedy offers necessary distance and catharsis from overwhelming issues." },
-            { q: "The attention economy makes genuinely deep thought difficult.", a: true, feedback: "True. Our brains are conditioned for short, frequent distractions, undermining focus." },
-            { q: "You should avoid displaying vulnerability online.", a: true, feedback: "True. Genuine vulnerability is often exploited for content, not met with support." },
-            { q: "Money can buy happiness if spent on experiences, not material things.", a: true, feedback: "True. Investing in experiences generally leads to greater long-term satisfaction." },
-            { q: "Every piece of media is propaganda for something.", a: true, feedback: "True. Media inherently advocates a viewpoint, even if subtle." },
-            { q: "The use of filters on selfies is harmless fun.", a: false, feedback: "False. They contribute to unrealistic beauty standards and body dysmorphia." },
-            { q: "Technology always progresses; it never regresses.", a: false, feedback: "False. Technology can fail, become obsolete, or be weaponized, leading to cultural or societal regression." },
-            { q: "It is possible to be truly politically neutral.", a: false, feedback: "False. Inaction or silence on issues is, itself, a political stance." },
-            { q: "Art should always be challenging and uncomfortable.", a: true, feedback: "True. Art that only comforts fails to provoke necessary reflection or change." },
-            { q: "The majority opinion is usually the correct one.", a: false, feedback: "False. History is filled with examples of correct ideas starting as minority opinions." },
-            { q: "Every creative endeavor is essentially a form of self-therapy.", a: true, feedback: "True. The act of creating is often driven by a need to process and externalize inner thoughts." },
-            { q: "You need a mentor to achieve true professional success.", a: false, feedback: "False. While helpful, mentorship isn't required; self-direction and grit often matter more." },
-            { q: "Nostalgia is fundamentally a negative emotion.", a: false, feedback: "False. Nostalgia can be a positive source of comfort and identity, if not lived in excessively." },
-            { q: "The best critiques are always constructive, never destructive.", a: false, feedback: "False. Some destructive critiques are necessary to tear down harmful or incompetent structures." },
-            { q: "Free speech means you can say anything without consequence.", a: false, feedback: "False. Free speech protects you from government censorship, not social or employment consequences." },
-            { q: "The term 'Digital Nomad' romanticizes economic instability.", a: true, feedback: "True. It often glosses over visa issues, loneliness, and the high cost of perpetual travel." },
-            { q: "It is easier to be a creative person now than 50 years ago.", a: true, feedback: "True. Access to distribution (the internet) and tools is unprecedented." },
-            { q: "A world without competition would be better.", a: false, feedback: "False. Competition, in a healthy environment, drives innovation and quality." },
-            { q: "The idea of 'work-life balance' is a myth designed to make people overwork.", a: true, feedback: "True. It suggests work and life are equal but often demands work takes priority." },
-            { q: "Influencers have more real power than traditional politicians.", a: true, feedback: "True. Influencers often command more immediate, targeted engagement and cultural shaping power." },
-            { q: "It's wrong to derive joy from others' mistakes.", a: false, feedback: "False. Schadenfreude, or relief at not being the mistake-maker, is a natural human coping mechanism." },
-            { q: "All ethical dilemmas can be solved by logic.", a: false, feedback: "False. Ethics often involves conflicting values and emotion, which defy pure logic." },
-            { q: "The most important skill today is the ability to adapt, not deep knowledge.", a: true, feedback: "True. Knowledge rapidly changes; adaptability ensures survival in fluctuating fields." },
-            { q: "The true cost of fast fashion is worth the cheap price.", a: false, feedback: "False. Environmental and labor costs heavily outweigh the savings." },
-            { q: "Everyone should aspire to be a CEO or leader.", a: false, feedback: "False. Not all personality types or career goals align with leadership; contribution is key." },
-            { q: "The internet has made us lonelier, not more connected.", a: true, feedback: "True. Superficial digital connections often replace meaningful physical interaction." },
-            { q: "If you didn't document it, it didn't really happen.", a: false, feedback: "False. Experiences exist independently of their recording; live in the moment." },
-            { q: "True vulnerability requires acknowledging your weaknesses.", a: true, feedback: "True. It is about honesty regarding failure and imperfection, not just sharing sadness." },
-            { q: "Sarcasm is the lowest form of wit.", a: false, feedback: "False. Sarcasm is a highly nuanced form of communication, requiring subtle understanding." },
-            { q: "Being busy is the same as being productive.", a: false, feedback: "False. Busyness often involves low-value tasks; productivity focuses on impact." },
-            { q: "The best education comes from life experience, not institutions.", a: true, feedback: "True. While institutions provide structure, practical life experience provides irreversible wisdom." },
-            { q: "Happiness is a choice.", a: false, feedback: "False. While actions influence mood, happiness is also heavily influenced by genetics, environment, and external factors." },
-            { q: "Digital tools have destroyed the concept of unique handwriting.", a: true, feedback: "True. Typed communication has standardized expression, reducing unique penmanship." },
-            { q: "Failure is always necessary for growth.", a: true, feedback: "True. Learning from mistakes provides insights that success often obscures." },
-            { q: "It is possible to escape political polarization.", a: false, feedback: "False. Polarization is baked into modern information delivery; active avoidance is difficult." },
-            { q: "All art is subjective.", a: false, feedback: "False. While <b>enjoyment</b> is subjective, the <b>craft</b> and <b>historical impact</b> can be objectively analyzed." },
-            { q: "The only person you should compete against is your past self.", a: true, feedback: "True. Focusing on self-improvement provides sustainable motivation over external comparison." }
-        ];
-
-        function resetQuiz() { availableIndexes = Array.from(quizStatements.keys()); }
-        function getRandomStatement() { 
-            if (availableIndexes.length === 0) { resetQuiz(); alert("You've completed the full Perspective Filter cycle! Starting over now."); }
-            const arrayIndex = Math.floor(Math.random() * availableIndexes.length);
-            const statementIndex = availableIndexes[arrayIndex];
-            availableIndexes.splice(arrayIndex, 1); 
-            return quizStatements[statementIndex];
-        }
-        let currentStatement = {}; 
-        function loadNewStatement() { 
-            currentStatement = getRandomStatement();
-            document.getElementById('quiz-statement').textContent = currentStatement.q;
-            document.getElementById('quiz-feedback').textContent = "What's your take?";
-        }
-        function updateScore() {
-            document.getElementById('quiz-score').textContent = `Score: ${totalCorrect} / ${totalAnswered}`;
-        }
-        function submitAnswer(playerAnswer) {
-            totalAnswered++;
-            const feedbackElement = document.getElementById('quiz-feedback');
-            if (playerAnswer === currentStatement.a) {
-                totalCorrect++;
-                feedbackElement.innerHTML = `<strong>Correct!</strong> ${currentStatement.feedback}`;
-                feedbackElement.style.color = '#7CFC00'; // Green
-            } else {
-                feedbackElement.innerHTML = `<strong>Incorrect!</strong> The expected perspective is: ${currentStatement.feedback}`;
-                feedbackElement.style.color = '#FF10F0'; // Pink/Red
-            }
-            updateScore();
-            setTimeout(() => {
-                loadNewStatement();
-                feedbackElement.style.color = '#00FFFF'; 
-            }, 3000); 
-        }
-
-        /* --- BACKGROUND ANIMATION LOGIC (Updated to use theme colors) --- */
-        const canvas = document.getElementById('animationCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const numParticles = 80;
-        const maxVelocity = 0.5;
-
-        // Particle constructor
-        function Particle() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.vx = (Math.random() - 0.5) * maxVelocity;
-            this.vy = (Math.random() - 0.5) * maxVelocity;
-            this.size = Math.random() * 1.5 + 0.5;
-            this.color = Math.random() > 0.5 ? 'rgba(255, 16, 240, 1)' : 'rgba(0, 255, 255, 1)'; // Pink or Teal
-        }
-
-        Particle.prototype.update = function() {
-            this.x += this.vx;
-            this.y += this.vy;
-            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-            }
-        };
-
-        Particle.prototype.draw = function() {
-            ctx.fillStyle = this.color; 
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        };
-
-        function init() {
-            canvas.width = window.innerWidth;
-            canvas.height = document.body.scrollHeight;
-            particles = []; // Clear and refill on init/resize
-            for (let i = 0; i < numParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-
-                for (let j = i; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 70) { 
-                        ctx.beginPath();
-                        // Use a blend of Pink and Teal for lines
-                        ctx.strokeStyle = `rgba(74, 15, 111, ${1 - (distance / 70)})`; 
-                        ctx.lineWidth = 0.1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', () => { init(); });
-
-        // Initialize all games and canvas on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            resetQuiz(); 
-            loadNewStatement();
-            updateScore();
-            init();
-            animate();
-        });
     </script>
-
 </body>
 </html>
