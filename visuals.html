@@ -6,60 +6,95 @@
     <title>The Visuals | TheAlexIs.me</title>
     <link rel="icon" type="image/png" href="favicon.png"> 
     <style>
-        /* Shared Styles (New Theme) */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #F0F0FF; color: #1E1F4B; line-height: 1.7; }
-        .header { max-width: 900px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #F0F0FF; }
-        .logo a { font-size: 1.8em; font-weight: bold; text-decoration: none; color: #FF10F0; text-shadow: 1px 1px 0 #00FFFF; }
+        /* Vaporwave/Synthwave Perfected Theme */
+        :root {
+            --color-background: #190933; /* Deep Violet/Midnight */
+            --color-foreground: #FFFFFF; /* Pure White */
+            --color-accent-pink: #FF10F0; /* Neon Magenta */
+            --color-accent-blue: #00FFFF; /* Neon Cyan */
+            --color-text-body: #CCCCCC; /* Light Grey for readability */
+            --color-text-header: #FF70A6; /* Brighter Pink for Titles */
+            --color-shadow: #00FFFF;
+        }
+
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: var(--color-background); color: var(--color-text-body); line-height: 1.6; }
+        
+        /* Layout & Header */
+        .header { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: transparent; }
+        .logo a { font-size: 2em; font-weight: bold; text-decoration: none; color: var(--color-accent-pink); text-shadow: 1px 1px 0 var(--color-accent-blue); }
+        
+        /* Navigation */
         .menu-toggle { cursor: pointer; display: block; padding: 10px; position: relative; z-index: 200; }
-        .bar { width: 25px; height: 3px; background-color: #1E1F4B; margin: 5px 0; transition: 0.4s; }
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #2C073D; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.5em; color: #ccc; display: block; transition: 0.3s; }
-        .sidebar a:hover { color: #FF10F0; background-color: #4A0F6F; }
-        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: #00FFFF; }
+        .bar { width: 30px; height: 4px; background-color: var(--color-accent-blue); margin: 6px 0; transition: 0.4s; box-shadow: 0 0 5px var(--color-accent-blue); }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #331A56; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.6em; color: var(--color-text-body); display: block; transition: 0.3s; }
+        .sidebar a:hover { color: var(--color-accent-pink); background-color: #4B277A; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: var(--color-accent-blue); }
+        
         /* Page Specific Styles */
         .container { max-width: 1200px; margin: 40px auto 80px; padding: 0 20px; }
         h1 { 
             text-align: center; 
-            font-size: 3em; 
+            font-size: 4em; 
             margin-bottom: 20px; 
-            border-bottom: 3px solid #00FFFF; 
+            border-bottom: 5px solid var(--color-accent-pink); 
             padding-bottom: 10px; 
-            color: #FF10F0; 
-            text-shadow: 1px 1px 0 #00FFFF;
+            color: var(--color-accent-blue); 
+            text-shadow: 2px 2px 0 var(--color-accent-pink), 0 0 10px var(--color-accent-blue);
+            letter-spacing: 3px;
+        }
+        .page-intro { 
+            text-align: center; 
+            color: var(--color-text-header); 
+            margin-bottom: 60px; 
+            font-size: 1.2em;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
         }
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 30px;
             padding-top: 20px;
         }
         .photo-card {
-            background-color: #FFF;
-            padding: 10px;
-            border: 2px solid #FF10F0;
-            border-radius: 5px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #1E0F36;
+            padding: 15px;
+            border: 2px solid var(--color-accent-blue);
+            box-shadow: 0 0 15px rgba(255, 16, 240, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s;
+        }
+        .photo-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--color-accent-pink);
+            box-shadow: 0 0 25px var(--color-accent-blue);
         }
         .photo-card img {
             width: 100%;
             height: auto;
             display: block;
-            transition: transform 0.3s ease;
-        }
-        .photo-card img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            border: 1px solid #331A56;
         }
         .photo-card p {
             text-align: center;
-            font-size: 1em;
-            color: #4A0F6F;
-            margin-top: 10px;
+            font-size: 1.1em;
+            color: var(--color-accent-pink);
+            margin-top: 15px;
             font-weight: bold;
+            text-shadow: 0 0 2px rgba(0, 255, 255, 0.5);
         }
         /* Footer */
-        .footer { background-color: #2C073D; color: #00FFFF; text-align: center; padding: 30px 20px; font-size: 0.9em; margin-top: 50px; }
-        .footer a { color: #FF10F0; text-decoration: none; margin: 0 10px; }
+        .footer { 
+            background-color: #0F071D; 
+            color: var(--color-text-body); 
+            text-align: center; 
+            padding: 40px 20px; 
+            font-size: 0.9em; 
+            margin-top: 50px; 
+            border-top: 2px solid var(--color-accent-blue);
+            box-shadow: 0 -5px 15px rgba(255, 16, 240, 0.2);
+        }
+        .footer a { color: var(--color-accent-pink); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
+        .footer a:hover { color: var(--color-accent-blue); }
     </style>
 </head>
 <body>
@@ -69,7 +104,7 @@
         <a href="index.html">Home</a>
         <a href="archive.html">Dispatch Archive</a>
         <a href="visuals.html">The Visuals</a>
-        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #FF10F0; font-weight: bold;">Support & TheAlexYap Podcast</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: var(--color-accent-pink); font-weight: bold;">Support & TheAlexYap Podcast</a>
     </div>
 
     <div class="header">
@@ -84,8 +119,8 @@
     </div>
 
     <div class="container">
-        <h1>THE VISUALS: PHOTOGRAPHY & DIGITAL MEDIA 📷</h1>
-        <p style="text-align: center; color: #4A0F6F; margin-bottom: 40px;">Selected works from my time at UH and personal projects. **No face, just the lens.**</p>
+        <h1>THE VISUALS: PHOTOGRAPHY & DIGITAL MEDIA 📸</h1>
+        <p class="page-intro">Selected works from my time at UH and personal projects. **No face, just the lens.** // V. 2.0</p>
 
         <div class="gallery">
             <div class="photo-card">
@@ -99,7 +134,7 @@
             </div>
 
             <div class="photo-card">
-                <img src="https://via.placeholder.com/600x400/e74c3c/ffffff?text=Future+Project:+Conceptual+Work" alt="Conceptual Digital Art Placeholder">
+                <img src="https://via.placeholder.com/600x400/1E0F36/00FFFF?text=CONCEPTUAL+GRID+V.1" alt="Conceptual Digital Art Placeholder">
                 <p>Conceptual Work: The Role of Color in Modern Ads</p>
             </div>
             
