@@ -6,14 +6,14 @@
     <title>Dispatch Archive | TheAlexIs.me</title>
     <link rel="icon" type="image/png" href="favicon.png"> 
     <style>
-        /* Vaporwave/Synthwave Perfected Theme */
+        /* Vaporwave/Synthwave Perfected Theme (Reusing existing CSS) */
         :root {
-            --color-background: #190933; /* Deep Violet/Midnight */
-            --color-foreground: #FFFFFF; /* Pure White */
-            --color-accent-pink: #FF10F0; /* Neon Magenta */
-            --color-accent-blue: #00FFFF; /* Neon Cyan */
-            --color-text-body: #CCCCCC; /* Light Grey for readability */
-            --color-text-header: #FF70A6; /* Brighter Pink for Titles */
+            --color-background: #190933; 
+            --color-foreground: #FFFFFF; 
+            --color-accent-pink: #FF10F0; 
+            --color-accent-blue: #00FFFF; 
+            --color-text-body: #CCCCCC; 
+            --color-text-header: #FF70A6; 
             --color-shadow: #00FFFF;
         }
 
@@ -32,87 +32,66 @@
         .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: var(--color-accent-blue); }
 
         /* Archive Specific Styles */
-        .container { max-width: 1000px; margin: 40px auto 80px; padding: 0 20px; }
-        h1 { 
-            text-align: center; 
-            font-size: 4em; 
-            margin-bottom: 20px; 
-            border-bottom: 5px solid var(--color-accent-blue); 
-            padding-bottom: 10px; 
-            color: var(--color-accent-pink); 
-            text-shadow: 2px 2px 0 var(--color-accent-blue), 0 0 10px var(--color-accent-pink);
+        .archive-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            background-color: #1E0F36;
+            border-bottom: 3px solid var(--color-accent-pink);
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+        }
+        .archive-header h1 {
+            font-size: 4em;
+            color: var(--color-accent-blue);
+            text-shadow: 3px 3px 0 var(--color-accent-pink);
+            margin-bottom: 10px;
             letter-spacing: 3px;
         }
-        .page-intro { 
-            text-align: center; 
-            color: var(--color-text-header); 
-            margin-bottom: 60px; 
+        .archive-header p {
             font-size: 1.2em;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
-        }
-        
-        .archive-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .archive-entry {
-            background-color: #1E0F36; /* Slightly lighter background for the card */
-            margin-bottom: 25px;
-            padding: 20px;
-            border: 1px solid var(--color-accent-pink);
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .archive-entry:hover {
-            transform: scale(1.01);
-            border-color: var(--color-accent-blue);
-            box-shadow: 0 0 15px var(--color-accent-pink);
-        }
-        
-        .archive-entry .metadata {
-            flex-shrink: 0;
-            text-align: right;
-            padding-right: 20px;
-            border-right: 1px solid var(--color-accent-blue);
-            width: 150px;
-        }
-        .archive-entry .date {
-            font-size: 0.9em;
-            color: var(--color-accent-blue);
-            display: block;
-            margin-bottom: 5px;
-        }
-        .archive-entry .category {
-            font-size: 0.8em;
             color: var(--color-text-header);
-            display: block;
             font-style: italic;
         }
 
-        .archive-entry .content {
-            padding-left: 20px;
+        .dispatch-list {
+            list-style: none;
+            padding: 0;
+            max-width: 900px;
+            margin: 50px auto;
         }
-        
-        .archive-entry h3 {
-            font-size: 1.5em;
-            margin: 0 0 5px 0;
-            color: var(--color-accent-pink);
-            text-decoration: none;
-            text-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+        .dispatch-list li {
+            background-color: #1E0F36; 
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--color-accent-blue);
+            box-shadow: 0 0 10px rgba(255, 16, 240, 0.4);
+            transition: transform 0.3s, border-color 0.3s;
         }
-        .archive-entry a {
+        .dispatch-list li:hover {
+            transform: scale(1.01);
+            border-color: var(--color-accent-pink);
+            box-shadow: 0 0 15px var(--color-accent-blue);
+        }
+        .dispatch-list a {
             text-decoration: none;
             color: var(--color-text-body);
+            display: block;
         }
-        .archive-entry p {
+        .dispatch-list h3 {
+            font-size: 1.7em;
+            margin: 0 0 8px 0;
+            color: var(--color-accent-pink);
+            text-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+        }
+        .dispatch-list .date {
+            font-size: 0.9em;
+            color: var(--color-accent-blue);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .dispatch-list p {
+            font-size: 1.1em;
             margin: 0;
-            font-size: 1em;
         }
-
 
         /* Footer */
         .footer { 
@@ -150,56 +129,41 @@
         </div>
     </div>
 
-    <div class="container">
-        <h1>DISPATCH ARCHIVE 🗄️</h1>
-        <p class="page-intro">A chronological log of all unfiltered perspectives. // <strong>SINCE NOVEMBER 2025</strong></p>
+    <header class="archive-header">
+        <h1>-- DISPATCH ARCHIVE --</h1>
+        <p>// All transmissions logged and stored. Find the unfiltered truth below.</p>
+    </header>
 
-        <ul class="archive-list">
-            
-            <li class="archive-entry">
-                <div class="metadata">
-                    <span class="date">Nov 5, 2025</span>
-                    <span class="category">School & Theory</span>
-                </div>
-                <div class="content">
-                    <a href="unfiltered_nov5.html">
-                        <h3>Stuck Between 'Art' and Logic: College is Testing My Limits</h3>
-                        <p>A deep dive into how social media monetizes "being real" and why we're all tired of trying to keep up with the algorithm's version of truth.</p>
-                    </a>
-                </div>
-            </li>
-
-            <li class="archive-entry">
-                <div class="metadata">
-                    <span class="date">Nov 4, 2025</span>
-                    <span class="category">Life & Culture</span>
-                </div>
-                <div class="content">
-                    <a href="daily_dispatch_nov4.html">
-                        <h3>Stolen Scooters, Revoked FAFSA, and the View from The Cage</h3>
-                        <p>Yesterday felt like a perfect split screen: one side was overwhelming stress, and the other was genuinely good, distracting fun. That dichotomy is basically what college life is, I guess...</p>
-                    </a>
-                </div>
-            </li>
-            
-            <li class="archive-entry">
-                <div class="metadata">
-                    <span class="date">Nov 3, 2025</span>
-                    <span class="category">Announcement</span>
-                </div>
-                <div class="content">
-                    <a href="introduction.html">
-                        <h3>Hello World: Who I Am and Why I'm Here</h3>
-                        <p>My first post outlining the purpose of TheAlexIs.me—opinion, not performance.</p>
-                    </a>
-                </div>
-            </li>
-            
-        </ul>
-        
-        <p style="text-align: center; margin-top: 50px; color: var(--color-text-header);">**END OF LINE** // MORE DISPATCHES COMING SOON.</p>
-
-    </div>
+    <ul class="dispatch-list">
+        <li>
+            <a href="daily_dispatch_nov5.html">
+                <h3>Digital Artifacts, Analog Friendship, and the 3-Minute Memory</h3>
+                <span class="date">November 5, 2025 | School & Culture</span>
+                <p>The new video art assignment is exactly the kind of critical practice I needed. Also, a calm evening of volunteering and a much-needed reset via Fortnite.</p>
+            </a>
+        </li>
+        <li>
+            <a href="unfiltered_nov5.html">
+                <h3>Stuck Between 'Art' and Logic: College is Testing My Limits</h3>
+                <span class="date">November 5, 2025 | School & Theory</span>
+                <p>I'm genuinely starting to question if I made the right choice coming back to school. The disconnect between 'free art' expectations and the unforgiving logic of contemporary math is testing my limits.</p>
+            </a>
+        </li>
+        <li>
+            <a href="daily_dispatch_nov4.html">
+                <h3>Stolen Scooters, Revoked FAFSA, and the View from The Cage</h3>
+                <span class="date">November 4, 2025 | Life & Culture</span>
+                <p>Yesterday felt like a perfect split screen: one side was overwhelming stress, and the other was genuinely good, distracting fun. That dichotomy is basically what college life is, I guess...</p>
+            </a>
+        </li>
+        <li>
+            <a href="introduction.html">
+                <h3>Hello World: Who I Am and Why I'm Here</h3>
+                <span class="date">November 3, 2025 | Announcement</span>
+                <p>My first post outlining the purpose of TheAlexIs.me—opinion, not performance.</p>
+            </a>
+        </li>
+    </ul>
 
     <footer class="footer">
         <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
@@ -210,7 +174,7 @@
             <a href="https://www.patreon.com/TheAlexIsMe" target="_blank">Support / TheAlexYap</a>
         </p>
     </footer>
-    
+
     <script>
         function openNav() {
           document.getElementById("mySidebar").style.width = "250px";
