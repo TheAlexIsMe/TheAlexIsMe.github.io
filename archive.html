@@ -3,73 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archive | TheAlexIs.me</title>
+    <title>Dispatch Archive | TheAlexIs.me</title>
     <link rel="icon" type="image/png" href="favicon.png"> 
     <style>
-        /* Shared Styles (New Theme) */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #F0F0FF; color: #1E1F4B; line-height: 1.7; }
-        .header { max-width: 900px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: #F0F0FF; }
-        .logo a { font-size: 1.8em; font-weight: bold; text-decoration: none; color: #FF10F0; text-shadow: 1px 1px 0 #00FFFF; }
+        /* Vaporwave/Synthwave Perfected Theme */
+        :root {
+            --color-background: #190933; /* Deep Violet/Midnight */
+            --color-foreground: #FFFFFF; /* Pure White */
+            --color-accent-pink: #FF10F0; /* Neon Magenta */
+            --color-accent-blue: #00FFFF; /* Neon Cyan */
+            --color-text-body: #CCCCCC; /* Light Grey for readability */
+            --color-text-header: #FF70A6; /* Brighter Pink for Titles */
+            --color-shadow: #00FFFF;
+        }
+
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: var(--color-background); color: var(--color-text-body); line-height: 1.6; }
+        
+        /* Layout & Header */
+        .header { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: transparent; }
+        .logo a { font-size: 2em; font-weight: bold; text-decoration: none; color: var(--color-accent-pink); text-shadow: 1px 1px 0 var(--color-accent-blue); }
+        
+        /* Navigation */
         .menu-toggle { cursor: pointer; display: block; padding: 10px; position: relative; z-index: 200; }
-        .bar { width: 25px; height: 3px; background-color: #1E1F4B; margin: 5px 0; transition: 0.4s; }
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #2C073D; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.5em; color: #ccc; display: block; transition: 0.3s; }
-        .sidebar a:hover { color: #FF10F0; background-color: #4A0F6F; }
-        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: #00FFFF; }
+        .bar { width: 30px; height: 4px; background-color: var(--color-accent-blue); margin: 6px 0; transition: 0.4s; box-shadow: 0 0 5px var(--color-accent-blue); }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #331A56; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.6em; color: var(--color-text-body); display: block; transition: 0.3s; }
+        .sidebar a:hover { color: var(--color-accent-pink); background-color: #4B277A; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: var(--color-accent-blue); }
 
         /* Archive Specific Styles */
-        .content-container { max-width: 900px; margin: 40px auto 80px; padding: 0 20px; }
-        h1 { text-align: center; font-size: 2.5em; margin-bottom: 50px; border-bottom: 3px solid #FF10F0; padding-bottom: 10px; color: #1E1F4B; }
-        
-        /* Category Section Styles */
-        .category-section { margin-bottom: 60px; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);}
-        .category-section h2 { 
-            font-size: 2em; 
-            margin-bottom: 25px; 
-            padding: 10px 0;
-            border-bottom: 2px solid #00FFFF; /* Teal underline */
-            color: #4A0F6F; /* Dark Violet Category Title */
+        .container { max-width: 1000px; margin: 40px auto 80px; padding: 0 20px; }
+        h1 { 
+            text-align: center; 
+            font-size: 4em; 
+            margin-bottom: 20px; 
+            border-bottom: 5px solid var(--color-accent-blue); 
+            padding-bottom: 10px; 
+            color: var(--color-accent-pink); 
+            text-shadow: 2px 2px 0 var(--color-accent-blue), 0 0 10px var(--color-accent-pink);
+            letter-spacing: 3px;
         }
-
-        /* Post List Styles */
-        .post-item { 
-            display: flex; 
-            justify-content: space-between; 
+        .page-intro { 
+            text-align: center; 
+            color: var(--color-text-header); 
+            margin-bottom: 60px; 
+            font-size: 1.2em;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+        
+        .archive-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .archive-entry {
+            background-color: #1E0F36; /* Slightly lighter background for the card */
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid var(--color-accent-pink);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+            transition: transform 0.3s, border-color 0.3s;
+            display: flex;
             align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px dashed #ddd;
         }
 
-        .post-item .post-title a {
-            font-size: 1.25em;
-            font-weight: bold;
-            text-decoration: none;
-            color: #1E1F4B;
-        }
-        .post-item .post-title a:hover {
-            color: #FF10F0; /* Hot Pink on hover */
+        .archive-entry:hover {
+            transform: scale(1.01);
+            border-color: var(--color-accent-blue);
+            box-shadow: 0 0 15px var(--color-accent-pink);
         }
         
-        .post-item .post-date {
-            font-size: 1em;
-            color: #4A0F6F;
-            white-space: nowrap;
+        .archive-entry .metadata {
+            flex-shrink: 0;
+            text-align: right;
+            padding-right: 20px;
+            border-right: 1px solid var(--color-accent-blue);
+            width: 150px;
+        }
+        .archive-entry .date {
+            font-size: 0.9em;
+            color: var(--color-accent-blue);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .archive-entry .category {
+            font-size: 0.8em;
+            color: var(--color-text-header);
+            display: block;
+            font-style: italic;
         }
 
-        /* Tags for post type */
-        .post-tag {
-            font-size: 0.8em;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-left: 10px;
+        .archive-entry .content {
+            padding-left: 20px;
         }
-        .tag-dispatch { background-color: #00FFFF; color: #1E1F4B; } /* Teal Tag */
-        .tag-unfiltered { background-color: #FF10F0; color: white; } /* Hot Pink Tag */
+        
+        .archive-entry h3 {
+            font-size: 1.5em;
+            margin: 0 0 5px 0;
+            color: var(--color-accent-pink);
+            text-decoration: none;
+            text-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+        }
+        .archive-entry a {
+            text-decoration: none;
+            color: var(--color-text-body);
+        }
+        .archive-entry p {
+            margin: 0;
+            font-size: 1em;
+        }
+
 
         /* Footer */
-        .footer { background-color: #2C073D; color: #00FFFF; text-align: center; padding: 30px 20px; font-size: 0.9em; margin-top: 50px; }
-        .footer a { color: #FF10F0; text-decoration: none; margin: 0 10px; }
+        .footer { 
+            background-color: #0F071D; 
+            color: var(--color-text-body); 
+            text-align: center; 
+            padding: 40px 20px; 
+            font-size: 0.9em; 
+            margin-top: 50px; 
+            border-top: 2px solid var(--color-accent-blue);
+            box-shadow: 0 -5px 15px rgba(255, 16, 240, 0.2);
+        }
+        .footer a { color: var(--color-accent-pink); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
+        .footer a:hover { color: var(--color-accent-blue); }
     </style>
 </head>
 <body>
@@ -79,7 +136,7 @@
         <a href="index.html">Home</a>
         <a href="archive.html">Dispatch Archive</a>
         <a href="visuals.html">The Visuals</a>
-        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: #FF10F0; font-weight: bold;">Support & TheAlexYap Podcast</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: var(--color-accent-pink); font-weight: bold;">Support & TheAlexYap Podcast</a>
     </div>
 
     <div class="header">
@@ -93,42 +150,65 @@
         </div>
     </div>
 
-    <div class="content-container">
-        <h1>The Archives: Dispatches & Unfiltered Thoughts</h1>
+    <div class="container">
+        <h1>DISPATCH ARCHIVE 🗄️</h1>
+        <p class="page-intro">A chronological log of all unfiltered perspectives. // **SINCE NOVEMBER 2025**</p>
 
-        <section class="category-section">
-            <h2>📚 School & Theory (The Academic Spin)</h2>
-
-            <div class="post-item">
-                <div class="post-title">
-                    <a href="unfiltered_nov5.html">Stuck Between 'Art' and Logic: College is Testing My Limits</a>
-                    <span class="post-tag tag-unfiltered">UNFILTERED</span>
-                </div>
-                <div class="post-date">November 5, 2025</div>
-            </div>
-
-            <div class="post-item">
-                <div class="post-title">
-                    <a href="daily_dispatch_nov4.html">Stolen Scooters, Revoked FAFSA, and the View from The Cage</a>
-                    <span class="post-tag tag-dispatch">DISPATCH</span>
-                </div>
-                <div class="post-date">November 4, 2025</div>
-            </div>
+        <ul class="archive-list">
             
-            </section>
-
-        <section class="category-section">
-            <h2>🌍 Life & Culture (The Real-World Spin)</h2>
-
-            <div class="post-item">
-                <div class="post-title">
-                    <a href="#">The Attention Economy and The Silent Cost of Scrolling</a>
-                    <span class="post-tag tag-dispatch">DISPATCH</span>
+            <li class="archive-entry">
+                <div class="metadata">
+                    <span class="date">Nov 5, 2025</span>
+                    <span class="category">School & Theory</span>
                 </div>
-                <div class="post-date">October 28, 2025</div>
-            </div>
+                <div class="content">
+                    <a href="unfiltered_nov5.html">
+                        <h3>The Exhausting Performance of Online Authenticity</h3>
+                        <p>A deep dive into how social media monetizes "being real" and why we're all tired of trying to keep up with the algorithm's version of truth.</p>
+                    </a>
+                </div>
+            </li>
+
+            <li class="archive-entry">
+                <div class="metadata">
+                    <span class="date">Nov 4, 2025</span>
+                    <span class="category">Life & Culture</span>
+                </div>
+                <div class="content">
+                    <a href="daily_dispatch_nov4.html">
+                        <h3>The Digital Identity Crisis of the Class of '26</h3>
+                        <p>On balancing student life, academic pressure, and the pressure to build a perfect professional online presence before graduation.</p>
+                    </a>
+                </div>
+            </li>
             
-            </section>
+            <li class="archive-entry">
+                <div class="metadata">
+                    <span class="date">Nov 3, 2025</span>
+                    <span class="category">Announcement</span>
+                </div>
+                <div class="content">
+                    <a href="introduction.html">
+                        <h3>Hello World: Who I Am and Why I'm Here</h3>
+                        <p>My first post outlining the purpose of TheAlexIs.me—opinion, not performance.</p>
+                    </a>
+                </div>
+            </li>
+
+            <li class="archive-entry" style="opacity: 0.5;">
+                <div class="metadata">
+                    <span class="date">TBD</span>
+                    <span class="category">Future Log</span>
+                </div>
+                <div class="content">
+                    <h3>[Planned Post Title: Visual Language of Advertising]</h3>
+                    <p>Analysis of semiotics and psychological color usage in 2025 digital campaigns.</p>
+                </div>
+            </li>
+            
+        </ul>
+        
+        <p style="text-align: center; margin-top: 50px; color: var(--color-text-header);">**END OF LINE** // MORE DISPATCHES COMING SOON.</p>
 
     </div>
 
@@ -150,6 +230,5 @@
           document.getElementById("mySidebar").style.width = "0";
         }
     </script>
-
 </body>
 </html>
