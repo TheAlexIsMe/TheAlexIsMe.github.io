@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coog Scoots Official Rules</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles to mimic a flyer aspect ratio and use UH Red */
+        :root {
+            --uh-red: #CC0000;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0; /* Light gray background for contrast */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .flyer-container {
+            width: 100%;
+            max-width: 800px; /* A standard print width */
+            margin: 1rem;
+            background-color: var(--uh-red);
+            color: white;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-radius: 1rem;
+        }
+        @media (min-width: 640px) {
+             .flyer-container {
+                padding: 3rem 2.5rem;
+             }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="flyer-container">
+        <header class="text-center mb-6">
+            <h1 class="text-4xl font-extrabold tracking-tight uppercase border-b-4 border-white pb-2 mb-2">
+                Coog Scoots
+            </h1>
+            <h2 class="text-xl font-medium">Official Group Rules</h2>
+        </header>
+
+        <!-- Logo Placeholder using the Cougar/Scooter theme -->
+        <div class="flex justify-center mb-8">
+            <img 
+                src="https://placehold.co/150x150/FFFFFF/CC0000?text=Logo+Area" 
+                alt="Coog Scoots Logo Placeholder" 
+                class="rounded-full shadow-lg p-2 bg-white"
+                onerror="this.src='https://placehold.co/150x150/FFFFFF/CC0000?text=Logo';" 
+            >
+        </div>
+
+        <main class="text-base sm:text-lg">
+            <p class="mb-6 font-semibold italic text-center text-gray-200">
+                Welcome! As we grow toward becoming an official organization, we rely on all members to uphold a high standard of conduct and safety.
+            </p>
+            
+            <!-- RULE SECTION 1 -->
+            <div class="mb-6 p-4 bg-white/10 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <span class="mr-2 text-2xl">1.</span> Respect All Campus Users
+                </h3>
+                <ul class="space-y-2 list-none ml-4">
+                    <li class="pl-2 relative before:content-['•'] before:absolute before:-left-1 before:top-0 before:text-white">
+                        <strong class="font-semibold text-yellow-300">Prioritize Walkers:</strong> Always yield to pedestrians and give them plenty of space. Our goal is to promote a positive image for all two-wheeled riders on campus.
+                    </li>
+                    <li class="pl-2 relative before:content-['•'] before:absolute before:-left-1 before:top-0 before:text-white">
+                        <strong class="font-semibold">Be Courteous:</strong> Absolutely no harassment, discrimination, or offensive language toward any member or non-member.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- RULE SECTION 2 -->
+            <div class="mb-6 p-4 bg-white/10 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                     <span class="mr-2 text-2xl">2.</span> Riding & Safety Standards
+                </h3>
+                <ul class="space-y-2 list-none ml-4">
+                    <li class="pl-2 relative before:content-['•'] before:absolute before:-left-1 before:top-0 before:text-white">
+                        <strong class="font-semibold text-yellow-300">Safety First:</strong> Encourage and practice responsible riding. Know and follow all UH campus and local traffic rules.
+                    </li>
+                    <li class="pl-2 relative before:content-['•'] before:absolute before:-left-1 before:top-0 before:text-white">
+                        <strong class="font-semibold">No Reckless Behavior:</strong> Do not promote, organize, or encourage dangerous or illegal riding (e.g., riding too fast in crowded areas).
+                    </li>
+                </ul>
+            </div>
+
+            <!-- RULE SECTION 3 -->
+            <div class="p-4 bg-white/10 rounded-lg">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                     <span class="mr-2 text-2xl">3.</span> Group Focus
+                </h3>
+                <ul class="space-y-2 list-none ml-4">
+                    <li class="pl-2 relative before:content-['•'] before:absolute before:-left-1 before:top-0 before:text-white">
+                        <strong class="font-semibold text-yellow-300">Scooters & Bikes:</strong> This group is primarily for scooter owners, but **bicycles are welcomed**. Keep discussions focused on transportation, tips, campus life, and events.
+                    </li>
+                    <li class="pl-2 relative before:content-['•'] before:absolute before:-left-1 before:top-0 before:text-white">
+                        <strong class="font-semibold">Stay Informed:</strong> Check the **Announcements** channel for official news and updates on our progress to become a recognized UH Student Organization.
+                    </li>
+                </ul>
+            </div>
+        </main>
+
+        <footer class="text-center mt-8 pt-4 border-t-2 border-white/50">
+            <p class="text-sm font-light">Join the movement. Let's roll, Coogs!</p>
+        </footer>
+    </div>
+</body>
+</html>
+
