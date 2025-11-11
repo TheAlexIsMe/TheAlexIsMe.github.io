@@ -19,8 +19,18 @@
 
         body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: var(--color-background); color: var(--color-text-body); line-height: 1.6; }
         
+        /* WEBGL BACKGROUND STYLES */
+        #fluid-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -10; /* MUST be negative to go behind all content */
+        }
+        
         /* Layout & Header */
-        .header { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: transparent; }
+        .header { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: transparent; position: relative; z-index: 10; }
         .logo a { font-size: 2em; font-weight: bold; text-decoration: none; color: var(--color-accent-pink); text-shadow: 1px 1px 0 var(--color-accent-blue); }
         
         /* Navigation */
@@ -37,10 +47,12 @@
             padding: 100px 20px 80px; 
             max-width: 800px; 
             margin: 0 auto; 
-            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('grid-background.jpg'); /* Conceptual Grid/Stars background */
+            background-color: rgba(25, 9, 51, 0.7); /* Slightly transparent background for readability */
             border: 3px solid var(--color-accent-blue);
             box-shadow: 0 0 25px var(--color-accent-pink); 
             border-radius: 5px;
+            position: relative;
+            z-index: 1;
         }
         .hero h1 { 
             font-size: 5em; 
@@ -67,6 +79,8 @@
             border: 2px solid var(--color-accent-pink);
             transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
             box-shadow: 5px 5px 0 var(--color-accent-pink);
+            position: relative;
+            z-index: 1;
         }
         .cta-button:hover {
             background-color: var(--color-accent-pink);
@@ -80,6 +94,8 @@
             max-width: 900px;
             margin: 80px auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
         .recent-dispatches h2 {
             text-align: center;
@@ -95,7 +111,7 @@
             padding: 0;
         }
         .dispatch-list li {
-            background-color: #1E0F36; /* Slightly lighter background for the card */
+            background-color: rgba(30, 15, 54, 0.9); /* Slightly transparent card background */
             margin-bottom: 30px;
             padding: 25px;
             border: 1px solid var(--color-accent-blue);
@@ -139,12 +155,16 @@
             margin-top: 50px; 
             border-top: 2px solid var(--color-accent-blue);
             box-shadow: 0 -5px 15px rgba(255, 16, 240, 0.2);
+            position: relative;
+            z-index: 1;
         }
         .footer a { color: var(--color-accent-pink); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
         .footer a:hover { color: var(--color-accent-blue); }
     </style>
 </head>
 <body>
+
+    <canvas id="fluid-canvas"></canvas>
 
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -216,6 +236,25 @@
         function closeNav() {
           document.getElementById("mySidebar").style.width = "0";
         }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/webgl-fluid@latest/dist/webgl-fluid.min.js"></script>
+    <script>
+        window.onload = function() {
+            const canvas = document.getElementById('fluid-canvas');
+            // Initialize the Fluid Simulation with custom colors and auto-animation
+            WebGLFluid(canvas, {
+                // Settings adapted for the Vaporwave/Synthwave look
+                TRIGGER: 'hover',       // Activates on mouse hover
+                AUTO: true,             // Enables continuous background movement
+                SPLAT_FORCE: 6000,      // Strength of the mouse interaction
+                COLOR_PALETTE: ["#FF10F0", "#00FFFF", "#FF70A6"], // Pink, Cyan, Header Pink
+                TRANSPARENT: false,
+                BLOOM: true,            // Gives the nice glowing effect
+                DYE_RESOLUTION: 512,
+                SIM_RESOLUTION: 128
+            });
+        };
     </script>
 </body>
 </html>
