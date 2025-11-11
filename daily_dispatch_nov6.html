@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTICE: Study & Catch-Up Period (Nov 6 - Nov 11) | TheAlexIs.me</title>
+    <link rel="icon" type="image/png" href="favicon.png"> 
+    <style>
+        /* Vaporwave/Synthwave Perfected Theme */
+        :root {
+            --color-background: #190933; /* Deep Violet/Midnight */
+            --color-foreground: #FFFFFF; /* Pure White */
+            --color-accent-pink: #FF10F0; /* Neon Magenta */
+            --color-accent-blue: #00FFFF; /* Neon Cyan */
+            --color-text-body: #CCCCCC; /* Light Grey for readability */
+            --color-text-header: #FF70A6; /* Brighter Pink for Titles */
+            --color-shadow: #00FFFF;
+        }
+
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: var(--color-background); color: var(--color-text-body); line-height: 1.6; }
+        
+        /* Layout & Header */
+        .header { max-width: 1000px; margin: 0 auto; padding: 20px; display: flex; justify-content: space-between; align-items: center; background-color: transparent; }
+        .logo a { font-size: 2em; font-weight: bold; text-decoration: none; color: var(--color-accent-pink); text-shadow: 1px 1px 0 var(--color-accent-blue); }
+        
+        /* Navigation */
+        .menu-toggle { cursor: pointer; display: block; padding: 10px; position: relative; z-index: 200; }
+        .bar { width: 30px; height: 4px; background-color: var(--color-accent-blue); margin: 6px 0; transition: 0.4s; box-shadow: 0 0 5px var(--color-accent-blue); }
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 100; top: 0; right: 0; background-color: #331A56; overflow-x: hidden; transition: 0.5s; padding-top: 60px; }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 1.6em; color: var(--color-text-body); display: block; transition: 0.3s; }
+        .sidebar a:hover { color: var(--color-accent-pink); background-color: #4B277A; }
+        .sidebar .closebtn { position: absolute; top: 0; right: 25px; font-size: 36px; margin-left: 50px; color: var(--color-accent-blue); }
+
+        /* Post Content Specific Styles */
+        .post-container { 
+            max-width: 800px; 
+            margin: 60px auto 100px; 
+            padding: 50px; 
+            background-color: #1E0F36; /* Post Panel Background */
+            border: 3px solid var(--color-accent-blue); 
+            box-shadow: 0 0 20px rgba(255, 16, 240, 0.5); /* Pink Glow */
+            text-align: center; /* Center content for the notice */
+        }
+        .post-header { text-align: center; margin-bottom: 50px; }
+        .post-header h1 { 
+            font-size: 3.0em; /* Slightly smaller for the notice */
+            margin-bottom: 10px; 
+            color: var(--color-accent-pink); 
+            text-shadow: 2px 2px 0 var(--color-accent-blue), 0 0 10px var(--color-accent-pink); 
+            letter-spacing: 2px;
+        }
+        .post-header .date { color: var(--color-text-header); font-size: 1.1em; font-style: italic; }
+        
+        .post-content h2 { 
+            margin-top: 50px; 
+            font-size: 1.8em; 
+            color: var(--color-accent-blue);
+            border-bottom: 1px solid var(--color-accent-pink);
+            padding-bottom: 5px;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.1);
+        }
+        .post-content p { margin-bottom: 30px; font-size: 1.1em; }
+        
+        .post-navigation a { 
+            color: var(--color-accent-blue); 
+            text-decoration: none; 
+            font-weight: bold; 
+            padding: 10px; 
+            border: 1px solid var(--color-accent-pink); 
+            transition: background-color 0.3s; 
+        }
+        .post-navigation a:hover {
+             background-color: #331A56; 
+             color: var(--color-accent-pink);
+        }
+        
+        /* Specific Notice Styles */
+        .notice {
+            font-size: 1.5em;
+            color: var(--color-text-header);
+            margin-top: 30px;
+        }
+        .expected-return {
+            font-size: 1.2em;
+            color: var(--color-accent-blue);
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+
+        /* Footer */
+        .footer { 
+            background-color: #0F071D; 
+            color: var(--color-text-body); 
+            text-align: center; 
+            padding: 40px 20px; 
+            font-size: 0.9em; 
+            margin-top: 50px; 
+            border-top: 2px solid var(--color-accent-blue);
+            box-shadow: 0 -5px 15px rgba(255, 16, 240, 0.2);
+        }
+        .footer a { color: var(--color-accent-pink); text-decoration: none; margin: 0 15px; transition: color 0.3s; }
+        .footer a:hover { color: var(--color-accent-blue); }
+    </style>
+</head>
+<body>
+
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="archive.html">Dispatch Archive</a>
+        <a href="visuals.html">The Visuals</a>
+        <a href="https://www.patreon.com/TheAlexIsMe" target="_blank" style="color: var(--color-accent-pink); font-weight: bold;">Support & TheAlexYap Podcast</a>
+    </div>
+
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">TheAlexIs.me</a>
+        </div>
+        <div class="menu-toggle" onclick="openNav()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </div>
+
+    <div class="post-container">
+        <header class="post-header">
+            <h1>SYSTEM PAUSE INITIATED ⏳</h1>
+            <p class="date">Dispatch Log: <strong>November 6, 2025</strong> | Data Stream: <strong>Site Announcement</strong></p>
+        </header>
+
+        <section class="post-content">
+            <p class="notice">NOTICE TO ALL READERS:</p>
+            
+            <p style="font-size: 1.3em;">A large volume of academic work, projects, and catch-up is required to maintain core operations. Therefore, the daily dispatch schedule will be temporarily paused for focused work.</p>
+            
+            <p style="font-size: 1.3em;">No new dispatches will be released from November 6th through November 11th.</p>
+            
+            <p class="expected-return">Expected Return: November 12th, 2025</p>
+            
+            <p style="font-style: italic; margin-top: 40px;">The next published dispatch on the 12th will cover the events and unfiltered perspective of November 11th. Thank you for your support and understanding as I optimize my bandwidth.</p>
+
+            <p style="text-align: right; margin-top: 40px;">— Alex</p>
+        </section>
+        
+        <p class="post-navigation" style="text-align: center; margin-top: 60px;">
+            <a href="daily_dispatch_nov5.html" style="margin-right: 20px;">← OLDER DISPATCH: Digital Artifacts, Analog Friendship...</a>
+            <a href="daily_dispatch_nov11.html">NEWER DISPATCH: (Nov 11th - Released Nov 12th) →</a>
+        </p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 TheAlexIs.me | All Rights Reserved. | <a href="terms.html">Terms</a> | <a href="policy.html">Privacy</a></p>
+        <p>
+            <a href="#" target="_blank">Twitter/X</a> |
+            <a href="#" target="_blank">Substack</a> |
+            <a href="#" target="_blank">RSS Feed</a> |
+            <a href="https://www.patreon.com/TheAlexIsMe" target="_blank">Support / TheAlexYap</a>
+        </p>
+    </footer>
+
+    <script>
+        function openNav() {
+          document.getElementById("mySidebar").style.width = "250px";
+        }
+        function closeNav() {
+          document.getElementById("mySidebar").style.width = "0";
+        }
+    </script>
+</body>
+</html>
