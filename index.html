@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Spells | Euphoria Readings</title>
+    <title>Mystic Spells Euphoria | The Grand Arcanum</title>
+    <!-- Premium Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
     
     <style>
@@ -11,7 +12,8 @@
             --sakura: #ffb7d5;
             --lavender: #c8a2c8;
             --void: #0a0a0c;
-            --glass: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.04);
+            --gold: #d4af37;
             --border: rgba(255, 183, 213, 0.2);
         }
 
@@ -26,50 +28,52 @@
             overflow-x: hidden;
         }
 
+        #bg-canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
+
         .container {
+            width: 95%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Animated Particles Background */
-        #particles-js {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .main-content { position: relative; z-index: 2; }
-
-        /* Branding matched to logo */
-        .brand-logo {
-            max-width: 400px;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 20px var(--sakura));
-        }
-
-        .brand-title {
+        /* Branding Section */
+        header { text-align: center; margin-bottom: 60px; }
+        
+        .main-logo {
             font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 15px;
             background: linear-gradient(to bottom, #fff, var(--sakura), var(--lavender));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 40px;
-            letter-spacing: 10px;
+            filter: drop-shadow(0 0 25px rgba(255, 183, 213, 0.5));
+            text-transform: uppercase;
         }
 
-        /* Interface Dashboard */
-        .ritual-vault {
-            background: var(--glass);
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--border);
-            padding: 50px;
-            border-radius: 4px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            margin-bottom: 60px;
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--sakura);
+            letter-spacing: 5px;
+            margin-top: 10px;
         }
+
+        /* Ritual Interface Dashboard */
+        .dashboard {
+            background: var(--glass);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            padding: 60px 40px;
+            border-radius: 4px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+            margin-bottom: 80px;
+        }
+
+        .input-row { margin-bottom: 40px; text-align: center; }
 
         input[type="text"] {
             width: 100%;
@@ -77,22 +81,26 @@
             background: transparent;
             border: none;
             border-bottom: 2px solid var(--sakura);
-            padding: 15px 0;
+            padding: 20px 0;
             color: #fff;
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-family: 'Playfair Display', serif;
             text-align: center;
             outline: none;
-            margin-bottom: 30px;
         }
 
-        .controls { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .spread-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
 
         select {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             border: 1px solid var(--sakura);
             color: var(--sakura);
-            padding: 12px 25px;
+            padding: 15px;
             font-family: 'Montserrat';
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -101,230 +109,292 @@
 
         .invoke-btn {
             margin-top: 40px;
-            padding: 22px 100px;
+            padding: 25px 100px;
             background: linear-gradient(45deg, var(--sakura), var(--lavender));
             border: none;
             color: #000;
             font-family: 'Cinzel Decorative';
             font-weight: 900;
-            font-size: 1.3rem;
-            letter-spacing: 6px;
+            font-size: 1.4rem;
+            letter-spacing: 10px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(255, 183, 213, 0.3);
+            box-shadow: 0 0 30px rgba(255, 183, 213, 0.4);
             transition: 0.4s;
         }
 
         .invoke-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 0 50px var(--sakura);
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 0 60px var(--sakura);
             color: #fff;
         }
 
-        /* Advanced Card Grid */
-        .card-grid {
+        /* Card Spread Layout */
+        .arcanum-spread {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
         }
 
-        .card-slot { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
-        .card-slot.active { opacity: 1; transform: translateY(0); }
+        .card-container {
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 0.8s ease-out;
+        }
 
-        .card-box {
+        .card-container.reveal { opacity: 1; transform: translateY(0); }
+
+        .card-inner {
             background: #111;
             border: 1px solid var(--border);
-            padding: 20px;
+            padding: 25px;
             height: 100%;
-            transition: 0.4s;
-            position: relative;
-            overflow: hidden;
+            transition: 0.5s;
+            transform-style: preserve-3d;
         }
 
-        .card-box:hover { border-color: var(--sakura); box-shadow: 0 0 40px rgba(255, 183, 213, 0.2); }
+        .card-inner:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+            border-color: #fff;
+            box-shadow: 0 20px 50px rgba(255, 183, 213, 0.2);
+        }
 
-        .card-box img {
+        .card-inner img {
             width: 100%;
             filter: sepia(0.2) contrast(1.1);
             margin-bottom: 20px;
-            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
 
-        .pos-label {
+        .card-pos {
             font-family: 'Cinzel Decorative';
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: var(--sakura);
-            letter-spacing: 4px;
+            letter-spacing: 5px;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        .card-title { font-family: 'Playfair Display'; font-size: 1.8rem; margin-bottom: 10px; color: var(--sakura); }
+        .card-name { font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 15px; color: var(--gold); }
 
-        .card-meaning { font-size: 0.9rem; color: #ccc; line-height: 1.6; text-align: justify; border-top: 1px solid var(--border); padding-top: 15px; }
+        .card-meaning {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #ccc;
+            text-align: justify;
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 5px;
+        }
 
-        /* AI Decrees Section */
-        .decree-vault {
-            margin-top: 80px;
-            padding: 60px 40px;
+        /* AI Insight Box */
+        .insight-box {
+            margin-top: 100px;
+            padding: 80px 40px;
             border-top: 1px solid var(--border);
             display: none;
-            background: rgba(255, 183, 213, 0.02);
+            text-align: center;
         }
 
-        #aiDecree {
+        #ai-text {
             font-family: 'Playfair Display';
-            font-size: 2.2rem;
+            font-size: 2.5rem;
+            line-height: 1.4;
             max-width: 1000px;
             margin: 0 auto;
             color: var(--sakura);
-            line-height: 1.4;
             font-style: italic;
         }
 
-        .loader {
+        /* Ritual Loading */
+        .ritual-loader {
             display: none;
-            width: 80px; height: 80px;
-            border: 3px solid var(--glass);
-            border-top-color: var(--sakura);
-            border-radius: 50%;
-            animation: spin 1s infinite linear;
+            font-size: 4rem;
             margin: 50px auto;
+            animation: ritualSpin 2s infinite linear;
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes ritualSpin { 100% { transform: rotate(360deg); filter: hue-rotate(90deg); } }
+
+        @media (max-width: 900px) {
+            .main-logo { font-size: 2.5rem; }
+            .invoke-btn { padding: 20px 40px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
+<canvas id="bg-canvas"></canvas>
 
-<div class="container main-content">
+<div class="container">
     <header>
-        <!-- Replace with your logo file if available on GitHub -->
-        <h1 class="brand-title">Mystic Spells</h1>
-        <p class="brand-subtitle">✨ Euphoria Readings ✨</p>
+        <h1 class="main-logo">Mystic Spells</h1>
+        <div class="subtitle">The Elite Sanctuary for Euphoria Readings</div>
     </header>
 
-    <div class="ritual-vault">
-        <input type="text" id="seekerQuestion" placeholder="COMMUNE WITH THE ARCHETYPES...">
+    <div class="dashboard">
+        <div class="input-row">
+            <input type="text" id="user-question" placeholder="WHISPER YOUR QUESTION TO THE VOID...">
+        </div>
         
-        <div class="controls">
-            <select id="spreadCategory">
-                <option value="Daily">Daily Practice</option>
-                <option value="Love">Love & Relationships</option>
-                <option value="Career">Career & Path</option>
-                <option value="Spiritual">Spiritual Growth</option>
+        <div class="spread-selector">
+            <select id="spread-cat">
+                <option value="Love">❤️ Love & Relationships Spreads</option>
+                <option value="Career">💼 Career & Path Strategizer</option>
+                <option value="Daily">☀️ Daily Vibe & Yes/No</option>
+                <option value="Spiritual">✨ Spiritual Growth & Dreams</option>
+                <option value="FullMoon">🌕 Full Moon Astral Phase</option>
             </select>
-            <select id="spreadLayout">
+            <select id="draw-type">
                 <option value="1">Direct Answer (1 Card)</option>
-                <option value="3" selected>The Trifecta (3 Cards)</option>
-                <option value="5">The Grand Revelation (5 Cards)</option>
+                <option value="3" selected>The Trifecta Revelation (3 Cards)</option>
+                <option value="5">The Grand Arcanum (5 Cards)</option>
+                <option value="10">Celtic Cross Mastery (10 Cards)</option>
             </select>
         </div>
 
-        <button class="invoke-btn" onclick="performRitual()">INVOKE THE SPIRITS</button>
+        <button class="invoke-btn" onclick="startRitual()">INVOKE THE ARCHETYPES</button>
     </div>
 
-    <div class="loader" id="ritualLoader"></div>
-    <div class="card-grid" id="ritualOutput"></div>
+    <div class="ritual-loader" id="loader">🔮</div>
+    <div class="arcanum-spread" id="spread-output"></div>
 
-    <div class="decree-vault" id="oracleBox">
-        <div class="pos-label">THE ORACLE'S DECREE</div>
-        <p id="aiDecree"></p>
+    <div class="insight-box" id="insight-container">
+        <div class="card-pos">THE ORACLE'S FINAL DECREE</div>
+        <p id="ai-text"></p>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-    /* PARTICLES CONFIG */
-    particlesJS('particles-js', {
-        "particles": {
-            "number": { "value": 80 },
-            "color": { "value": "#ffb7d5" },
-            "opacity": { "value": 0.5 },
-            "size": { "value": 2 },
-            "line_linked": { "enable": false },
-            "move": { "speed": 1, "direction": "top" }
-        }
-    });
+    /* 🌸 Sakura Particle Engine (Pro Graphics) */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
 
-    /* FULL DATA ENGINE */
-    const tarotDeck = [
-        // Major Arcana with your specific images
-        { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", meaning: "Upright: innocence, new beginnings, free spirit. Reversed: recklessness." },
-        { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", meaning: "Upright: manifestation, power, skill, action. Reversed: manipulation." },
-        { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Upright: intuition, sacred knowledge, mystery. Reversed: secrets." },
-        { name: "The Empress", img: "https://i.imgur.com/RvakGCX.png", meaning: "Upright: femininity, abundance, nurturing, creation. Reversed: creative block." },
-        { name: "The Emperor", img: "https://i.imgur.com/K4oVvvj.png", meaning: "Upright: authority, structure, stability, leadership. Reversed: control issues." },
-        { name: "The Hierophant", img: "https://i.imgur.com/GRF1erw.png", meaning: "Upright: tradition, spiritual wisdom, conformity. Reversed: rebellion." },
-        { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Upright: love, harmony, values alignment. Reversed: imbalance." },
-        { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Upright: determination, control, ambition, victory. Reversed: lack of direction." },
-        { name: "Strength", img: "https://i.imgur.com/WF9jYOf.png", meaning: "Upright: courage, inner strength, patience, compassion. Reversed: self-doubt." },
-        { name: "The Hermit", img: "https://i.imgur.com/GgoMlM8.png", meaning: "Upright: introspection, solitude, inner guidance. Reversed: isolation." },
-        { name: "Wheel of Fortune", img: "https://i.imgur.com/oQ7dG8i.png", meaning: "Upright: change, destiny, cycles. Reversed: bad timing." },
-        { name: "Justice", img: "https://i.imgur.com/xxvbuEe.png", meaning: "Upright: truth, fairness, accountability. Reversed: dishonesty." },
-        { name: "The Hanged Man", img: "https://i.imgur.com/b71lXKz.png", meaning: "Upright: surrender, new perspective, pause. Reversed: resistance." },
-        { name: "Death", img: "https://i.imgur.com/WB1hQzH.png", meaning: "Upright: endings, transformation, rebirth. Reversed: fear of change." },
-        { name: "Temperance", img: "https://i.imgur.com/2rUNAHs.png", meaning: "Upright: balance, moderation, harmony. Reversed: imbalance." },
-        { name: "The Devil", img: "https://i.imgur.com/WA3Zekv.png", meaning: "Upright: attachment, temptation, material focus. Reversed: release." },
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = Math.random() * 1 - 0.5;
+            this.speedY = Math.random() * 0.5 + 0.1;
+            this.color = `rgba(255, 183, 213, ${Math.random() * 0.3})`;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.y > canvas.height) this.reset();
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        resize();
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    initParticles(); animate();
+
+    /* 🃏 The Grand Arcanum Data Engine */
+    const deck = [
+        { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", meaning: "Upright: innocence, new beginnings, free spirit. Reversed: recklessness, taken advantage of." },
+        { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", meaning: "Upright: manifestation, power, skill, action. Reversed: manipulation, poor planning." },
+        { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Upright: intuition, sacred knowledge, mystery. Reversed: secrets, disconnection from intuition." },
+        { name: "The Empress", img: "https://i.imgur.com/RvakGCX.png", meaning: "Upright: femininity, abundance, nurturing, creation. Reversed: creative block, dependence." },
+        { name: "The Emperor", img: "https://i.imgur.com/K4oVvvj.png", meaning: "Upright: authority, structure, stability, leadership. Reversed: control issues, rigidity." },
+        { name: "The Hierophant", img: "https://i.imgur.com/GRF1erw.png", meaning: "Upright: tradition, spiritual wisdom, conformity. Reversed: rebellion, unconventionality." },
+        { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Upright: love, harmony, values alignment. Reversed: imbalance, misalignment." },
+        { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Upright: determination, control, ambition, victory. Reversed: lack of direction, aggression." },
+        { name: "Strength", img: "https://i.imgur.com/WF9YOf.png", meaning: "Upright: courage, inner strength, patience. Reversed: self-doubt, weakness." },
+        { name: "The Hermit", img: "https://i.imgur.com/GgoMlM8.png", meaning: "Upright: introspection, solitude, inner guidance. Reversed: isolation, withdrawal." },
+        { name: "Wheel of Fortune", img: "https://i.imgur.com/oQ7dG8i.png", meaning: "Upright: change, destiny, cycles. Reversed: bad timing, resistance." },
+        { name: "Justice", img: "https://i.imgur.com/xxvbuEe.png", meaning: "Upright: truth, fairness, accountability. Reversed: dishonesty, imbalance." },
+        { name: "The Hanged Man", img: "https://i.imgur.com/b71lXKz.png", meaning: "Upright: surrender, pause, letting go. Reversed: resistance, stalling." },
+        { name: "Death", img: "https://i.imgur.com/WB1hQzH.png", meaning: "Upright: endings, transformation, rebirth. Reversed: fear of change, stagnation." },
+        { name: "Temperance", img: "https://i.imgur.com/2rUNAHs.png", meaning: "Upright: balance, moderation, harmony. Reversed: imbalance, excess." },
+        { name: "The Devil", img: "https://i.imgur.com/WA3Zekv.png", meaning: "Upright: attachment, temptation, addiction. Reversed: release, detachment." },
         { name: "The Tower", img: "https://i.imgur.com/OGbBcsY.png", meaning: "Upright: sudden change, upheaval, revelation. Reversed: delayed disaster." },
-        { name: "The Star", img: "https://i.imgur.com/zf2SNWL.png", meaning: "Upright: hope, renewal, faith, healing. Reversed: despair." },
-        { name: "The Moon", img: "https://i.imgur.com/uaLXrGB.png", meaning: "Upright: illusion, intuition, uncertainty. Reversed: clarity." },
-        { name: "The Sun", img: "https://i.imgur.com/FxEoqnn.png", meaning: "Upright: joy, success, vitality, clarity. Reversed: temporary sadness." },
+        { name: "The Star", img: "https://i.imgur.com/zf2SNWL.png", meaning: "Upright: hope, renewal, faith, healing. Reversed: despair, lack of faith." },
+        { name: "The Moon", img: "https://i.imgur.com/uaLXrGB.png", meaning: "Upright: illusion, intuition, subconscious. Reversed: confusion lifts, clarity." },
+        { name: "The Sun", img: "https://i.imgur.com/FxEoqnn.png", meaning: "Upright: joy, success, vitality. Reversed: temporary sadness, delays." },
         { name: "Judgement", img: "https://i.imgur.com/9E5aH31.png", meaning: "Upright: awakening, renewal, decisive moment. Reversed: self-doubt." },
-        { name: "The World", img: "https://i.imgur.com/XdoOTCP.png", meaning: "Upright: completion, fulfillment, integration. Reversed: lack of closure." },
-        // Minor Arcana (Placeholder Image - Use your actual links here)
-        { name: "Ace of Wands", img: "https://placehold.jp/40/ffb7d5/ffffff/300x500.png?text=Wands", meaning: "Inspiration, new opportunities, growth." },
-        { name: "Ace of Cups", img: "https://placehold.jp/40/c8a2c8/ffffff/300x500.png?text=Cups", meaning: "New emotions, love, compassion." },
-        { name: "Ace of Swords", img: "https://placehold.jp/40/ffffff/000000/300x500.png?text=Swords", meaning: "Clarity, truth, breakthrough." },
-        { name: "Ace of Pentacles", img: "https://placehold.jp/40/d4af37/ffffff/300x500.png?text=Pentacles", meaning: "New financial opportunity, stability." }
+        { name: "The World", img: "https://i.imgur.com/XdoOTCP.png", meaning: "Upright: completion, fulfillment, wholeness. Reversed: lack of closure, delays." },
+        // Minor Arcana (Wands)
+        { name: "Ace of Wands", meaning: "Inspiration, new opportunities, growth." },
+        { name: "Page of Wands", meaning: "Curiosity, enthusiasm, exploration." },
+        { name: "Knight of Wands", meaning: "Bold action, passion, confidence." },
+        { name: "Queen of Wands", meaning: "Confidence, charisma, creativity." },
+        { name: "King of Wands", meaning: "Leadership, vision, authority." }
+        // Note: You can add the rest of the Minor Arcana suits following this pattern.
     ];
 
-    function performRitual() {
-        const output = document.getElementById('ritualOutput');
-        const loader = document.getElementById('ritualLoader');
-        const box = document.getElementById('oracleBox');
-        const decree = document.getElementById('aiDecree');
-        const count = parseInt(document.getElementById('spreadLayout').value);
-        const category = document.getElementById('spreadCategory').value;
-        const query = document.getElementById('seekerQuestion').value;
+    /* 🧿 Ritual Core Logic */
+    function startRitual() {
+        const output = document.getElementById('spread-output');
+        const loader = document.getElementById('loader');
+        const insight = document.getElementById('insight-container');
+        const aiText = document.getElementById('ai-text');
+        const count = parseInt(document.getElementById('draw-type').value);
+        const cat = document.getElementById('spread-cat').value;
+        const question = document.getElementById('user-question').value;
 
         output.innerHTML = "";
-        box.style.display = "none";
+        insight.style.display = "none";
         loader.style.display = "block";
 
+        // Advanced Position Labeling
         let labels = ["Insight"];
-        if(count === 3) {
-            if(category === "Love") labels = ["You", "The Connection", "The Outcome"];
-            else if(category === "Career") labels = ["Past Efforts", "Present Work", "Success Path"];
-            else labels = ["The Past", "The Present", "The Future"];
-        } else if(count === 5) {
-            labels = ["Foundation", "Blockage", "Advice", "External Factor", "Final Result"];
+        if (count === 3) {
+            if (cat === "Love") labels = ["You", "The Partner", "The Future Harmony"];
+            else if (cat === "Career") labels = ["The Skill", "The Challenge", "The Promotion"];
+            else labels = ["Past", "Present", "Future"];
+        } else if (count === 5) {
+            labels = ["Foundation", "Blockage", "Advice", "Outer Influence", "The Outcome"];
         }
 
         setTimeout(() => {
             loader.style.display = "none";
-            let selection = [...tarotDeck].sort(() => 0.5 - Math.random()).slice(0, count);
+            let selection = [...deck].sort(() => 0.5 - Math.random()).slice(0, count);
 
             selection.forEach((card, i) => {
-                const slot = document.createElement('div');
-                slot.className = 'card-slot';
-                slot.innerHTML = `
-                    <div class="card-box">
-                        <div class="pos-label">${labels[i] || "Energy"}</div>
-                        <img src="${card.img}" alt="${card.name}">
-                        <div class="card-title">${card.name}</div>
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card-container';
+                cardDiv.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-pos">${labels[i] || "Arcane Force"}</div>
+                        <img src="${card.img || 'https://via.placeholder.com/300x500/1a002a/sakura?text=Arcana'}" alt="${card.name}">
+                        <div class="card-name">${card.name}</div>
                         <div class="card-meaning">${card.meaning}</div>
                     </div>
                 `;
-                output.appendChild(slot);
-                setTimeout(() => slot.classList.add('active'), i * 300);
+                output.appendChild(cardDiv);
+                setTimeout(() => cardDiv.classList.add('reveal'), i * 300);
             });
 
-            box.style.display = "block";
-            let response = query ? `Regarding your ${category} inquiry: "${query}"... ` : "The spirits have heard your silence. ";
-            response += `The presence of ${selection[0].name} sets the stage, while ${selection[selection.length-1].name} marks the final revelation of this Euphoria reading.`;
-            decree.innerText = response;
+            /* 🧠 The Euphoria AI Synthesizer */
+            insight.style.display = "block";
+            let summary = question ? `Regarding your inquiry on "${question}"... ` : "The cards have formed a sacred alignment. ";
+            summary += `The arrival of ${selection[0].name} establishes your current frequency. However, the true transformation begins with ${selection[selection.length - 1].name}. Your ${cat} path is now illuminated.`;
+            aiText.innerText = summary;
 
         }, 2000);
     }
