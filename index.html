@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Spells Euphoria | ✨</title>
-    <!-- Fonts for that "Cute but Magic" Look -->
+    <title>Mystic Spells Euphoria | The Grand Oracle</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Charm:wght@700&family=Pacifico&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --soft-pink: #ffb7d5;
-            --sakura-pink: #ff99cc;
-            --lavender: #c8a2c8;
-            --deep-purple: #4b0082;
-            --magic-white: #fffafa;
-            --glass: rgba(255, 255, 255, 0.15);
+            --sakura: #ffb7d5;
+            --petal: #ff99cc;
+            --void: #1a002a;
+            --gold-glow: #f3e5ab;
+            --glass-white: rgba(255, 255, 255, 0.12);
         }
 
         body {
             margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #2e003e 0%, #1a002a 100%);
-            color: var(--magic-white);
+            background: radial-gradient(circle at center, #2e003e 0%, #0a000a 100%);
+            color: white;
             font-family: 'Fredoka', sans-serif;
             min-height: 100vh;
             display: flex;
@@ -30,252 +27,232 @@
             overflow-x: hidden;
         }
 
-        /* Twinkling Stars Background */
-        .stars-container {
+        /* Sparkle Overlay */
+        .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
             background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.5;
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 10;
         }
 
-        /* Floating Hearts Animation */
-        .floating-heart {
-            position: absolute;
-            color: var(--sakura-pink);
-            font-size: 20px;
-            animation: float 6s infinite linear;
-            opacity: 0.6;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
-        }
-
-        /* Main Aesthetic Frame */
-        .portal-frame {
-            width: 90%;
-            max-width: 900px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 3px solid var(--soft-pink);
-            box-shadow: 0 0 30px rgba(255, 183, 213, 0.3);
-            padding: 40px;
-            border-radius: 40px;
+        /* The Main Magical Frame */
+        .portal {
+            width: 95%;
+            max-width: 1200px;
+            background: var(--glass-white);
+            backdrop-filter: blur(25px);
+            border: 4px solid var(--sakura);
+            border-radius: 50px;
+            padding: 50px;
+            box-shadow: 0 0 60px rgba(255, 183, 213, 0.2), inset 0 0 30px rgba(255, 255, 255, 0.05);
             text-align: center;
             position: relative;
+            z-index: 5;
         }
 
-        /* Logo Branding */
-        .logo-header {
-            font-family: 'Pacifico', cursive;
-            font-size: 3.5rem;
-            background: linear-gradient(to bottom, #ffffff 20%, #ffb7d5 50%, #c8a2c8 80%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(255, 183, 213, 0.8));
-            margin: 0;
+        .header-img {
+            max-width: 300px;
+            filter: drop-shadow(0 0 15px var(--sakura));
+            margin-bottom: 20px;
+            animation: floatLogo 4s ease-in-out infinite;
         }
 
-        .subtitle {
-            font-family: 'Charm', cursive;
-            font-size: 1.5rem;
-            color: var(--sakura-pink);
-            margin-top: -10px;
-            margin-bottom: 30px;
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
         }
 
-        /* Form Styling */
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
+        /* Advanced Input Styling */
+        .search-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto 40px;
         }
 
         input[type="text"] {
-            width: 80%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--lavender);
-            padding: 15px;
-            color: white;
-            font-size: 1.1rem;
-            border-radius: 20px;
+            width: 100%;
+            padding: 20px 30px;
+            background: rgba(0,0,0,0.4);
+            border: 3px solid var(--petal);
+            border-radius: 40px;
+            color: var(--sakura);
+            font-size: 1.2rem;
             outline: none;
-            transition: 0.3s;
+            transition: 0.4s;
+            box-shadow: 0 0 15px rgba(255, 153, 204, 0.2);
         }
 
-        input:focus { border-color: var(--soft-pink); background: rgba(255, 255, 255, 0.2); }
+        input:focus { border-color: white; box-shadow: 0 0 30px var(--sakura); }
 
-        .row { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
-
-        select {
-            background: var(--deep-purple);
-            border: 2px solid var(--sakura-pink);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-family: 'Fredoka';
-        }
-
-        button {
-            padding: 15px 40px;
-            background: linear-gradient(45deg, var(--sakura-pink), var(--lavender));
-            color: #2e003e;
-            font-family: 'Fredoka';
-            font-weight: 600;
-            font-size: 1.3rem;
+        .btn-cast {
+            background: linear-gradient(45deg, var(--petal), #c8a2c8);
             border: none;
+            padding: 18px 50px;
+            border-radius: 40px;
+            font-family: 'Pacifico';
+            font-size: 1.6rem;
+            color: #2e003e;
             cursor: pointer;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(255, 153, 204, 0.4);
             transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            margin-top: 20px;
         }
 
-        button:hover {
-            transform: scale(1.1) rotate(-2deg);
-            box-shadow: 0 0 25px var(--soft-pink);
+        .btn-cast:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 15px 35px var(--petal);
+            color: white;
         }
 
-        /* The Card Display */
-        .reading-area {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 40px 0;
+        /* 3D Card Area */
+        .spread-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
 
-        .card-container {
-            width: 160px;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        .card-wrapper {
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s all ease;
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .card-wrapper.show { opacity: 1; transform: translateY(0); }
+
+        .tarot-inner {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--sakura);
+            border-radius: 25px;
+            padding: 15px;
+            height: 100%;
+            transition: 0.5s;
+            transform-style: preserve-3d;
         }
 
-        .card-container img {
+        .tarot-inner:hover {
+            transform: rotateY(10deg) rotateX(5deg);
+            border-color: white;
+            box-shadow: 0 20px 40px rgba(255, 183, 213, 0.3);
+        }
+
+        .tarot-inner img {
             width: 100%;
             border-radius: 15px;
-            border: 4px solid var(--magic-white);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
         }
 
-        .card-name {
-            margin-top: 10px;
-            color: var(--soft-pink);
-            font-weight: 600;
+        .card-pos-label {
+            font-family: 'Charm';
+            color: var(--petal);
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
-        /* AI Interpretation Box */
-        .ai-response {
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px dashed var(--soft-pink);
-            padding: 25px;
-            border-radius: 25px;
-            text-align: left;
-            line-height: 1.6;
+        .card-name { font-size: 1.3rem; margin-bottom: 10px; color: var(--gold-glow); }
+
+        .card-meaning {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #eee;
+            padding: 10px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+
+        /* Loading Animation */
+        #cauldron-load {
             display: none;
+            font-size: 3rem;
+            margin: 40px;
+            animation: bubble 1.5s infinite;
         }
 
-        .ai-response h3 {
-            margin: 0 0 10px 0;
-            color: var(--sakura-pink);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        @keyframes bubble {
+            0%, 100% { transform: scale(1); filter: hue-rotate(0deg); }
+            50% { transform: scale(1.2); filter: hue-rotate(90deg); }
         }
     </style>
 </head>
 <body>
 
-    <div class="stars-container" id="stars"></div>
+<div class="overlay"></div>
 
-    <div class="portal-frame">
-        <header>
-            <h1 class="logo-header">Mystic Spells</h1>
-            <div class="subtitle">✨ Euphoria Readings ✨</div>
-        </header>
+<div class="portal">
+    <!-- Optional: Replace src with image-2025-11-01-075837122-removebg-preview.jpg if uploaded -->
+    <h1 style="font-family:'Pacifico'; font-size: 4rem; color: var(--sakura); margin:0;">Mystic Spells</h1>
+    <p style="font-family:'Charm'; font-size:1.8rem; color:var(--petal); margin-bottom:30px;">✨ Euphoria Readings ✨</p>
 
-        <div class="controls">
-            <input type="text" id="userQuery" placeholder="Ask the magic cauldron a question...">
-            
-            <div class="row">
-                <select id="spreadType">
-                    <option value="Daily">Daily Vibe</option>
-                    <option value="Love">Love & Cute Stuff</option>
-                    <option value="Money">Hustle & Cash</option>
-                    <option value="PastPresentFuture">Past / Present / Future</option>
-                </select>
-
-                <select id="cardCount">
-                    <option value="1">Quick Answer (1 Card)</option>
-                    <option value="3">Deep Magic (3 Cards)</option>
-                </select>
-            </div>
-
-            <button onclick="castSpell()">✨ CAST SPELL ✨</button>
+    <div class="search-container">
+        <input type="text" id="seekerQuestion" placeholder="What does your soul wish to ask?">
+        <div style="margin-top: 20px;">
+            <select id="readingType" style="padding:10px; border-radius:15px; background:var(--void); color:white; border:2px solid var(--sakura);">
+                <option value="PastPresentFuture">Past, Present, Future Spread</option>
+                <option value="Love">Love & Connection Spread</option>
+                <option value="Career">Hustle & Success Spread</option>
+            </select>
         </div>
-
-        <div id="display" class="reading-area"></div>
-
-        <div id="aiBox" class="ai-response">
-            <h3>💖 The Cauldron Bubbles...</h3>
-            <p id="aiContent"></p>
-        </div>
+        <button class="btn-cast" onclick="performRitual()">Cast the Spell</button>
     </div>
 
-    <script>
-        // Create random floating hearts for the vibe
-        for (let i = 0; i < 15; i++) {
-            let heart = document.createElement('div');
-            heart.className = 'floating-heart';
-            heart.innerHTML = '♥';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(heart);
-        }
+    <div id="cauldron-load">🔮✨🌙</div>
 
-        // Card Data - Replace these placeholder images with your actual card art!
-        const deck = [
-            { name: "The Fool", msg: "A fresh start is coming! Take a leap of faith, it's going to be so cute.", img: "https://placehold.jp/24/ffb7d5/ffffff/200x350.png?text=The+Fool" },
-            { name: "The Lovers", msg: "Double the trouble, double the fun! Connections are glowing right now.", img: "https://placehold.jp/24/ffb7d5/ffffff/200x350.png?text=The+Lovers" },
-            { name: "The Star", msg: "Hope is shining on you. Your dreams are totally valid, babe.", img: "https://placehold.jp/24/ffb7d5/ffffff/200x350.png?text=The+Star" },
-            { name: "The Sun", msg: "Pure happiness! Everything you touch turns to gold today.", img: "https://placehold.jp/24/ffb7d5/ffffff/200x350.png?text=The+Sun" },
-            { name: "The Moon", msg: "Trust your gut feelings. Things are a bit mysterious, but you got this.", img: "https://placehold.jp/24/ffb7d5/ffffff/200x350.png?text=The+Moon" }
-        ];
+    <div id="readingResult" class="spread-layout">
+        <!-- 3 Cards will be injected here -->
+    </div>
+</div>
 
-        function castSpell() {
-            const count = parseInt(document.getElementById('cardCount').value);
-            const display = document.getElementById('display');
-            const aiBox = document.getElementById('aiBox');
-            const aiContent = document.getElementById('aiContent');
-            const query = document.getElementById('userQuery').value;
+<script>
+    const deck = [
+        { name: "The Magician", meaning: "The power of creation. You have all the tools needed for your current hustle in Los Santos.", img: "https://bit.ly/3QY9Z1A" },
+        { name: "The High Priestess", meaning: "Intuition and secrets. Someone at Mystic Spells might be hiding something, or you need to trust your gut.", img: "https://bit.ly/47mH9E2" },
+        { name: "The Lovers", meaning: "Harmony and choice. A major decision regarding a partner or a close friend is coming.", img: "https://bit.ly/3SK6uX8" },
+        { name: "The Tower", meaning: "Sudden change. The foundation is shaking, but it's clearing space for something better.", img: "https://bit.ly/3u6Yx8n" },
+        { name: "The Star", meaning: "Hope and healing. The spirits are guiding you toward a peaceful and lucky outcome.", img: "https://bit.ly/40L3Z6Y" },
+        { name: "Death", meaning: "Transformation. A chapter of your life is ending so a beautiful new one can begin.", img: "https://bit.ly/3R3Kq7O" },
+        { name: "The Empress", meaning: "Abundance and nurturing. Your creative projects or business ventures are about to bloom.", img: "https://bit.ly/3G5Z9U8" }
+    ];
 
-            display.innerHTML = "";
-            aiBox.style.display = "block";
+    const labels = ["The Past", "The Present", "The Future"];
 
-            let picked = [...deck].sort(() => 0.5 - Math.random()).slice(0, count);
+    function performRitual() {
+        const resultArea = document.getElementById('readingResult');
+        const loader = document.getElementById('cauldron-load');
+        
+        resultArea.innerHTML = "";
+        loader.style.display = "block";
 
-            picked.forEach((card, i) => {
-                setTimeout(() => {
-                    display.innerHTML += `
-                        <div class="card-container">
-                            <img src="${card.img}" alt="${card.name}">
-                            <div class="card-name">${card.name}</div>
-                        </div>
-                    `;
-                }, i * 300);
+        setTimeout(() => {
+            loader.style.display = "none";
+            
+            // Draw 3 Random Cards
+            let shuffled = [...deck].sort(() => 0.5 - Math.random());
+            let selection = shuffled.slice(0, 3);
+
+            selection.forEach((card, i) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'card-wrapper';
+                wrapper.innerHTML = `
+                    <div class="tarot-inner">
+                        <div class="card-pos-label">${labels[i]}</div>
+                        <img src="${card.img}" alt="${card.name}">
+                        <div class="card-name">✨ ${card.name} ✨</div>
+                        <div class="card-meaning">${card.meaning}</div>
+                    </div>
+                `;
+                resultArea.appendChild(wrapper);
+                
+                // Staggered entrance animation
+                setTimeout(() => wrapper.classList.add('show'), i * 400);
             });
+        }, 1500);
+    }
+</script>
 
-            let responseText = query ? `Checking the stars for "${query}"... ` : "The spirits have a message for you! ";
-            responseText += picked.map(c => c.msg).join(" ");
-            aiContent.innerText = responseText;
-        }
-    </script>
 </body>
 </html>
