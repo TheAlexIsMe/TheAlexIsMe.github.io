@@ -15,7 +15,7 @@ function executeRitual() {
     grid.innerHTML = "";
     box.style.display = "none";
 
-    // SHUFFLE ENGINE (Anti-repeat)
+    // SHUFFLE ENGINE - This ensures unique cards every time
     let draw = [];
     let temp = [...deck];
     for(let i=0; i<count; i++) {
@@ -28,20 +28,22 @@ function executeRitual() {
         el.className = 'card';
         el.setAttribute('data-def', card.def);
         const img = card.img ? card.img : `https://placehold.jp/40/ffb7d5/000000/300x500.png?text=${card.name}`;
-        el.innerHTML = `<img src="${img}"><div class="card-label">${card.name}</div>`;
+        el.innerHTML = `<img src="${img}" alt="${card.name}"><div class="card-label">${card.name}</div>`;
         grid.appendChild(el);
         setTimeout(() => el.classList.add('active'), i * 300);
     });
 
-    // AI NARRATIVE ENGINE
+    // AI NARRATIVE ENGINE - Fixed Repeat Bug
     setTimeout(() => {
         box.style.display = "block";
         let decree = q ? `IN RESPONSE TO YOUR QUERY "${q}"... ` : "THE ANCIENTS HAVE ALIGNED. ";
         
         if(count === 1) {
             decree += `The appearance of ${draw[0].name} ${draw[0].vibe}. Your path is absolute.`;
+        } else if (count === 3) {
+            decree += `The presence of ${draw[0].name} ${draw[0].vibe} as your foundation. This energy flows through ${draw[1].name}, which ${draw[1].vibe}. Ultimately, the cycle concludes in the power of ${draw[2].name}, which ${draw[2].vibe}. Your ${cat} destiny is now illuminated.`;
         } else {
-            decree += `The presence of ${draw[0].name} ${draw[0].vibe} as your foundation. This energy flows through ${draw[1].name}, which ${draw[1].vibe}. Ultimately, the cycle concludes in the power of ${draw[draw.length-1].name}, which ${draw[draw.length-1].vibe}. Your ${cat} destiny is now illuminated.`;
+            decree += `Your journey begins with ${draw[0].name} which ${draw[0].vibe}. As the pattern expands, ${draw[draw.length-1].name} appears, which ${draw[draw.length-1].vibe}. The spirits declare your ${cat} path is set.`;
         }
         aiText.innerText = decree;
         window.scrollTo({ top: box.offsetTop - 50, behavior: 'smooth' });
