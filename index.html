@@ -12,6 +12,7 @@
             --lavender: #c8a2c8;
             --void: #0a0a0c;
             --gold: #d0a756;
+            --glass-border: rgba(255, 183, 213, 0.3);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -22,6 +23,8 @@
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
         }
 
         /* --- MYSTICAL LOADER --- */
@@ -32,7 +35,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 9999;
             transition: opacity 1s ease-out;
         }
 
@@ -41,211 +44,196 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 180px; height: 180px;
+            width: 200px; height: 200px;
             font-family: "Cinzel Decorative", serif;
-            font-size: 1.2em;
-            font-weight: 300;
             color: white;
-            border-radius: 50%;
         }
 
         .loader {
             position: absolute;
-            top: 0; left: 0; width: 100%; aspect-ratio: 1 / 1;
+            width: 100%; height: 100%;
             border-radius: 50%;
             animation: loader-rotate 2s linear infinite;
-            z-index: 0;
         }
 
         @keyframes loader-rotate {
-            0% { transform: rotate(90deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
-            50% { transform: rotate(270deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset; }
-            100% { transform: rotate(450deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
+            0% { transform: rotate(0deg); box-shadow: 0 5px 15px 0 #fff inset, 0 10px 20px 0 #ad5fff inset; }
+            100% { transform: rotate(360deg); box-shadow: 0 5px 15px 0 #fff inset, 0 10px 20px 0 #ad5fff inset; }
         }
 
-        .loader-letter { display: inline-block; animation: loader-letter-anim 2s infinite; z-index: 1; }
-        @keyframes loader-letter-anim {
-            0%, 100% { opacity: 0.4; transform: translateY(0); }
-            20% { opacity: 1; transform: scale(1.15); }
-            40% { opacity: 0.7; transform: translateY(0); }
-        }
-
-        /* --- BLACK HOLE BACKGROUND --- */
-        .black-hole {
+        /* --- BLACK HOLE BACKGROUND (FIXED Z-INDEX) --- */
+        .background-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; /* Ensures it stays behind everything */
             overflow: hidden;
-            z-index: -1;
-        }
-
-        .black-hole::before {
-            content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 150%; height: 140%;
-            background: radial-gradient(ellipse at 50% 55%, transparent 10%, black 50%);
-            z-index: 2;
         }
 
         .aura {
-            position: absolute; top: -71.5%; left: 50%; transform: translateX(-50%);
-            width: 40%; height: 400%;
-            background: linear-gradient(20deg, #00f8f1, #ffbd1e20 16.5%, #fe848f 33%, #fe848f20 49.5%, #00f8f1 66%, #00f8f160 85.5%, #ffbd1e 100%);
-            background-size: 100% 200%; border-radius: 0 0 100% 100%;
-            filter: blur(50px); opacity: 0.75; z-index: 3; animation: aura-glow 5s infinite linear;
+            position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+            width: 50%; height: 200%;
+            background: linear-gradient(to bottom, #00f8f120, #fe848f40, #ffbd1e20);
+            filter: blur(80px); animation: aura-glow 8s infinite alternate;
         }
 
-        @keyframes aura-glow { 0% { background-position: 0 100%; } 100% { background-position: 0 300%; } }
+        .tunnel {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%;
+        }
 
         .ring {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border-radius: 50%; border: 1px solid #444; animation: ring-pulse 10s infinite linear;
+            border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: ring-pulse 6s infinite linear;
         }
-        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 100%; height: 100%; opacity: 0; } }
+
+        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 150%; height: 150%; opacity: 0; } }
 
         /* --- MAIN UI --- */
-        .content-wrapper {
-            position: relative; z-index: 10;
-            max-width: 1200px; margin: 0 auto;
-            padding: 40px 20px; text-align: center;
+        .content-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            padding: 60px 20px;
+            text-align: center;
         }
 
-        header h1 {
-            font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 6vw, 4rem);
-            color: var(--sakura); letter-spacing: 10px; margin-bottom: 40px;
+        .brand-logo {
+            max-width: 350px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px var(--sakura));
         }
 
-        /* --- NEOMORPHIC BUTTON --- */
-        .invoke-button {
-            background: rgba(10, 10, 12, 0.8);
-            border-radius: 0.5em;
-            box-shadow: inset 0px -6px 18px -6px rgba(3, 15, 20, 0), inset #242b2e -1px -1px 6px 0px, rgba(36, 43, 46, 1) -1px -1px 6px 0px;
-            border: solid 2px #030f14;
-            cursor: pointer; font-size: 18px; padding: 0.7em 1.7em;
-            transition: all 0.3s; color: var(--gold); font-family: 'Cinzel Decorative'; font-weight: 700;
-            margin-top: 20px;
-        }
-        .invoke-button:hover { transform: scale(0.95); box-shadow: inset 0px -6px 18px -6px rgba(3, 15, 20, 1), -1px -1px 6px 0px rgba(54, 69, 75, 1); }
-
-        /* --- INTERACTIVE CARDS --- */
-        .card-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px; margin-top: 60px; justify-items: center;
-        }
-
-        .mystic-card {
-            position: relative; width: 250px; height: 400px;
-            background: #111; border-radius: 15px; cursor: pointer;
-            border: 1px solid var(--border); overflow: hidden;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            opacity: 0; transform: translateY(20px); transition: opacity 0.5s;
-        }
-
-        .mystic-card.show { opacity: 1; transform: translateY(0); }
-
-        .mystic-card img { width: 85%; border-radius: 8px; margin-bottom: 10px; transition: 0.5s; }
-
-        .card-name-label { font-family: 'Cinzel Decorative'; color: var(--sakura); font-size: 1.1rem; }
-
-        .mystic-card::before, .mystic-card::after {
-            position: absolute; content: ""; width: 0%; height: 0%;
-            background-color: var(--void); transition: all 0.5s;
-            display: flex; align-items: center; justify-content: center;
-            padding: 20px; color: #fff; font-size: 0.9rem; text-align: center;
-            z-index: 5; line-height: 1.4;
-        }
-
-        .mystic-card::before { top: 0; right: 0; border-radius: 0 15px 0 100%; }
-        .mystic-card::after { bottom: 0; left: 0; border-radius: 0 100% 0 15px; }
-
-        .mystic-card:hover::before, .mystic-card:hover::after { width: 100%; height: 100%; border-radius: 15px; }
-
-        .mystic-card:hover::after { content: attr(data-meaning); }
-
-        /* --- DASHBOARD --- */
         .ritual-box {
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px);
-            padding: 40px; border-radius: 15px; border: 1px solid var(--border);
+            background: rgba(10, 10, 12, 0.7);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            padding: 50px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            margin: 0 auto 60px;
         }
 
         input {
             width: 100%; max-width: 600px; background: transparent; border: none;
-            border-bottom: 2px solid var(--sakura); color: #fff; padding: 10px;
-            font-size: 1.5rem; text-align: center; outline: none; margin-bottom: 20px;
+            border-bottom: 2px solid var(--sakura); color: #fff; padding: 15px;
+            font-size: 1.6rem; text-align: center; outline: none; margin-bottom: 30px;
+            font-family: 'Playfair Display', serif;
         }
 
-        select { background: #000; color: var(--sakura); border: 1px solid var(--sakura); padding: 10px; margin: 10px; }
+        .btn-invoke {
+            background: #0d0d0f;
+            border-radius: 10px;
+            box-shadow: inset 0px -4px 12px rgba(255, 183, 213, 0.2), 0 5px 15px rgba(0,0,0,0.5);
+            border: 1px solid var(--sakura);
+            cursor: pointer; padding: 18px 45px; color: var(--gold);
+            font-family: 'Cinzel Decorative'; font-weight: 700; letter-spacing: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-invoke:hover { background: var(--sakura); color: #000; box-shadow: 0 0 30px var(--sakura); }
+
+        /* --- CARD SYSTEM (FIXED CLIPPING) --- */
+        .card-grid {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;
+        }
+
+        .mystic-card {
+            position: relative; width: 260px; height: 420px;
+            background: #000; border-radius: 20px; cursor: pointer;
+            border: 2px solid var(--glass-border);
+            overflow: hidden; /* This keeps the hover text inside the rounded corners */
+            display: flex; flex-direction: column; align-items: center;
+            opacity: 0; transform: translateY(30px); transition: 0.6s all;
+        }
+
+        .mystic-card.active { opacity: 1; transform: translateY(0); }
+
+        .mystic-card img {
+            width: 100%; height: auto; 
+            padding: 10px; border-radius: 20px; /* Internal rounding for the artwork */
+        }
+
+        .card-name-text {
+            font-family: 'Cinzel Decorative'; color: var(--sakura);
+            font-size: 1.2rem; margin-top: auto; padding-bottom: 20px;
+        }
+
+        /* Hover Definition Effect */
+        .mystic-card::before, .mystic-card::after {
+            position: absolute; content: ""; width: 0%; height: 0%;
+            background-color: rgba(10, 10, 12, 0.95); transition: 0.5s ease-in-out;
+            display: flex; align-items: center; justify-content: center;
+            padding: 25px; color: var(--sakura); font-size: 1rem; text-align: center;
+            z-index: 10; font-family: 'Playfair Display'; font-style: italic;
+        }
+
+        .mystic-card::before { top: 0; right: 0; border-radius: 0 20px 0 100%; }
+        .mystic-card::after { bottom: 0; left: 0; border-radius: 0 100% 0 20px; }
+
+        .mystic-card:hover::before, .mystic-card:hover::after { width: 100%; height: 100%; border-radius: 20px; }
+        .mystic-card:hover::after { content: attr(data-meaning); }
 
     </style>
 </head>
 <body>
 
-    <!-- PRELOADER -->
     <div id="preloader">
         <div class="loader-wrapper">
-            <span class="loader-letter">C</span>
-            <span class="loader-letter">o</span>
-            <span class="loader-letter">n</span>
-            <span class="loader-letter">j</span>
-            <span class="loader-letter">u</span>
-            <span class="loader-letter">r</span>
-            <span class="loader-letter">i</span>
-            <span class="loader-letter">n</span>
-            <span class="loader-letter">g</span>
+            <span style="letter-spacing:5px">CONJURING</span>
             <div class="loader"></div>
         </div>
     </div>
 
-    <!-- BACKGROUND -->
-    <div class="black-hole">
-        <div class="tunnel" id="tunnel"></div>
+    <div class="background-system">
+        <div class="tunnel" id="ringContainer"></div>
         <div class="aura"></div>
     </div>
 
-    <!-- CONTENT -->
-    <div class="content-wrapper">
+    <div class="content-container">
         <header>
-            <h1>Mystic Spells</h1>
+            <img src="https://i.imgur.com/1fa74ea5-d908-4362-bdae-46051e4a1c6b.png" class="brand-logo" alt="Mystic Spells">
         </header>
 
         <div class="ritual-box">
-            <input type="text" id="question" placeholder="Whisper your inquiry...">
-            <div>
-                <select id="category">
-                    <option value="Daily">Daily Vibe</option>
-                    <option value="Love">Love Spreads</option>
-                    <option value="Career">Career Spreads</option>
+            <input type="text" id="userQuestion" placeholder="Whisper your inquiry to the void...">
+            <div style="margin-bottom: 25px;">
+                <select id="readingType" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:10px; margin-right:10px;">
+                    <option value="Daily">Daily Practice</option>
+                    <option value="Love">Love & Connection</option>
+                    <option value="Career">Career & Path</option>
                 </select>
-                <select id="drawCount">
+                <select id="drawCount" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:10px;">
                     <option value="1">1 Card</option>
                     <option value="3" selected>3 Cards</option>
                 </select>
             </div>
-            <button class="invoke-button" onclick="invokeRitual()">INVOKE THE ARCHETYPES</button>
+            <button class="btn-invoke" onclick="castRitual()">INVOKE THE ARCHETYPES</button>
         </div>
 
-        <div class="card-grid" id="cardContainer"></div>
+        <div class="card-grid" id="ritualDisplay"></div>
     </div>
 
     <script>
-        // Generate Tunnel Rings
-        const tunnel = document.getElementById('tunnel');
-        for(let i=1; i<=10; i++) {
-            const ring = document.createElement('div');
+        // Generate Rings
+        const container = document.getElementById('ringContainer');
+        for(let i=0; i<10; i++) {
+            let ring = document.createElement('div');
             ring.className = 'ring';
-            ring.style.animationDelay = `${i-1}s`;
-            tunnel.appendChild(ring);
+            ring.style.animationDelay = `${i}s`;
+            container.appendChild(ring);
         }
 
-        // Wait for 10 seconds before hiding loader
+        // Loader Timer
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                }, 1000);
-            }, 10000); // 10 Second Load as requested
+                setTimeout(() => document.getElementById('preloader').style.display = 'none', 1000);
+            }, 5000); // Set to 5s for better flow, change to 10000 for 10s
         });
 
-        const tarotData = [
+        const tarotCards = [
             { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", meaning: "Endings and new beginnings. Step into the unknown with faith." },
             { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", meaning: "Manifestation and power. You have all the tools to succeed." },
             { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Intuition and sacred knowledge. The answers are within." },
@@ -255,26 +243,25 @@
             { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Harmony and choices. Align your heart with your values." },
             { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Control and victory. Drive forward with total determination." },
             { name: "Strength", img: "https://i.imgur.com/WF9jYOf.png", meaning: "Inner resilience and patience. Lead with compassion." }
-            // Add more cards as needed
         ];
 
-        function invokeRitual() {
+        function castRitual() {
+            const display = document.getElementById('ritualDisplay');
             const count = parseInt(document.getElementById('drawCount').value);
-            const container = document.getElementById('cardContainer');
-            container.innerHTML = "";
+            display.innerHTML = "";
 
-            let shuffled = [...tarotData].sort(() => 0.5 - Math.random()).slice(0, count);
+            let draw = [...tarotCards].sort(() => 0.5 - Math.random()).slice(0, count);
 
-            shuffled.forEach((card, index) => {
-                const cardEl = document.createElement('div');
-                cardEl.className = 'mystic-card';
-                cardEl.setAttribute('data-meaning', card.meaning);
-                cardEl.innerHTML = `
+            draw.forEach((card, i) => {
+                const el = document.createElement('div');
+                el.className = 'mystic-card';
+                el.setAttribute('data-meaning', card.meaning);
+                el.innerHTML = `
                     <img src="${card.img}" alt="${card.name}">
-                    <div class="card-name-label">${card.name}</div>
+                    <div class="card-name-text">${card.name}</div>
                 `;
-                container.appendChild(cardEl);
-                setTimeout(() => cardEl.classList.add('show'), index * 300);
+                display.appendChild(el);
+                setTimeout(() => el.classList.add('active'), i * 300);
             });
         }
     </script>
