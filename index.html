@@ -1,65 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Mystic Spells | Elite Arcanum</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Tarot Arcana</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: #f5f5f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Loader screen */
+    #loader-screen {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+    }
+
+    /* From Uiverse.io by dexter-st */
+    .loader-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+      font-family: "Inter", sans-serif;
+      font-size: 1.1em;
+      font-weight: 300;
+      color: #fdf5c9;
+      border-radius: 50%;
+      background-color: transparent;
+      user-select: none;
+      letter-spacing: 0.08em;
+    }
+
+    .loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background-color: transparent;
+      animation: loader-rotate 2s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes loader-rotate {
+      0% {
+        transform: rotate(90deg);
+        box-shadow:
+          0 10px 20px 0 #fff inset,
+          0 20px 30px 0 #ad5fff inset,
+          0 60px 60px 0 #471eec inset;
+      }
+      50% {
+        transform: rotate(270deg);
+        box-shadow:
+          0 10px 20px 0 #fff inset,
+          0 20px 10px 0 #d60a47 inset,
+          0 40px 60px 0 #311e80 inset;
+      }
+      100% {
+        transform: rotate(450deg);
+        box-shadow:
+          0 10px 20px 0 #fff inset,
+          0 20px 30px 0 #ad5fff inset,
+          0 60px 60px 0 #471eec inset;
+      }
+    }
+
+    .loader-letter {
+      display: inline-block;
+      opacity: 0.4;
+      transform: translateY(0);
+      animation: loader-letter-anim 2s infinite;
+      z-index: 1;
+      border-radius: 50ch;
+      border: none;
+      padding: 0 1px;
+    }
+
+    .loader-letter:nth-child(1) { animation-delay: 0s; }
+    .loader-letter:nth-child(2) { animation-delay: 0.1s; }
+    .loader-letter:nth-child(3) { animation-delay: 0.2s; }
+    .loader-letter:nth-child(4) { animation-delay: 0.3s; }
+    .loader-letter:nth-child(5) { animation-delay: 0.4s; }
+    .loader-letter:nth-child(6) { animation-delay: 0.5s; }
+    .loader-letter:nth-child(7) { animation-delay: 0.6s; }
+    .loader-letter:nth-child(8) { animation-delay: 0.7s; }
+    .loader-letter:nth-child(9) { animation-delay: 0.8s; }
+    .loader-letter:nth-child(10) { animation-delay: 0.9s; }
+    .loader-letter:nth-child(11) { animation-delay: 1.0s; }
+    .loader-letter:nth-child(12) { animation-delay: 1.1s; }
+
+    @keyframes loader-letter-anim {
+      0%, 100% {
+        opacity: 0.4;
+        transform: translateY(0);
+      }
+      20% {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+      40% {
+        opacity: 0.7;
+        transform: translateY(0);
+      }
+    }
+
+    /* Background – From Uiverse.io by Danishrehman786 */
+    .black-hole {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .black-hole::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150%;
+      height: 140%;
+      background: radial-gradient(ellipse at 50% 55%, transparent 10%, black 50%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .black-hole::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 50% 75%, #a900ff 20%, transparent 75%);
+      mix-blend-mode: overlay;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .aura {
+      position: absolute;
+      top: -71.5%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30%;
+      height: 400%;
+      background: linear-gradient(
+        20deg,
+        #00f8f1,
+        #ffbd1e20 16.5%,
+        #fe848f 33%,
+        #fe848f20 49.5%,
+        #00f8f1 66%,
+        #00f8f160 85.5%,
+        #ffbd1e 100%
+      );
+      background-size: 100% 200%;
+      border-radius: 0 0 100% 100%;
+      filter: blur(50px);
+      mix-blend-mode: plus-lighter;
+      opacity: 0.75;
+      z-index: 3;
+      animation: aura-glow 5s infinite linear;
+      pointer-events: none;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        transparent,
+        transparent 1px,
+        white 1px,
+        white 2px
+      );
+      mix-blend-mode: overlay;
+      opacity: 0.15;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .tunnel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid #444;
+      animation: ring-pulse 10s infinite linear;
+    }
+
+    @keyframes aura-glow {
+      0% { background-position: 0 100%; }
+      100% { background-position: 0 300%; }
+    }
+
+    @keyframes ring-pulse {
+      0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      100% {
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+      }
+    }
+
+    .ring:nth-child(1) { animation-delay: 0s;  width: 10%;  height: 10%; }
+    .ring:nth-child(2) { animation-delay: 1s;  width: 20%;  height: 20%; }
+    .ring:nth-child(3) { animation-delay: 2s;  width: 30%;  height: 30%; }
+    .ring:nth-child(4) { animation-delay: 3s;  width: 40%;  height: 40%; }
+    .ring:nth-child(5) { animation-delay: 4s;  width: 50%;  height: 50%; }
+    .ring:nth-child(6) { animation-delay: 5s;  width: 60%;  height: 60%; }
+    .ring:nth-child(7) { animation-delay: 6s;  width: 70%;  height: 70%; }
+    .ring:nth-child(8) { animation-delay: 7s;  width: 80%;  height: 80%; }
+    .ring:nth-child(9) { animation-delay: 8s;  width: 90%;  height: 90%; }
+    .ring:nth-child(10){ animation-delay: 9s;  width: 100%; height: 100%; }
+
+    /* Content layout */
+    .content {
+      position: relative;
+      z-index: 20;
+      padding: 2rem 1rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.9rem;
+      color: #f0e6ff;
+    }
+
+    .headline {
+      text-align: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #fdf5c9;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      color: #d0c7ff;
+    }
+
+    /* Button – From Uiverse.io by SupportHotline */
+    .controls {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      --color-back: #050b10;
+      background: var(--color-back);
+      border-radius: 0.5em;
+      box-shadow:
+        inset 0px -6px 18px -6px rgba(3, 15, 20, 0),
+        inset rgba(54, 69, 75, 1) -1px -1px 6px 0px,
+        inset 12px 0px 12px -6px rgba(3, 15, 20, 0),
+        inset -12px 0px 12px -6px rgba(3, 15, 20, 0),
+        rgba(54, 69, 75, 1) -1px -1px 6px 0px;
+      border: solid 2px #030f14;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 0.7em 1.7em;
+      outline: none;
+      transition: all 0.3s;
+      user-select: none;
+    }
+
+    .button:hover {
+      box-shadow:
+        inset 0px -6px 18px -6px rgba(3, 15, 20, 1),
+        inset 0px 6px 18px -6px rgba(3, 15, 20, 1),
+        inset 12px 0px 12px -6px rgba(3, 15, 20, 0),
+        inset -12px 0px 12px -6px rgba(3, 15, 20, 0),
+        -1px -1px 6px 0px rgba(54, 69, 75, 1);
+    }
+
+    .button:active {
+      box-shadow:
+        inset 0px -12px 12px -6px rgba(3, 15, 20, 1),
+        inset 0px 12px 12px -6px rgba(3, 15, 20, 1),
+        inset 12px 0px 12px -6px rgba(3, 15, 20, 1),
+        inset -12px 0px 12px -6px rgba(3, 15, 20, 1),
+        -1px -1px 6px 0px rgba(54, 69, 75, 1);
+    }
+
+    .text {
+      color: #d0a756;
+      font-weight: 700;
+      margin: auto;
+      transition: all 0.3s;
+      width: fit-content;
+      letter-spacing: 0.08em;
+    }
+
+    .button:hover .text {
+      transform: scale(0.9);
+    }
+
+    .button:active .text {
+      transform: scale(0.8);
+    }
+
+    /* Cards grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      justify-items: center;
+    }
+
+    /* Tarot card – flip */
+    .tarot-card {
+      width: 210px;
+      height: 330px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .tarot-card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-front {
+      background: radial-gradient(circle at 20% 0%, #3b2b5a, #050509 70%);
+      color: #f8e9c9;
+    }
+
+    .card-front img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      text-align: center;
+    }
+
+    .card-back {
+      background: radial-gradient(circle at 80% 0%, #1b3b5a, #050509 70%);
+      color: #f5f5f5;
+      transform: rotateY(180deg);
+      font-size: 0.8rem;
+      line-height: 1.4;
+      justify-content: flex-start;
+      padding: 1rem;
+    }
+
+    .card-back h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #fdf5c9;
+    }
+
+    .card-back p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .card-front.no-image {
+      justify-content: center;
+      padding: 1rem;
+      background: radial-gradient(circle at 50% 0%, #2b3b5a, #050509 70%);
+    }
+
+    .card-front.no-image .card-symbol {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .headline {
+        font-size: 1.4rem;
+      }
+      .subtitle {
+        font-size: 0.85rem;
+      }
+      .tarot-card {
+        width: 170px;
+        height: 270px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div id="preloader">
-        <div class="loader-wrapper">
-            <span class="loader-letter">C</span><span class="loader-letter">o</span><span class="loader-letter">n</span>
-            <span class="loader-letter">j</span><span class="loader-letter">u</span><span class="loader-letter">r</span>
-            <span class="loader-letter">i</span><span class="loader-letter">n</span><span class="loader-letter">g</span>
-            <div class="loader"></div>
-        </div>
+  <!-- Loader -->
+  <div id="loader-screen">
+    <div class="loader-wrapper">
+      <span class="loader-letter">U</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">v</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">l</span>
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">g</span>
+      <span class="loader-letter">.</span>
+      <span class="loader-letter">.</span>
+      <span class="loader-letter">.</span>
+      <div class="loader"></div>
     </div>
+  </div>
 
-    <div class="black-hole" id="tunnel"></div>
-
-    <div class="portal-container">
-        <header>
-            <div class="radio-inputs">
-                <label class="radio"><input type="radio" name="deckType" value="Full" checked><span class="name">Full Deck</span></label>
-                <label class="radio"><input type="radio" name="deckType" value="Major"><span class="name">Major</span></label>
-                <label class="radio"><input type="radio" name="deckType" value="Minor"><span class="name">Minor</span></label>
-            </div>
-            <img src="https://i.imgur.com/6NZVG2f.png" class="main-logo">
-        </header>
-
-        <div class="ritual-vault">
-            <input type="text" id="seekerQ" placeholder="WHISPER TO THE VOID...">
-            <select id="readingCat">
-                <option value="Daily">Daily Practice</option>
-                <option value="Love">Love & Connection</option>
-                <option value="Career">Career & Hustle</option>
-            </select>
-            <select id="drawNum">
-                <option value="1">1 Card</option>
-                <option value="3" selected>3 Cards</option>
-                <option value="5">5 Cards</option>
-            </select>
-            <br>
-            <button class="button" onclick="executeRitual()">
-                <div class="text">INVOKE THE ARCHETYPES</div>
-            </button>
-        </div>
-
-        <div class="card-grid" id="output"></div>
-        <div class="oracle-box" id="oracleBox"><p id="aiText"></p></div>
+  <div class="black-hole">
+    <div class="tunnel">
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
+      <div class="ring"></div>
     </div>
+    <div class="aura"></div>
+    <div class="overlay"></div>
 
-    <script src="cards.js"></script>
-    <script src="script.js"></script>
-    <script>
-        const t = document.getElementById('tunnel');
-        for(let i=1; i<=15; i++) {
-            const r = document.createElement('div');
-            r.className = 'ring';
-            r.style.width = r.style.height = `${i*10}%`;
-            r.style.animationDelay = `${i*0.6}s`;
-            t.appendChild(r);
-        }
-    </script>
+    <main class="content">
+      <div class="title">Arcana Gateway</div>
+      <h1 class="headline">Draw from the Tarot</h1>
+      <p class="subtitle">
+        Press in, let the deck shuffle in the dark, and see which cards choose to step forward for you.
+      </p>
+
+      <div class="controls">
+        <button class="button" id="draw-one">
+          <div class="text">PRESS IN – ONE CARD</div>
+        </button>
+        <button class="button" id="draw-three">
+          <div class="text">PRESS IN – THREE CARDS</div>
+        </button>
+        <button class="button" id="draw-all">
+          <div class="text">SHOW FULL DECK</div>
+        </button>
+      </div>
+
+      <section class="cards-grid" id="cards-grid"></section>
+    </main>
+  </div>
+
+  <script>
+    // Hide loader after 10 seconds
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        const loader = document.getElementById("loader-screen");
+        loader.style.opacity = "0";
+        setTimeout(() => {
+          loader.style.display = "none";
+        }, 800);
+      }, 10000);
+    });
+
+    // Tarot deck: 78 cards
+    const deck = [
+      // Major Arcana (with images)
+      { name: "0 - The Fool", suit: "Major", img: "https://i.imgur.com/IBrMUUS.png", meaning: "New beginnings, innocence, a leap of faith into the unknown." },
+      { name: "I - The Magician", suit: "Major", img: "https://i.imgur.com/5PidMHl.png", meaning: "Manifestation, willpower, using your tools and talents." },
+      { name: "II - The High Priestess", suit: "Major", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Intuition, mystery, listening to your inner voice." },
+      { name: "III - The Empress", suit: "Major", img: "https://i.imgur.com/RvakGCX.png", meaning: "Abundance, nurturing, creativity, fertile energy." },
+      { name: "IV - The Emperor", suit: "Major", img: "https://i.imgur.com/K4oVvvj.png", meaning: "Structure, authority, stability, taking the lead." },
+      { name: "V - The Hierophant", suit: "Major", img: "https://i.imgur.com/GRF1erw.png", meaning: "Tradition, spiritual guidance, learning from a mentor." },
+      { name: "VI - The Lovers", suit: "Major", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Union, choice, alignment of values and heart." },
+      { name: "VII - The Chariot", suit: "Major", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Determination, forward motion, victory through focus." },
+      { name: "VIII - Strength", suit: "Major", img: "https://i.imgur.com/WF9jYOf.png", meaning: "Inner strength, courage, gentle power and patience." },
+      { name: "IX - The Hermit", suit: "Major", img: "https://i.imgur.com/GgoMlM8.png", meaning: "Solitude, inner search, wisdom found in quiet." },
+      { name: "X - Wheel of Fortune", suit: "Major", img: "https://i.imgur.com/oQ7dG8i.png", meaning: "Cycles, fate, a turning point, change in motion." },
+      { name: "XI - Justice", suit: "Major", img: "https://i.imgur.com/xxvbuEe.png", meaning: "Balance, truth, consequences, fair outcomes." },
+      { name: "XII - The Hanged Man", suit: "Major", img: "https://i.imgur.com/b71lXKz.png", meaning: "Pause, surrender, seeing things from a new angle." },
+      { name: "XIII - Death", suit: "Major", img: "https://i.imgur.com/WB1hQzH.png", meaning: "Endings, transformation, clearing space for rebirth." },
+      { name: "XIV - Temperance", suit: "Major", img: "https://i.imgur.com/2rUNAHs.png", meaning: "Harmony, moderation, blending opposites with care." },
+      { name: "XV - The Devil", suit: "Major", img: "https://i.imgur.com/WA3Zekv.png", meaning: "Attachments, temptation, seeing your own chains." },
+      { name: "XVI - The Tower", suit: "Major", img: "https://i.imgur.com/OGbBcsY.png", meaning: "Sudden change, upheaval, truth breaking illusions." },
+      { name: "XVII - The Star", suit: "Major", img: "https://i.imgur.com/zf2SNWL.png", meaning: "Hope, healing, guidance, a quiet light ahead." },
+      { name: "XVIII - The Moon", suit: "Major", img: "https://i.imgur.com/uaLXrGB.png", meaning: "Dreams, illusions, navigating through uncertainty." },
+      { name: "XIX - The Sun", suit: "Major", img: "https://i.imgur.com/FxEoqnn.png", meaning: "Joy, clarity, vitality, warmth after the storm." },
+      { name: "XX - Judgement", suit: "Major", img: "https://i.imgur.com/9E5aH31.png", meaning: "Awakening, reckoning, answering a deeper call." },
+      { name: "XXI - The World", suit: "Major", img: "https://i.imgur.com/XdoOTCP.png", meaning: "Completion, wholeness, integration of the journey." },
+
+      // Minor Arcana – Wands
+      { name: "Ace of Wands", suit: "Wands", img: null, meaning: "Spark of inspiration, new creative energy." },
+      { name: "Two of Wands", suit: "Wands", img: null, meaning: "Planning, looking ahead, choosing a path." },
+      { name: "Three of Wands", suit: "Wands", img: null, meaning: "Expansion, waiting for results, broad horizons." },
+      { name: "Four of Wands", suit: "Wands", img: null, meaning: "Celebration, homecoming, stable joy." },
+      { name: "Five of Wands", suit: "Wands", img: null, meaning: "Conflict, competition, clashing energies." },
+      { name: "Six of Wands", suit: "Wands", img: null, meaning: "Recognition, victory, being seen." },
+      { name: "Seven of Wands", suit: "Wands", img: null, meaning: "Defensiveness, standing your ground." },
+      { name: "Eight of Wands", suit: "Wands", img: null, meaning: "Swift movement, messages, rapid change." },
+      { name: "Nine of Wands", suit: "Wands", img: null, meaning: "Resilience, last stand, guarded persistence." },
+      { name: "Ten of Wands", suit: "Wands", img: null, meaning: "Burden, responsibility, carrying too much." },
+      { name: "Page of Wands", suit: "Wands", img: null, meaning: "Curiosity, playful fire, new ideas." },
+      { name: "Knight of Wands", suit: "Wands", img: null, meaning: "Impulsive action, adventure, bold moves." },
+      { name: "Queen of Wands", suit: "Wands", img: null, meaning: "Confidence, charisma, creative leadership." },
+      { name: "King of Wands", suit: "Wands", img: null, meaning: "Vision, entrepreneurship, inspired authority." },
+
+      // Cups
+      { name: "Ace of Cups", suit: "Cups", img: null, meaning: "New emotions, open heart, spiritual overflow." },
+      { name: "Two of Cups", suit: "Cups", img: null, meaning: "Connection, mutual attraction, emotional bond." },
+      { name: "Three of Cups", suit: "Cups", img: null, meaning: "Friendship, community, shared joy." },
+      { name: "Four of Cups", suit: "Cups", img: null, meaning: "Apathy, contemplation, missing what’s offered." },
+      { name: "Five of Cups", suit: "Cups", img: null, meaning: "Grief, regret, focusing on loss." },
+      { name: "Six of Cups", suit: "Cups", img: null, meaning: "Nostalgia, memories, simple kindness." },
+      { name: "Seven of Cups", suit: "Cups", img: null, meaning: "Choices, fantasies, illusions, many options." },
+      { name: "Eight of Cups", suit: "Cups", img: null, meaning: "Walking away, seeking deeper meaning." },
+      { name: "Nine of Cups", suit: "Cups", img: null, meaning: "Contentment, wish fulfillment, satisfaction." },
+      { name: "Ten of Cups", suit: "Cups", img: null, meaning: "Emotional harmony, family, shared happiness." },
+      { name: "Page of Cups", suit: "Cups", img: null, meaning: "Dreamy messages, creative feelings, sensitivity." },
+      { name: "Knight of Cups", suit: "Cups", img: null, meaning: "Romantic pursuit, idealism, following the heart." },
+      { name: "Queen of Cups", suit: "Cups", img: null, meaning: "Compassion, emotional depth, intuitive care." },
+      { name: "King of Cups", suit: "Cups", img: null, meaning: "Emotional balance, wise heart, calm presence." },
+
+      // Swords
+      { name: "Ace of Swords", suit: "Swords", img: null, meaning: "Clarity, new ideas, mental breakthrough." },
+      { name: "Two of Swords", suit: "Swords", img: null, meaning: "Stalemate, difficult choice, blocked emotions." },
+      { name: "Three of Swords", suit: "Swords", img: null, meaning: "Heartbreak, sorrow, painful truth." },
+      { name: "Four of Swords", suit: "Swords", img: null, meaning: "Rest, recovery, mental reset." },
+      { name: "Five of Swords", suit: "Swords", img: null, meaning: "Conflict, hollow victory, tension." },
+      { name: "Six of Swords", suit: "Swords", img: null, meaning: "Transition, moving on, leaving difficulty behind." },
+      { name: "Seven of Swords", suit: "Swords", img: null, meaning: "Strategy, secrecy, acting alone." },
+      { name: "Eight of Swords", suit: "Swords", img: null, meaning: "Feeling trapped, limiting beliefs, mental cage." },
+      { name: "Nine of Swords", suit: "Swords", img: null, meaning: "Anxiety, nightmares, overthinking." },
+      { name: "Ten of Swords", suit: "Swords", img: null, meaning: "Rock bottom, painful ending, release." },
+      { name: "Page of Swords", suit: "Swords", img: null, meaning: "Curious mind, new ideas, restless thoughts." },
+      { name: "Knight of Swords", suit: "Swords", img: null, meaning: "Rushing in, sharp focus, bold words." },
+      { name: "Queen of Swords", suit: "Swords", img: null, meaning: "Clear thinking, boundaries, honest truth." },
+      { name: "King of Swords", suit: "Swords", img: null, meaning: "Logic, authority, strategic mind." },
+
+      // Pentacles
+      { name: "Ace of Pentacles", suit: "Pentacles", img: null, meaning: "New material opportunity, seed of abundance." },
+      { name: "Two of Pentacles", suit: "Pentacles", img: null, meaning: "Juggling, balance, managing priorities." },
+      { name: "Three of Pentacles", suit: "Pentacles", img: null, meaning: "Collaboration, skill, building together." },
+      { name: "Four of Pentacles", suit: "Pentacles", img: null, meaning: "Holding on, security, fear of loss." },
+      { name: "Five of Pentacles", suit: "Pentacles", img: null, meaning: "Lack, hardship, feeling left out." },
+      { name: "Six of Pentacles", suit: "Pentacles", img: null, meaning: "Giving and receiving, generosity, support." },
+      { name: "Seven of Pentacles", suit: "Pentacles", img: null, meaning: "Patience, long-term view, slow growth." },
+      { name: "Eight of Pentacles", suit: "Pentacles", img: null, meaning: "Skill-building, practice, focused work." },
+      { name: "Nine of Pentacles", suit: "Pentacles", img: null, meaning: "Self-sufficiency, comfort, earned luxury." },
+      { name: "Ten of Pentacles", suit: "Pentacles", img: null, meaning: "Legacy, family wealth, long-term stability." },
+      { name: "Page of Pentacles", suit: "Pentacles", img: null, meaning: "Student energy, new study, grounded curiosity." },
+      { name: "Knight of Pentacles", suit: "Pentacles", img: null, meaning: "Steady progress, reliability, slow and sure." },
+      { name: "Queen of Pentacles", suit: "Pentacles", img: null, meaning: "Nurturing practicality, comfort, resourcefulness." },
+      { name: "King of Pentacles", suit: "Pentacles", img: null, meaning: "Material mastery, stability, grounded leadership." }
+    ];
+
+    const grid = document.getElementById("cards-grid");
+    const drawOneBtn = document.getElementById("draw-one");
+    const drawThreeBtn = document.getElementById("draw-three");
+    const drawAllBtn = document.getElementById("draw-all");
+
+    function shuffle(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function drawCards(count) {
+      const shuffled = shuffle(deck);
+      return shuffled.slice(0, count);
+    }
+
+    function createCardElement(card) {
+      const cardEl = document.createElement("div");
+      cardEl.className = "tarot-card";
+
+      const inner = document.createElement("div");
+      inner.className = "card-inner";
+
+      const front = document.createElement("div");
+      front.className = "card-face card-front";
+      if (!card.img) {
+        front.classList.add("no-image");
+      }
+
+      if (card.img) {
+        const img = document.createElement("img");
+        img.src = card.img;
+        img.alt = card.name;
+        front.appendChild(img);
+      } else {
+        const symbol = document.createElement("div");
+        symbol.className = "card-symbol";
+        symbol.textContent = card.suit === "Major" ? "★" :
+                             card.suit === "Wands" ? "♣" :
+                             card.suit === "Cups" ? "♥" :
+                             card.suit === "Swords" ? "♠" : "♦";
+        front.appendChild(symbol);
+      }
+
+      const title = document.createElement("div");
+      title.className = "card-title";
+      title.textContent = card.name;
+      front.appendChild(title);
+
+      const tag = document.createElement("div");
+      tag.className = "card-tag";
+      tag.textContent = card.suit === "Major" ? "Major Arcana" : `${card.suit}`;
+      front.appendChild(tag);
+
+      const back = document.createElement("div");
+      back.className = "card-face card-back";
+
+      const backTitle = document.createElement("h3");
+      backTitle.textContent = card.name;
+      back.appendChild(backTitle);
+
+      const meaning = document.createElement("p");
+      meaning.textContent = card.meaning;
+      back.appendChild(meaning);
+
+      inner.appendChild(front);
+      inner.appendChild(back);
+      cardEl.appendChild(inner);
+
+      cardEl.addEventListener("click", () => {
+        cardEl.classList.toggle("flipped");
+      });
+
+      return cardEl;
+    }
+
+    function renderCards(cards) {
+      grid.innerHTML = "";
+      cards.forEach(card => {
+        grid.appendChild(createCardElement(card));
+      });
+    }
+
+    drawOneBtn.addEventListener("click", () => {
+      renderCards(drawCards(1));
+      window.scrollTo({ top: grid.offsetTop - 40, behavior: "smooth" });
+    });
+
+    drawThreeBtn.addEventListener("click", () => {
+      renderCards(drawCards(3));
+      window.scrollTo({ top: grid.offsetTop - 40, behavior: "smooth" });
+    });
+
+    drawAllBtn.addEventListener("click", () => {
+      renderCards(deck);
+      window.scrollTo({ top: grid.offsetTop - 40, behavior: "smooth" });
+    });
+
+    // Initial state: empty grid (you can auto-draw if you want)
+  </script>
 </body>
 </html>
