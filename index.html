@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Spells | Elite Euphoria Readings</title>
+    <title>Mystic Spells | Elite Arcanum</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
     
     <style>
@@ -11,343 +11,272 @@
             --sakura: #ffb7d5;
             --lavender: #c8a2c8;
             --void: #0a0a0c;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 183, 213, 0.2);
+            --gold: #d0a756;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             background-color: var(--void);
-            background-image: radial-gradient(circle at 50% 50%, #1e0030 0%, #050505 100%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+        }
+
+        /* --- MYSTICAL LOADER --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
             display: flex;
-            justify-content: center;
             align-items: center;
-        }
-
-        canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-
-        .container {
-            width: 95%;
-            max-width: 1400px;
-            padding: 80px 20px;
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        /* Branding matched to your logo */
-        header { margin-bottom: 60px; }
-        
-        .brand-title {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
-            letter-spacing: 20px;
-            background: linear-gradient(to bottom, #fff, var(--sakura), var(--lavender));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255, 183, 213, 0.5));
-            text-transform: uppercase;
-        }
-
-        .brand-subtitle {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--sakura);
-            letter-spacing: 8px;
-            margin-top: 10px;
-            opacity: 0.8;
-        }
-
-        /* Ritual Interface - Refined for image_722079.jpg */
-        .ritual-frame {
-            background: var(--glass);
-            backdrop-filter: blur(50px);
-            border: 1px solid var(--border);
-            padding: 60px 40px;
-            border-radius: 4px;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            margin-bottom: 80px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            max-width: 800px;
-            background: transparent;
-            border: none;
-            border-bottom: 2px solid var(--sakura);
-            padding: 15px 0;
-            color: #fff;
-            font-size: 1.8rem;
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            outline: none;
-            margin-bottom: 40px;
-        }
-
-        .control-row {
-            display: flex;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 40px;
+            z-index: 1000;
+            transition: opacity 1s ease-out;
         }
 
-        select {
-            background: rgba(0,0,0,0.7);
-            border: 1px solid var(--sakura);
-            color: var(--sakura);
-            padding: 12px 25px;
-            font-family: 'Montserrat';
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        .invoke-btn {
-            padding: 22px 80px;
-            background: linear-gradient(45deg, var(--sakura), var(--lavender));
-            border: none;
-            color: #000;
-            font-family: 'Cinzel Decorative';
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 6px;
-            cursor: pointer;
-            box-shadow: 0 0 30px rgba(255, 183, 213, 0.3);
-            transition: 0.4s;
-        }
-
-        .invoke-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 0 50px var(--sakura);
-            color: #fff;
-        }
-
-        /* Results Display */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .card-slot { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
-        .card-slot.active { opacity: 1; transform: translateY(0); }
-
-        .card-box {
-            background: #111;
-            border: 1px solid rgba(255, 183, 213, 0.1);
-            padding: 25px;
-            height: 100%;
-            transition: 0.4s;
-        }
-
-        .card-box img {
-            width: 100%;
-            filter: sepia(0.2) contrast(1.1);
-            margin-bottom: 20px;
-            border-radius: 4px;
-        }
-
-        .pos-tag {
-            font-family: 'Cinzel Decorative';
-            font-size: 0.75rem;
-            color: var(--sakura);
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .card-title { font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 10px; color: var(--sakura); }
-        .card-meaning { font-size: 0.95rem; color: #ccc; line-height: 1.5; text-align: justify; }
-
-        .decree-box {
-            margin-top: 80px;
-            padding: 60px 40px;
-            border-top: 1px solid var(--border);
-            display: none;
-        }
-
-        #aiText {
-            font-family: 'Playfair Display';
-            font-size: 2.2rem;
-            max-width: 900px;
-            margin: 0 auto;
-            color: var(--sakura);
-            line-height: 1.4;
-            font-style: italic;
+        .loader-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 180px; height: 180px;
+            font-family: "Cinzel Decorative", serif;
+            font-size: 1.2em;
+            font-weight: 300;
+            color: white;
+            border-radius: 50%;
         }
 
         .loader {
-            display: none;
-            width: 60px; height: 60px;
-            border: 3px solid var(--glass);
-            border-top-color: var(--sakura);
+            position: absolute;
+            top: 0; left: 0; width: 100%; aspect-ratio: 1 / 1;
             border-radius: 50%;
-            animation: spin 1s infinite linear;
-            margin: 50px auto;
+            animation: loader-rotate 2s linear infinite;
+            z-index: 0;
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes loader-rotate {
+            0% { transform: rotate(90deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
+            50% { transform: rotate(270deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset; }
+            100% { transform: rotate(450deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
+        }
+
+        .loader-letter { display: inline-block; animation: loader-letter-anim 2s infinite; z-index: 1; }
+        @keyframes loader-letter-anim {
+            0%, 100% { opacity: 0.4; transform: translateY(0); }
+            20% { opacity: 1; transform: scale(1.15); }
+            40% { opacity: 0.7; transform: translateY(0); }
+        }
+
+        /* --- BLACK HOLE BACKGROUND --- */
+        .black-hole {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .black-hole::before {
+            content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 150%; height: 140%;
+            background: radial-gradient(ellipse at 50% 55%, transparent 10%, black 50%);
+            z-index: 2;
+        }
+
+        .aura {
+            position: absolute; top: -71.5%; left: 50%; transform: translateX(-50%);
+            width: 40%; height: 400%;
+            background: linear-gradient(20deg, #00f8f1, #ffbd1e20 16.5%, #fe848f 33%, #fe848f20 49.5%, #00f8f1 66%, #00f8f160 85.5%, #ffbd1e 100%);
+            background-size: 100% 200%; border-radius: 0 0 100% 100%;
+            filter: blur(50px); opacity: 0.75; z-index: 3; animation: aura-glow 5s infinite linear;
+        }
+
+        @keyframes aura-glow { 0% { background-position: 0 100%; } 100% { background-position: 0 300%; } }
+
+        .ring {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%; border: 1px solid #444; animation: ring-pulse 10s infinite linear;
+        }
+        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 100%; height: 100%; opacity: 0; } }
+
+        /* --- MAIN UI --- */
+        .content-wrapper {
+            position: relative; z-index: 10;
+            max-width: 1200px; margin: 0 auto;
+            padding: 40px 20px; text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Cinzel Decorative', serif; font-size: clamp(2rem, 6vw, 4rem);
+            color: var(--sakura); letter-spacing: 10px; margin-bottom: 40px;
+        }
+
+        /* --- NEOMORPHIC BUTTON --- */
+        .invoke-button {
+            background: rgba(10, 10, 12, 0.8);
+            border-radius: 0.5em;
+            box-shadow: inset 0px -6px 18px -6px rgba(3, 15, 20, 0), inset #242b2e -1px -1px 6px 0px, rgba(36, 43, 46, 1) -1px -1px 6px 0px;
+            border: solid 2px #030f14;
+            cursor: pointer; font-size: 18px; padding: 0.7em 1.7em;
+            transition: all 0.3s; color: var(--gold); font-family: 'Cinzel Decorative'; font-weight: 700;
+            margin-top: 20px;
+        }
+        .invoke-button:hover { transform: scale(0.95); box-shadow: inset 0px -6px 18px -6px rgba(3, 15, 20, 1), -1px -1px 6px 0px rgba(54, 69, 75, 1); }
+
+        /* --- INTERACTIVE CARDS --- */
+        .card-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; margin-top: 60px; justify-items: center;
+        }
+
+        .mystic-card {
+            position: relative; width: 250px; height: 400px;
+            background: #111; border-radius: 15px; cursor: pointer;
+            border: 1px solid var(--border); overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; transform: translateY(20px); transition: opacity 0.5s;
+        }
+
+        .mystic-card.show { opacity: 1; transform: translateY(0); }
+
+        .mystic-card img { width: 85%; border-radius: 8px; margin-bottom: 10px; transition: 0.5s; }
+
+        .card-name-label { font-family: 'Cinzel Decorative'; color: var(--sakura); font-size: 1.1rem; }
+
+        .mystic-card::before, .mystic-card::after {
+            position: absolute; content: ""; width: 0%; height: 0%;
+            background-color: var(--void); transition: all 0.5s;
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px; color: #fff; font-size: 0.9rem; text-align: center;
+            z-index: 5; line-height: 1.4;
+        }
+
+        .mystic-card::before { top: 0; right: 0; border-radius: 0 15px 0 100%; }
+        .mystic-card::after { bottom: 0; left: 0; border-radius: 0 100% 0 15px; }
+
+        .mystic-card:hover::before, .mystic-card:hover::after { width: 100%; height: 100%; border-radius: 15px; }
+
+        .mystic-card:hover::after { content: attr(data-meaning); }
+
+        /* --- DASHBOARD --- */
+        .ritual-box {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 15px; border: 1px solid var(--border);
+        }
+
+        input {
+            width: 100%; max-width: 600px; background: transparent; border: none;
+            border-bottom: 2px solid var(--sakura); color: #fff; padding: 10px;
+            font-size: 1.5rem; text-align: center; outline: none; margin-bottom: 20px;
+        }
+
+        select { background: #000; color: var(--sakura); border: 1px solid var(--sakura); padding: 10px; margin: 10px; }
+
     </style>
 </head>
 <body>
 
-<canvas id="stars"></canvas>
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="loader-wrapper">
+            <span class="loader-letter">C</span>
+            <span class="loader-letter">o</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">j</span>
+            <span class="loader-letter">u</span>
+            <span class="loader-letter">r</span>
+            <span class="loader-letter">i</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">g</span>
+            <div class="loader"></div>
+        </div>
+    </div>
 
-<div class="container">
-    <header>
-        <h1 class="brand-title">Mystic Spells</h1>
-        <div class="brand-subtitle">The Elite Sanctuary for Euphoria Readings</div>
-    </header>
+    <!-- BACKGROUND -->
+    <div class="black-hole">
+        <div class="tunnel" id="tunnel"></div>
+        <div class="aura"></div>
+    </div>
 
-    <div class="ritual-frame">
-        <input type="text" id="seekerQuestion" placeholder="WHISPER YOUR QUESTION TO THE VOID...">
-        
-        <div class="control-row">
-            <select id="spreadCat">
-                <option value="Daily">Daily Practice Spreads</option>
-                <option value="Love">❤️ Love & Relationships Spreads</option>
-                <option value="Career">💼 Career & Path Spreads</option>
-                <option value="Spiritual">✨ Spiritual Growth Spreads</option>
-            </select>
-            <select id="spreadType">
-                <option value="1">Direct Answer (1 Card)</option>
-                <option value="3" selected>The Trifecta Revelation (3 Cards)</option>
-                <option value="5">The Grand Revelation (5 Cards)</option>
-            </select>
+    <!-- CONTENT -->
+    <div class="content-wrapper">
+        <header>
+            <h1>Mystic Spells</h1>
+        </header>
+
+        <div class="ritual-box">
+            <input type="text" id="question" placeholder="Whisper your inquiry...">
+            <div>
+                <select id="category">
+                    <option value="Daily">Daily Vibe</option>
+                    <option value="Love">Love Spreads</option>
+                    <option value="Career">Career Spreads</option>
+                </select>
+                <select id="drawCount">
+                    <option value="1">1 Card</option>
+                    <option value="3" selected>3 Cards</option>
+                </select>
+            </div>
+            <button class="invoke-button" onclick="invokeRitual()">INVOKE THE ARCHETYPES</button>
         </div>
 
-        <button class="invoke-btn" onclick="startRitual()">Invoke the Archetypes</button>
+        <div class="card-grid" id="cardContainer"></div>
     </div>
 
-    <div class="loader" id="ritualLoader"></div>
-    <div class="card-grid" id="ritualOutput"></div>
-
-    <div class="decree-box" id="oracleBox">
-        <div class="pos-tag">The Oracle's Synthesis</div>
-        <p id="aiText"></p>
-    </div>
-</div>
-
-<script>
-    /* Sakura Star Engine */
-    const canvas = document.getElementById('stars');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-
-    class Star {
-        constructor() { this.reset(); }
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 2;
-            this.speedY = Math.random() * 0.5 + 0.1;
-            this.opacity = Math.random();
-        }
-        update() {
-            this.y += this.speedY;
-            if (this.y > canvas.height) this.reset();
-        }
-        draw() {
-            ctx.fillStyle = `rgba(255, 183, 213, ${this.opacity})`;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-        }
-    }
-
-    function init() {
-        resize();
-        for (let i = 0; i < 100; i++) particles.push(new Star());
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-    init(); animate();
-
-    /* Arcanum Engine */
-    const deck = [
-        { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", meaning: "Upright: innocence, new beginnings, free spirit. Reversed: recklessness." },
-        { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", meaning: "Upright: manifestation, power, skill, action. Reversed: manipulation." },
-        { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Upright: intuition, sacred knowledge, mystery. Reversed: secrets." },
-        { name: "The Empress", img: "https://i.imgur.com/RvakGCX.png", meaning: "Upright: femininity, abundance, nurturing, creation. Reversed: creative block." },
-        { name: "The Emperor", img: "https://i.imgur.com/K4oVvvj.png", meaning: "Upright: authority, structure, stability, leadership. Reversed: control issues." },
-        { name: "The Hierophant", img: "https://i.imgur.com/GRF1erw.png", meaning: "Upright: tradition, spiritual wisdom, conformity. Reversed: rebellion." },
-        { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Upright: love, harmony, values alignment. Reversed: imbalance." },
-        { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Upright: determination, control, ambition, victory. Reversed: lack of direction." },
-        { name: "Strength", img: "https://i.imgur.com/WF9jYOf.png", meaning: "Upright: courage, inner strength, patience, compassion. Reversed: self-doubt." },
-        { name: "The Hermit", img: "https://i.imgur.com/GgoMlM8.png", meaning: "Upright: introspection, solitude, inner guidance. Reversed: isolation." },
-        { name: "Wheel of Fortune", img: "https://i.imgur.com/oQ7dG8i.png", meaning: "Upright: change, destiny, cycles. Reversed: bad timing." },
-        { name: "Justice", img: "https://i.imgur.com/xxvbuEe.png", meaning: "Upright: truth, fairness, accountability. Reversed: dishonesty." },
-        { name: "The Hanged Man", img: "https://i.imgur.com/b71lXKz.png", meaning: "Upright: surrender, new perspective, pause. Reversed: resistance." },
-        { name: "Death", img: "https://i.imgur.com/WB1hQzH.png", meaning: "Upright: endings, transformation, rebirth. Reversed: fear of change." },
-        { name: "Temperance", img: "https://i.imgur.com/2rUNAHs.png", meaning: "Upright: balance, moderation, harmony. Reversed: imbalance." },
-        { name: "The Devil", img: "https://i.imgur.com/WA3Zekv.png", meaning: "Upright: attachment, temptation, material focus. Reversed: release." },
-        { name: "The Tower", img: "https://i.imgur.com/OGbBcsY.png", meaning: "Upright: sudden change, upheaval, revelation. Reversed: delayed disaster." },
-        { name: "The Star", img: "https://i.imgur.com/zf2SNWL.png", meaning: "Upright: hope, renewal, faith, healing. Reversed: despair." },
-        { name: "The Moon", img: "https://i.imgur.com/uaLXrGB.png", meaning: "Upright: illusion, intuition, uncertainty. Reversed: clarity." },
-        { name: "The Sun", img: "https://i.imgur.com/FxEoqnn.png", meaning: "Upright: joy, success, vitality, clarity. Reversed: temporary sadness." },
-        { name: "Judgement", img: "https://i.imgur.com/9E5aH31.png", meaning: "Upright: awakening, renewal, decisive moment. Reversed: self-doubt." },
-        { name: "The World", img: "https://i.imgur.com/XdoOTCP.png", meaning: "Upright: completion, fulfillment, integration. Reversed: lack of closure." }
-    ];
-
-    function startRitual() {
-        const grid = document.getElementById('ritualOutput');
-        const loader = document.getElementById('ritualLoader');
-        const box = document.getElementById('oracleBox');
-        const aiText = document.getElementById('aiText');
-        const count = parseInt(document.getElementById('spreadType').value);
-        const cat = document.getElementById('spreadCat').value;
-        const q = document.getElementById('seekerQuestion').value;
-
-        grid.innerHTML = "";
-        box.style.display = "none";
-        loader.style.display = "block";
-
-        let labels = ["The Insight"];
-        if(count === 3) {
-            if(cat === "Love") labels = ["You", "The Connection", "The Outcome"];
-            else if(cat === "Career") labels = ["Past Efforts", "Present Work", "Success Path"];
-            else labels = ["The Past", "The Present", "The Future"];
-        } else if(count === 5) {
-            labels = ["Foundation", "Challenge", "Advice", "Outer Influence", "Result"];
+    <script>
+        // Generate Tunnel Rings
+        const tunnel = document.getElementById('tunnel');
+        for(let i=1; i<=10; i++) {
+            const ring = document.createElement('div');
+            ring.className = 'ring';
+            ring.style.animationDelay = `${i-1}s`;
+            tunnel.appendChild(ring);
         }
 
-        setTimeout(() => {
-            loader.style.display = "none";
-            let selection = [...deck].sort(() => 0.5 - Math.random()).slice(0, count);
+        // Wait for 10 seconds before hiding loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('preloader').style.display = 'none';
+                }, 1000);
+            }, 10000); // 10 Second Load as requested
+        });
 
-            selection.forEach((card, i) => {
-                const slot = document.createElement('div');
-                slot.className = 'card-slot';
-                slot.innerHTML = `
-                    <div class="card-box">
-                        <div class="pos-tag">${labels[i] || "Energy"}</div>
-                        <img src="${card.img}" alt="${card.name}">
-                        <div class="card-title">${card.name}</div>
-                        <div class="card-meaning">${card.meaning}</div>
-                    </div>
+        const tarotData = [
+            { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", meaning: "Endings and new beginnings. Step into the unknown with faith." },
+            { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", meaning: "Manifestation and power. You have all the tools to succeed." },
+            { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Intuition and sacred knowledge. The answers are within." },
+            { name: "The Empress", img: "https://i.imgur.com/RvakGCX.png", meaning: "Abundance and nurturing. Creative projects are blooming." },
+            { name: "The Emperor", img: "https://i.imgur.com/K4oVvvj.png", meaning: "Structure and authority. Establish your boundaries." },
+            { name: "The Hierophant", img: "https://i.imgur.com/GRF1erw.png", meaning: "Tradition and wisdom. Seek guidance from established orders." },
+            { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Harmony and choices. Align your heart with your values." },
+            { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Control and victory. Drive forward with total determination." },
+            { name: "Strength", img: "https://i.imgur.com/WF9jYOf.png", meaning: "Inner resilience and patience. Lead with compassion." }
+            // Add more cards as needed
+        ];
+
+        function invokeRitual() {
+            const count = parseInt(document.getElementById('drawCount').value);
+            const container = document.getElementById('cardContainer');
+            container.innerHTML = "";
+
+            let shuffled = [...tarotData].sort(() => 0.5 - Math.random()).slice(0, count);
+
+            shuffled.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'mystic-card';
+                cardEl.setAttribute('data-meaning', card.meaning);
+                cardEl.innerHTML = `
+                    <img src="${card.img}" alt="${card.name}">
+                    <div class="card-name-label">${card.name}</div>
                 `;
-                grid.appendChild(slot);
-                setTimeout(() => slot.classList.add('active'), i * 300);
+                container.appendChild(cardEl);
+                setTimeout(() => cardEl.classList.add('show'), index * 300);
             });
-
-            box.style.display = "block";
-            aiText.innerText = q ? `In response to "${q}"... the spirits manifest through ${selection[0].name}. Your ${cat} path is ultimately tethered to the power of ${selection[selection.length-1].name}.` : "The veil has parted. Your journey is now illuminated.";
-        }, 2000);
-    }
-</script>
-
+        }
+    </script>
 </body>
 </html>
