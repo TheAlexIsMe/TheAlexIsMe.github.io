@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Spells | Elite Arcanum</title>
+    <title>Mystic Spells | The Grand Elite Arcanum</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@0,400;1,700&display=swap" rel="stylesheet">
     
     <style>
@@ -13,6 +13,7 @@
             --void: #0a0a0c;
             --gold: #d0a756;
             --glass-border: rgba(255, 183, 213, 0.3);
+            --card-back: #0d0d0f;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +28,7 @@
             justify-content: center;
         }
 
-        /* --- MYSTICAL LOADER --- */
+        /* --- 10-SECOND MYSTICAL LOADER --- */
         #preloader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -36,7 +37,7 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 1s ease-out;
+            transition: opacity 1.5s ease-in-out;
         }
 
         .loader-wrapper {
@@ -44,137 +45,116 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 200px; height: 200px;
+            width: 250px; height: 250px;
             font-family: "Cinzel Decorative", serif;
             color: white;
+            user-select: none;
         }
 
         .loader {
             position: absolute;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; aspect-ratio: 1 / 1;
             border-radius: 50%;
             animation: loader-rotate 2s linear infinite;
+            z-index: 0;
         }
 
         @keyframes loader-rotate {
-            0% { transform: rotate(0deg); box-shadow: 0 5px 15px 0 #fff inset, 0 10px 20px 0 #ad5fff inset; }
-            100% { transform: rotate(360deg); box-shadow: 0 5px 15px 0 #fff inset, 0 10px 20px 0 #ad5fff inset; }
+            0% { transform: rotate(90deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
+            50% { transform: rotate(270deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset; }
+            100% { transform: rotate(450deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
         }
 
-        /* --- BLACK HOLE BACKGROUND (FIXED Z-INDEX) --- */
-        .background-system {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; 
-            overflow: hidden;
+        .loader-letter { display: inline-block; opacity: 0.4; animation: loader-letter-anim 2s infinite; z-index: 1; font-size: 1.5rem; }
+        .loader-letter:nth-child(1) { animation-delay: 0s; }
+        .loader-letter:nth-child(2) { animation-delay: 0.1s; }
+        .loader-letter:nth-child(3) { animation-delay: 0.2s; }
+        .loader-letter:nth-child(4) { animation-delay: 0.3s; }
+        .loader-letter:nth-child(5) { animation-delay: 0.4s; }
+        .loader-letter:nth-child(6) { animation-delay: 0.5s; }
+        .loader-letter:nth-child(7) { animation-delay: 0.6s; }
+        .loader-letter:nth-child(8) { animation-delay: 0.7s; }
+        .loader-letter:nth-child(9) { animation-delay: 0.8s; }
+
+        @keyframes loader-letter-anim {
+            0%, 100% { opacity: 0.4; transform: translateY(0); }
+            20% { opacity: 1; transform: scale(1.3); color: var(--sakura); }
         }
 
+        /* --- BLACK HOLE BACKGROUND ENGINE --- */
+        .black-hole { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
+        .black-hole::before {
+            content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 150%; height: 140%; background: radial-gradient(ellipse at 50% 55%, transparent 10%, black 50%); z-index: 2;
+        }
         .aura {
-            position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
-            width: 60%; height: 200%;
-            background: linear-gradient(to bottom, #00f8f115, #fe848f25, #ffbd1e15);
-            filter: blur(100px); animation: aura-glow 8s infinite alternate;
+            position: absolute; top: -71.5%; left: 50%; transform: translateX(-50%);
+            width: 40%; height: 400%; background: linear-gradient(20deg, #00f8f120, #fe848f40, #ffbd1e20);
+            filter: blur(60px); opacity: 0.75; z-index: 3; animation: aura-glow 5s infinite linear;
         }
+        .tunnel { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; z-index: 1; }
+        .ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(255,255,255,0.05); animation: ring-pulse 10s infinite linear; }
+        @keyframes aura-glow { 0% { background-position: 0 100%; } 100% { background-position: 0 300%; } }
+        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 100%; height: 100%; opacity: 0; } }
 
-        .ring {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.08);
-            animation: ring-pulse 8s infinite linear;
-        }
+        /* --- MAIN PORTAL UI --- */
+        .portal-container { position: relative; z-index: 10; width: 100%; max-width: 1300px; padding: 60px 20px; text-align: center; }
+        .main-logo { max-width: 450px; width: 100%; margin-bottom: 20px; filter: drop-shadow(0 0 20px var(--sakura)); }
 
-        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 180%; height: 180%; opacity: 0; } }
-
-        /* --- MAIN UI --- */
-        .content-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .brand-logo {
-            max-width: 450px;
-            width: 100%;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 25px var(--sakura));
-        }
-
-        .ritual-box {
-            background: rgba(10, 10, 12, 0.75);
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--glass-border);
-            padding: 50px 30px;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            margin: 0 auto 50px;
+        .ritual-vault {
+            background: rgba(10, 10, 12, 0.8); backdrop-filter: blur(40px);
+            padding: 50px; border-radius: 20px; border: 1px solid var(--glass-border);
+            margin-bottom: 60px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
         }
 
         input {
-            width: 100%; max-width: 700px; background: transparent; border: none;
-            border-bottom: 2px solid var(--sakura); color: #fff; padding: 15px;
-            font-size: 1.8rem; text-align: center; outline: none; margin-bottom: 30px;
+            width: 100%; max-width: 800px; background: transparent; border: none; border-bottom: 2px solid var(--sakura);
+            color: #fff; padding: 15px; font-size: 2rem; text-align: center; outline: none; margin-bottom: 40px;
             font-family: 'Playfair Display', serif;
         }
 
-        /* NEOMORPHIC BUTTON */
+        select { background: #000; color: var(--sakura); border: 1px solid var(--sakura); padding: 12px; margin: 10px; border-radius: 8px; font-family: 'Montserrat'; }
+
+        /* NEOMORPHIC INVOKE BUTTON */
         .btn-invoke {
-            background: #0d0d0f;
-            border-radius: 12px;
-            box-shadow: inset 0px -4px 15px rgba(255, 183, 213, 0.15), 0 8px 20px rgba(0,0,0,0.5);
-            border: 1.5px solid var(--sakura);
-            cursor: pointer; padding: 20px 50px; color: var(--gold);
-            font-family: 'Cinzel Decorative'; font-weight: 700; letter-spacing: 5px;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: var(--card-back); border-radius: 0.5em; border: solid 2px #030f14;
+            box-shadow: inset 0px -6px 18px -6px rgba(3, 15, 20, 0), inset rgba(54, 69, 75, 1) -1px -1px 6px 0px, rgba(54, 69, 75, 1) -1px -1px 6px 0px;
+            cursor: pointer; padding: 1.5em 4em; transition: all 0.3s; user-select: none;
+            display: inline-block; margin-top: 30px;
         }
+        .btn-invoke .text { color: var(--gold); font-weight: 700; font-family: 'Cinzel Decorative'; letter-spacing: 6px; font-size: 22px; transition: all 0.3s; }
+        .btn-invoke:hover { box-shadow: inset 0px -6px 18px -6px rgba(3, 15, 20, 1), 0 0 40px var(--sakura); }
+        .btn-invoke:active .text { transform: scale(0.85); }
 
-        .btn-invoke:hover { background: var(--sakura); color: #000; transform: scale(1.05); box-shadow: 0 0 40px var(--sakura); }
-
-        /* --- CARD SYSTEM (FIXED CLIPPING & ALIGNMENT) --- */
-        .card-grid {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 40px;
-        }
+        /* --- SPREAD SYSTEM --- */
+        .card-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 60px; }
 
         .mystic-card {
-            position: relative; width: 280px; height: 440px;
-            background: #000; border-radius: 24px; cursor: pointer;
-            border: 2px solid var(--glass-border);
-            overflow: hidden; /* CRITICAL: Fixed the black corner clipping */
-            display: flex; flex-direction: column; align-items: center;
-            opacity: 0; transform: translateY(40px); transition: 0.7s ease-out;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            position: relative; width: 280px; height: 460px; background: #000;
+            border-radius: 24px; cursor: pointer; border: 2px solid var(--glass-border);
+            opacity: 0; transform: translateY(40px); transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow: hidden; display: flex; flex-direction: column; align-items: center;
         }
-
         .mystic-card.active { opacity: 1; transform: translateY(0); }
+        .mystic-card img { width: 100%; height: auto; padding: 10px; border-radius: 30px; display: block; }
+        .card-label { font-family: 'Cinzel Decorative'; color: var(--sakura); font-size: 1.3rem; padding-bottom: 25px; margin-top: auto; }
 
-        .mystic-card img {
-            width: 100%; height: auto; 
-            padding: 8px; /* Internal margin so card border shows around art */
-            border-radius: 24px; 
-            display: block;
-        }
-
-        .card-name-text {
-            font-family: 'Cinzel Decorative'; color: var(--sakura);
-            font-size: 1.3rem; margin-top: auto; padding-bottom: 25px;
-            text-shadow: 0 0 10px rgba(255, 183, 213, 0.5);
-        }
-
-        /* Hover Reveal Definition */
+        /* SHUTTER HOVER EFFECT */
         .mystic-card::before, .mystic-card::after {
             position: absolute; content: ""; width: 0%; height: 0%;
-            background-color: rgba(10, 10, 12, 0.97); transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            background-color: rgba(5, 5, 5, 0.98); transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             display: flex; align-items: center; justify-content: center;
-            padding: 30px; color: var(--sakura); font-size: 1.1rem; text-align: center;
-            z-index: 10; font-family: 'Playfair Display'; font-style: italic; line-height: 1.6;
+            padding: 35px; color: var(--sakura); font-size: 1.1rem; text-align: center;
+            z-index: 20; font-family: 'Playfair Display'; font-style: italic; line-height: 1.7;
         }
-
         .mystic-card::before { top: 0; right: 0; border-radius: 0 24px 0 100%; }
         .mystic-card::after { bottom: 0; left: 0; border-radius: 0 100% 0 24px; }
+        .mystic-card:hover::before, .mystic-card:hover:after { width: 100%; height: 100%; border-radius: 24px; }
+        .mystic-card:hover::after { content: attr(data-definition); }
 
-        .mystic-card:hover::before, .mystic-card:hover::after { width: 100%; height: 100%; border-radius: 24px; }
-        .mystic-card:hover::after { content: attr(data-meaning); }
+        /* AI DECREE SUMMARY */
+        .ai-summary-box { margin-top: 80px; padding: 60px; border-top: 1px solid var(--glass-border); display: none; }
+        #aiOutput { font-family: 'Playfair Display'; font-size: 2.4rem; color: var(--sakura); font-style: italic; max-width: 1000px; margin: 0 auto; line-height: 1.4; text-shadow: 0 0 15px rgba(255, 183, 213, 0.3); }
 
     </style>
 </head>
@@ -182,92 +162,199 @@
 
     <div id="preloader">
         <div class="loader-wrapper">
-            <span style="letter-spacing:8px; font-weight:700;">CONJURING</span>
+            <span class="loader-letter">C</span><span class="loader-letter">o</span><span class="loader-letter">n</span>
+            <span class="loader-letter">j</span><span class="loader-letter">u</span><span class="loader-letter">r</span>
+            <span class="loader-letter">i</span><span class="loader-letter">n</span><span class="loader-letter">g</span>
             <div class="loader"></div>
         </div>
     </div>
 
-    <div class="background-system">
-        <div class="tunnel" id="ringContainer"></div>
+    <div class="black-hole">
+        <div class="tunnel" id="tunnel"></div>
         <div class="aura"></div>
     </div>
 
-    <div class="content-container">
+    <div class="portal-container">
         <header>
-            <img src="https://i.imgur.com/6NZVG2f.png" class="brand-logo" alt="Mystic Spells">
+            <img src="https://i.imgur.com/6NZVG2f.png" class="main-logo" alt="Mystic Spells">
         </header>
 
-        <div class="ritual-box">
-            <input type="text" id="userQuestion" placeholder="Whisper your inquiry to the void...">
-            <div style="margin-bottom: 30px;">
-                <select id="readingType" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:12px; border-radius:8px; margin-right:15px;">
-                    <option value="Daily">Daily Practice</option>
-                    <option value="Love">Love & Connection</option>
-                    <option value="Career">Career & Success</option>
+        <div class="ritual-vault">
+            <input type="text" id="seekerQ" placeholder="WHISPER YOUR QUESTION TO THE VOID...">
+            <div>
+                <select id="spreadCat">
+                    <option value="Daily">Daily Practice Spread</option>
+                    <option value="Love">❤️ Love & Relationships</option>
+                    <option value="Career">💼 Career & Strategy</option>
+                    <option value="Spiritual">✨ Spiritual Growth</option>
+                    <option value="Moon">🌕 Full Moon Ritual</option>
                 </select>
-                <select id="drawCount" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:12px; border-radius:8px;">
-                    <option value="1">1 Card</option>
-                    <option value="3" selected>3 Cards</option>
-                    <option value="5">5 Cards</option>
+                <select id="drawNum">
+                    <option value="1">Direct Answer (1 Card)</option>
+                    <option value="3" selected>The Trifecta (3 Cards)</option>
+                    <option value="5">The Grand Reveal (5 Cards)</option>
+                    <option value="10">Celtic Cross (10 Cards)</option>
                 </select>
             </div>
-            <button class="btn-invoke" onclick="castRitual()">INVOKE THE ARCHETYPES</button>
+            <button class="btn-invoke" onclick="performRitual()">
+                <div class="text">INVOKE THE ARCHETYPES</div>
+            </button>
         </div>
 
         <div class="card-grid" id="ritualDisplay"></div>
+
+        <div class="ai-summary-box" id="aiVault">
+            <div style="font-family:'Cinzel Decorative'; letter-spacing:8px; color:var(--gold); font-size:0.9rem; margin-bottom:20px;">THE ORACLE'S DECREE</div>
+            <p id="aiOutput"></p>
+        </div>
     </div>
 
     <script>
-        // Generate Rings for Black Hole
-        const ringContainer = document.getElementById('ringContainer');
-        for(let i=0; i<12; i++) {
-            let ring = document.createElement('div');
+        // RING GENERATOR
+        const tunnel = document.getElementById('tunnel');
+        for(let i=1; i<=12; i++) {
+            const ring = document.createElement('div');
             ring.className = 'ring';
-            ring.style.animationDelay = `${i * 0.8}s`;
-            ringContainer.appendChild(ring);
+            ring.style.width = ring.style.height = `${i*12}%`;
+            ring.style.animationDelay = `${i*0.6}s`;
+            tunnel.appendChild(ring);
         }
 
-        // Loader Timer (Set to 10s as requested)
+        // LOADER TIMER (10 SECONDS)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').style.opacity = '0';
-                setTimeout(() => document.getElementById('preloader').style.display = 'none', 1000);
+                setTimeout(() => document.getElementById('preloader').style.display = 'none', 1500);
             }, 10000); 
         });
 
-        const tarotCards = [
-            { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", meaning: "Endings and new beginnings. Step into the unknown with faith." },
-            { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", meaning: "Manifestation and power. You have all the tools to succeed." },
-            { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", meaning: "Intuition and sacred knowledge. The answers are within." },
-            { name: "The Empress", img: "https://i.imgur.com/RvakGCX.png", meaning: "Abundance and nurturing. Creative projects are blooming." },
-            { name: "The Emperor", img: "https://i.imgur.com/K4oVvvj.png", meaning: "Structure and authority. Establish your boundaries." },
-            { name: "The Hierophant", img: "https://i.imgur.com/GRF1erw.png", meaning: "Tradition and wisdom. Seek guidance from established orders." },
-            { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", meaning: "Harmony and choices. Align your heart with your values." },
-            { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", meaning: "Control and victory. Drive forward with total determination." },
-            { name: "Strength", img: "https://i.imgur.com/WF9jYOf.png", meaning: "Inner resilience and patience. Lead with compassion." }
+        /* --- THE GRAND 78-CARD DATABASE --- */
+        const masterDeck = [
+            // MAJOR ARCANA
+            { name: "The Fool", img: "https://i.imgur.com/IBrMUUS.png", def: "Innocence, new beginnings, free spirit. Step into the unknown with faith." },
+            { name: "The Magician", img: "https://i.imgur.com/5PidMHl.png", def: "Manifestation, power, skill, action. You have all the tools to succeed." },
+            { name: "The High Priestess", img: "https://i.imgur.com/xrsmWEA.png", def: "Intuition, sacred knowledge, mystery. Look within; the answers are in the silence." },
+            { name: "The Empress", img: "https://i.imgur.com/RvakGCX.png", def: "Femininity, abundance, nurturing, creation. Abundance is blooming around you." },
+            { name: "The Emperor", img: "https://i.imgur.com/K4oVvvj.png", def: "Authority, structure, stability, leadership. Establish your boundaries." },
+            { name: "The Hierophant", img: "https://i.imgur.com/GRF1erw.png", def: "Tradition, spiritual wisdom, conformity. Seek counsel from established wisdom." },
+            { name: "The Lovers", img: "https://i.imgur.com/DVAdlIA.png", def: "Love, harmony, values alignment. A choice must be made from the heart." },
+            { name: "The Chariot", img: "https://i.imgur.com/K5lk6Om.png", def: "Determination, control, victory. Drive forward with unwavering focus." },
+            { name: "Strength", img: "https://i.imgur.com/WF9jYOf.png", def: "Courage, inner strength, compassion. Control your impulses with kindness." },
+            { name: "The Hermit", img: "https://i.imgur.com/GgoMlM8.png", def: "Introspection, solitude, inner guidance. Withdraw to find your light." },
+            { name: "Wheel of Fortune", img: "https://i.imgur.com/oQ7dG8i.png", def: "Change, destiny, cycles. The wheel is turning; fate is in motion." },
+            { name: "Justice", img: "https://i.imgur.com/xxvbuEe.png", def: "Truth, fairness, accountability. A fair outcome is guaranteed by cosmic law." },
+            { name: "The Hanged Man", img: "https://i.imgur.com/b71lXKz.png", def: "Surrender, new perspective, pause. Let go of the old to see the new." },
+            { name: "Death", img: "https://i.imgur.com/WB1hQzH.png", def: "Endings, transformation, rebirth. Release the past; a new cycle begins." },
+            { name: "Temperance", img: "https://i.imgur.com/2rUNAHs.png", def: "Balance, moderation, harmony. Combine your forces to create peace." },
+            { name: "The Devil", img: "https://i.imgur.com/WA3Zekv.png", def: "Attachment, temptation, material focus. Beware of chains that bind you to illusion." },
+            { name: "The Tower", img: "https://i.imgur.com/OGbBcsY.png", def: "Sudden change, upheaval, revelation. The false structures must fall." },
+            { name: "The Star", img: "https://i.imgur.com/zf2SNWL.png", def: "Hope, renewal, faith, healing. The spirits are guiding you to calm waters." },
+            { name: "The Moon", img: "https://i.imgur.com/uaLXrGB.png", def: "Illusion, intuition, subconscious. Trust your gut instincts over appearances." },
+            { name: "The Sun", img: "https://i.imgur.com/FxEoqnn.png", def: "Joy, success, vitality, clarity. Total illumination and happiness follow you." },
+            { name: "Judgement", img: "https://i.imgur.com/9E5aH31.png", def: "Awakening, renewal, decisiveness. You are called to your highest self." },
+            { name: "The World", img: "https://i.imgur.com/XdoOTCP.png", def: "Completion, fulfillment, wholeness. The journey is complete; celebrate." },
+            // MINOR ARCANA - WANDS
+            { name: "Ace of Wands", def: "Inspiration, new opportunities, growth, potential." },
+            { name: "Two of Wands", def: "Planning, progress, decisions, discovery." },
+            { name: "Three of Wands", def: "Expansion, foresight, overseas opportunities." },
+            { name: "Four of Wands", def: "Celebration, harmony, homecoming, milestones." },
+            { name: "Five of Wands", def: "Conflict, competition, tension, diverse opinions." },
+            { name: "Six of Wands", def: "Victory, recognition, success, public praise." },
+            { name: "Seven of Wands", def: "Defense, perseverance, standing your ground." },
+            { name: "Eight of Wands", def: "Speed, progress, swift action, communication." },
+            { name: "Nine of Wands", def: "Resilience, persistence, boundaries, burnout." },
+            { name: "Ten of Wands", def: "Burden, responsibility, stress, completion near." },
+            { name: "Page of Wands", def: "Curiosity, enthusiasm, new ideas, exploration." },
+            { name: "Knight of Wands", def: "Bold action, passion, adventure, confidence." },
+            { name: "Queen of Wands", def: "Confidence, charisma, creativity, independence." },
+            { name: "King of Wands", def: "Leadership, vision, authority, inspiration." },
+            // MINOR ARCANA - CUPS
+            { name: "Ace of Cups", def: "New emotions, love, compassion, emotional opening." },
+            { name: "Two of Cups", def: "Partnership, mutual attraction, unity, harmony." },
+            { name: "Three of Cups", def: "Celebration, friendship, shared joy, community." },
+            { name: "Four of Cups", def: "Apathy, contemplation, emotional withdrawal." },
+            { name: "Five of Cups", def: "Loss, grief, regret, focusing on disappointment." },
+            { name: "Six of Cups", def: "Nostalgia, memories, past connections, kindness." },
+            { name: "Seven of Cups", def: "Illusion, choices, fantasy, wishful thinking." },
+            { name: "Eight of Cups", def: "Walking away, seeking meaning, emotional growth." },
+            { name: "Nine of Cups", def: "Contentment, satisfaction, emotional fulfillment." },
+            { name: "Ten of Cups", def: "Harmony, emotional completion, shared happiness." },
+            { name: "Page of Cups", def: "Emotional curiosity, gentle messages, creativity." },
+            { name: "Knight of Cups", def: "Romance, charm, emotional pursuit, idealism." },
+            { name: "Queen of Cups", def: "Compassion, intuition, emotional depth, care." },
+            { name: "King of Cups", def: "Emotional balance, calm leadership, wisdom." },
+            // MINOR ARCANA - SWORDS
+            { name: "Ace of Swords", def: "Clarity, truth, breakthrough, mental focus." },
+            { name: "Two of Swords", def: "Indecision, stalemate, emotional block." },
+            { name: "Three of Swords", def: "Heartbreak, sorrow, painful truth, release." },
+            { name: "Four of Swords", def: "Rest, recovery, pause, mental restoration." },
+            { name: "Five of Swords", def: "Conflict, betrayal, hollow victory, ego." },
+            { name: "Six of Swords", def: "Transition, healing, moving to calmer waters." },
+            { name: "Seven of Swords", def: "Deception, strategy, secrecy, hidden motives." },
+            { name: "Eight of Swords", def: "Restriction, anxiety, self-limitation, fear." },
+            { name: "Nine of Swords", def: "Anxiety, nightmares, guilt, mental distress." },
+            { name: "Ten of Swords", def: "Painful ending, betrayal, collapse, finality." },
+            { name: "Page of Swords", def: "Curiosity, communication, mental agility." },
+            { name: "Knight of Swords", def: "Ambition, direct action, urgency, assertiveness." },
+            { name: "Queen of Swords", def: "Clarity, honesty, independence, sharp intellect." },
+            { name: "King of Swords", def: "Authority, logic, truth, ethical leadership." },
+            // MINOR ARCANA - PENTACLES
+            { name: "Ace of Pentacles", def: "New financial opportunity, stability, prosperity." },
+            { name: "Two of Pentacles", def: "Balance, adaptability, juggling priorities." },
+            { name: "Three of Pentacles", def: "Teamwork, craftsmanship, collaboration, skill." },
+            { name: "Four of Pentacles", def: "Saving, security, control, holding tight." },
+            { name: "Five of Pentacles", def: "Hardship, financial loss, isolation, struggle." },
+            { name: "Six of Pentacles", def: "Generosity, giving and receiving, fair exchange." },
+            { name: "Seven of Pentacles", def: "Patience, assessment, long-term steady progress." },
+            { name: "Eight of Pentacles", def: "Apprenticeship, skill-building, quality work." },
+            { name: "Nine of Pentacles", def: "Independence, luxury, self-sufficiency, comfort." },
+            { name: "Ten of Pentacles", def: "Legacy, family wealth, security, completion." },
+            { name: "Page of Pentacles", def: "New study, practical plan, steady ambition." },
+            { name: "Knight of Pentacles", def: "Reliability, hard work, routine, progress." },
+            { name: "Queen of Pentacles", def: "Nurturing, practicality, comfort, resourcefulness." },
+            { name: "King of Pentacles", def: "Wealth, stability, security, disciplined leadership." }
         ];
 
-        function castRitual() {
-            const display = document.getElementById('ritualDisplay');
-            const count = parseInt(document.getElementById('drawCount').value);
-            display.innerHTML = "";
+        function performRitual() {
+            const grid = document.getElementById('ritualDisplay');
+            const summary = document.getElementById('aiVault');
+            const aiText = document.getElementById('aiOutput');
+            const count = parseInt(document.getElementById('drawNum').value);
+            const cat = document.getElementById('spreadCat').value;
+            const q = document.getElementById('seekerQ').value;
 
-            // Shuffle and Draw
-            let draw = [...tarotCards].sort(() => 0.5 - Math.random()).slice(0, count);
+            grid.innerHTML = "";
+            summary.style.display = "none";
 
-            draw.forEach((card, i) => {
+            // Draw Cards
+            let shuffled = [...masterDeck].sort(() => 0.5 - Math.random()).slice(0, count);
+
+            shuffled.forEach((card, i) => {
                 const el = document.createElement('div');
                 el.className = 'mystic-card';
-                el.setAttribute('data-meaning', card.meaning);
-                el.innerHTML = `
-                    <img src="${card.img}" alt="${card.name}">
-                    <div class="card-name-text">${card.name}</div>
-                `;
-                display.appendChild(el);
+                el.setAttribute('data-definition', card.def);
                 
-                // Entrance animation
-                setTimeout(() => el.classList.add('active'), i * 250);
+                // Image or Placeholder logic
+                const finalImg = card.img ? card.img : `https://placehold.jp/40/ffb7d5/000000/300x500.png?text=${card.name}`;
+                
+                el.innerHTML = `
+                    <img src="${finalImg}" alt="${card.name}">
+                    <div class="card-label">${card.name}</div>
+                `;
+                grid.appendChild(el);
+                setTimeout(() => el.classList.add('active'), i * 300);
             });
+
+            // AI SYNTHESIS ENGINE
+            setTimeout(() => {
+                summary.style.display = "block";
+                let decree = q ? `In response to your query: "${q}"... ` : "The Archetypes have aligned. ";
+                decree += `The presence of ${shuffled[0].name} sets the spiritual foundation for your ${cat} path. This energy flows through ${shuffled[Math.floor(shuffled.length/2)].name}, ultimately concluding in the power of ${shuffled[shuffled.length-1].name}. Your destiny is no longer hidden.`;
+                aiText.innerText = decree;
+                
+                // Auto-scroll to summary
+                window.scrollTo({ top: summary.offsetTop - 50, behavior: 'smooth' });
+            }, (count * 300) + 500);
         }
     </script>
 </body>
