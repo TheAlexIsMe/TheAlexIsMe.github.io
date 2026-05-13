@@ -3,69 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpamzBot Dashboard</title>
+    <title>Mystic Spells Euphoria | Tarot Portal</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="stars"></div>
+    
+    <header>
+        <h1 class="glow-text">MYSTIC SPELLS EUPHORIA</h1>
+        <p class="subtitle">Guided by the Spirits of Los Santos</p>
+    </header>
 
-    <nav class="sidebar">
-        <div class="logo">🚀 SpamzBot</div>
-        <ul class="nav-links">
-            <li class="active"><a href="#">📊 Dashboard</a></li>
-            <li><a href="#">🏆 Leaderboard</a></li>
-            <li><a href="#">🔴 Live Status</a></li>
-            <li><a href="#">⚙️ Settings</a></li>
-        </ul>
-        <div class="user-profile">
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User">
-            <span>Admin</span>
-        </div>
-    </nav>
+    <main class="container">
+        <section class="controls">
+            <div class="input-group">
+                <label>Seeker's Question:</label>
+                <input type="text" id="userQuestion" placeholder="What does the veil reveal?">
+            </div>
 
-    <main class="content">
-        <header>
-            <h1>Server Overview</h1>
-            <p>Welcome back, <span>SpamzKillerTTV</span></p>
-        </header>
+            <div class="selection-grid">
+                <select id="readingType">
+                    <option value="general">General Guidance</option>
+                    <option value="relationship">Love & Relationships</option>
+                    <option value="money">Wealth & Fortune</option>
+                    <option value="luck">Luck & Fate</option>
+                </select>
 
-        <section class="stats-grid">
-            <div class="card purple">
-                <h3>Total Members</h3>
-                <div class="number">--</div>
+                <select id="spreadType">
+                    <option value="single">Straight Answer (1 Card)</option>
+                    <option value="triple">Deep Reading (3+ Cards)</option>
+                </select>
             </div>
-            <div class="card blue">
-                <h3>Total XP Earned</h3>
-                <div class="number">--</div>
-            </div>
-            <div class="card green">
-                <h3>Bot Status</h3>
-                <div class="number">ONLINE 🟢</div>
-            </div>
+
+            <button id="drawBtn" onclick="performReading()">Invoke the Cards</button>
         </section>
 
-        <section class="leaderboard-section">
-            <h2>🏆 Top 5 Members</h2>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>User</th>
-                            <th>Level</th>
-                            <th>XP</th>
-                        </tr>
-                    </thead>
-                    <tbody id="leaderboard-body">
-                        <tr>
-                            <td>#1</td>
-                            <td>Loading...</td>
-                            <td>--</td>
-                            <td>--</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <section id="readingDisplay" class="reading-display">
+            <!-- Cards will appear here via JS -->
+        </section>
+
+        <section id="interpretation" class="ai-box">
+            <h3 id="aiTitle"></h3>
+            <p id="aiResponse"></p>
         </section>
     </main>
 
