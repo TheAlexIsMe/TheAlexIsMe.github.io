@@ -3,109 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Spells | Elite Arcanum Portal</title>
+    <title>Mystic Spells | High-End Divination Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;400;600&family=Playfair+Display:ital,wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --sakura: #ffb7d5;
             --lavender: #c8a2c8;
+            --void: #0a0a0c;
+            --glass: rgba(255, 255, 255, 0.05);
             --gold: #d4af37;
-            --void: #08080a;
-            --panel: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 183, 213, 0.2);
         }
 
-        * { box-sizing: border-box; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
             background-color: var(--void);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 183, 213, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(200, 162, 200, 0.05) 0%, transparent 40%);
             color: #fff;
             font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* Particles Layer */
-        .aura {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.15;
-            pointer-events: none;
-            z-index: 1;
-        }
+        /* Particles Background */
+        canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
 
         .container {
+            width: 95%;
             max-width: 1400px;
-            margin: 0 auto;
-            padding: 100px 20px;
+            padding: 80px 20px;
             position: relative;
             z-index: 2;
+            text-align: center;
         }
 
-        /* Elite Header */
-        header { margin-bottom: 80px; text-align: center; }
+        /* Branding */
+        header { margin-bottom: 60px; }
         
-        .brand {
+        .brand-title {
             font-family: 'Cinzel Decorative', serif;
-            font-size: 5rem;
-            letter-spacing: 15px;
-            margin: 0;
-            background: linear-gradient(135deg, #fff 0%, var(--sakura) 50%, var(--lavender) 100%);
+            font-size: clamp(3rem, 8vw, 6rem);
+            letter-spacing: 20px;
+            background: linear-gradient(to bottom, #fff, var(--sakura), var(--lavender));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255, 183, 213, 0.3));
+            filter: drop-shadow(0 0 30px rgba(255, 183, 213, 0.5));
+            text-transform: uppercase;
         }
 
-        .motto {
+        .brand-subtitle {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 1.3rem;
-            color: var(--lavender);
-            letter-spacing: 5px;
+            font-size: 1.2rem;
+            color: var(--sakura);
+            letter-spacing: 8px;
             margin-top: 10px;
             opacity: 0.8;
         }
 
-        /* The Ritual Interface */
-        .ritual-engine {
-            background: var(--panel);
-            backdrop-filter: blur(40px);
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            padding: 80px 40px;
-            margin-bottom: 100px;
-            box-shadow: 0 60px 120px rgba(0,0,0,0.9);
+        /* Main Ritual Interface */
+        .ritual-frame {
+            background: var(--glass);
+            backdrop-filter: blur(50px);
+            border: 1px solid rgba(255, 183, 213, 0.2);
+            padding: 60px 40px;
+            border-radius: 4px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            margin-bottom: 80px;
         }
 
-        .query-wrap { position: relative; max-width: 800px; margin: 0 auto 50px; }
+        .input-group { margin-bottom: 40px; }
 
         input[type="text"] {
             width: 100%;
+            max-width: 800px;
             background: transparent;
             border: none;
-            border-bottom: 1px solid var(--sakura);
-            padding: 20px 0;
+            border-bottom: 2px solid var(--sakura);
+            padding: 15px 0;
             color: #fff;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-family: 'Playfair Display', serif;
             text-align: center;
             outline: none;
+            transition: 0.4s;
         }
 
-        input::placeholder { color: rgba(255, 255, 255, 0.2); font-size: 1.5rem; }
+        input[type="text"]:focus { border-color: #fff; transform: scale(1.02); }
 
-        .config-row { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+        .control-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
 
         select {
-            background: rgba(0,0,0,0.8);
-            border: 1px solid var(--border);
+            background: rgba(0,0,0,0.7);
+            border: 1px solid var(--sakura);
             color: var(--sakura);
-            padding: 15px 30px;
+            padding: 12px 25px;
             font-family: 'Montserrat';
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -113,221 +113,239 @@
             cursor: pointer;
         }
 
-        .btn-invoke {
-            margin-top: 50px;
-            padding: 25px 100px;
+        .invoke-btn {
+            margin-top: 40px;
+            padding: 22px 80px;
             background: linear-gradient(45deg, var(--sakura), var(--lavender));
             border: none;
             color: #000;
             font-family: 'Cinzel Decorative';
             font-weight: 900;
-            font-size: 1.3rem;
-            letter-spacing: 8px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
             cursor: pointer;
-            box-shadow: 0 0 40px rgba(255, 183, 213, 0.2);
+            box-shadow: 0 0 30px rgba(255, 183, 213, 0.3);
+            transition: 0.4s;
         }
 
-        .btn-invoke:hover { transform: scale(1.02); box-shadow: 0 0 60px var(--sakura); color: #fff; }
+        .invoke-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 0 50px var(--sakura);
+            color: #fff;
+        }
 
-        /* Spread Layout */
-        .arcanum-grid {
+        /* Card Spread */
+        .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 50px;
+            gap: 40px;
             margin-top: 50px;
         }
 
-        .card-slot { opacity: 0; transform: translateY(50px); }
-        .card-slot.reveal { opacity: 1; transform: translateY(0); }
+        .card-slot { opacity: 0; transform: translateY(40px); transition: 0.8s ease-out; }
+        .card-slot.active { opacity: 1; transform: translateY(0); }
 
-        .card-body {
-            background: #0d0d0f;
-            border: 1px solid var(--border);
-            padding: 30px;
+        .card-box {
+            background: #111;
+            border: 1px solid rgba(255, 183, 213, 0.1);
+            padding: 25px;
             height: 100%;
-            display: flex;
-            flex-direction: column;
+            transition: 0.4s;
         }
 
-        .card-body:hover { border-color: var(--sakura); box-shadow: 0 0 40px rgba(255, 183, 213, 0.1); }
+        .card-box:hover { border-color: var(--sakura); transform: translateY(-10px); }
 
-        .card-img-wrap { width: 100%; margin-bottom: 25px; overflow: hidden; }
-
-        .card-img-wrap img {
+        .card-box img {
             width: 100%;
-            display: block;
-            filter: sepia(0.2) contrast(1.1) brightness(0.9);
-            transition: 1s;
+            filter: sepia(0.3) brightness(0.8);
+            margin-bottom: 20px;
         }
 
-        .card-body:hover img { transform: scale(1.05); filter: sepia(0) contrast(1.2); }
-
-        .label {
+        .pos-tag {
             font-family: 'Cinzel Decorative';
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--sakura);
-            letter-spacing: 5px;
-            margin-bottom: 20px;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
 
-        .title { font-family: 'Playfair Display'; font-size: 2.2rem; margin-bottom: 15px; color: #fff; }
+        .card-title { font-family: 'Playfair Display'; font-size: 2rem; margin-bottom: 10px; }
 
-        .meaning {
-            font-size: 1rem;
-            color: #aaa;
-            line-height: 1.6;
-            text-align: justify;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding-top: 20px;
-        }
+        .card-meaning { font-size: 0.95rem; color: #ccc; line-height: 1.5; text-align: justify; }
 
-        /* AI Narrative Section */
-        .oracle-insight {
-            margin-top: 120px;
-            padding: 80px 40px;
-            border-top: 1px solid var(--border);
+        /* AI Narrative Summary */
+        .summary-box {
+            margin-top: 80px;
+            padding: 60px 40px;
+            border-top: 1px solid rgba(255, 183, 213, 0.1);
             display: none;
-            text-align: center;
         }
 
-        #aiSynthesis {
+        #aiDecree {
             font-family: 'Playfair Display';
-            font-size: 2.5rem;
-            line-height: 1.4;
-            max-width: 1000px;
+            font-size: 2.2rem;
+            max-width: 900px;
             margin: 0 auto;
             color: var(--sakura);
+            line-height: 1.4;
         }
 
         .loader {
             display: none;
-            width: 80px; height: 80px;
-            border: 2px solid rgba(255,183,213,0.1);
+            width: 60px; height: 60px;
+            border: 3px solid rgba(255, 183, 213, 0.1);
             border-top-color: var(--sakura);
             border-radius: 50%;
-            animation: spin 1.2s infinite linear;
-            margin: 60px auto;
+            animation: spin 1s infinite linear;
+            margin: 50px auto;
         }
 
         @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        @media (max-width: 900px) {
-            .brand { font-size: 3rem; }
-            .ritual-engine { padding: 40px 20px; }
-        }
     </style>
 </head>
 <body>
 
-<div class="aura"></div>
+<canvas id="stars"></canvas>
 
 <div class="container">
     <header>
-        <h1 class="brand">MYSTIC SPELLS</h1>
-        <div class="motto">Superior Divination for the Discerning Elite</div>
+        <h1 class="brand-title">Mystic Spells</h1>
+        <div class="brand-subtitle">The Premiere Occult Sanctuary for the Elite</div>
     </header>
 
-    <div class="ritual-engine">
-        <div class="query-wrap">
-            <input type="text" id="seekerQuestion" placeholder="COMMUNE WITH THE VOID...">
+    <div class="ritual-frame">
+        <div class="input-group">
+            <input type="text" id="seekerQuestion" placeholder="COMMUNE WITH THE ARCHETYPES...">
         </div>
         
-        <div class="config-row">
+        <div class="control-row">
             <select id="spreadType">
                 <option value="Timeline">Timeline: Past, Present, Future</option>
-                <option value="Archetype">Archetype: Mind, Body, Spirit</option>
-                <option value="Strategic">Strategic: Problem, Blockage, Solution</option>
+                <option value="Holistic">Holistic: Mind, Body, Spirit</option>
+                <option value="Advice">Advice: Situation, Blockage, Outcome</option>
             </select>
-            <select id="drawCount">
-                <option value="1">Singular Clarity (1 Card)</option>
-                <option value="3" selected>Trifecta Revelation (3 Cards)</option>
-                <option value="5">The Grand Pentagram (5 Cards)</option>
+            <select id="drawDepth">
+                <option value="1">Direct Insight (1 Card)</option>
+                <option value="3" selected>The Trifecta (3 Cards)</option>
+                <option value="5">The Grand Revelation (5 Cards)</option>
             </select>
         </div>
 
-        <button class="btn-invoke" onclick="executeRitual()">INVOKE THE ARCHETYPES</button>
+        <button class="invoke-btn" onclick="startRitual()">Invoke the Spirits</button>
     </div>
 
     <div class="loader" id="ritualLoader"></div>
-    <div class="arcanum-grid" id="ritualOutput"></div>
+    <div class="card-grid" id="cardDisplay"></div>
 
-    <div class="oracle-insight" id="oracleBox">
-        <div class="label">The Synthesis of Fate</div>
-        <p id="aiSynthesis"></p>
+    <div class="summary-box" id="decreeBox">
+        <div class="pos-tag">THE ORACLE'S DECREE</div>
+        <p id="aiDecree"></p>
     </div>
 </div>
 
 <script>
-    // PROFESSIONAL STABLE ASSETS (Wikipedia Commons / Public Domain)
-    const masterDeck = [
-        { name: "The Magician", img: "https://upload.wikimedia.org/wikipedia/en/d/de/RWS_Tarot_01_Magician.jpg", msg: "A mastery of the elements. You hold the tools required to reshape your reality in Los Santos." },
-        { name: "The High Priestess", img: "https://upload.wikimedia.org/wikipedia/en/8/8d/RWS_Tarot_02_High_Priestess.jpg", msg: "The veil is thin. Intuition is your sharpest weapon; look beyond the surface of current alliances." },
-        { name: "The Empress", img: "https://upload.wikimedia.org/wikipedia/en/d/d2/RWS_Tarot_03_Empress.jpg", msg: "Creative abundance. Your ventures are reaching a stage of fruitful harvest; nurture them with care." },
-        { name: "The Emperor", img: "https://upload.wikimedia.org/wikipedia/en/c/c3/RWS_Tarot_04_Emperor.jpg", msg: "Command and sovereignty. It is time to enforce your structure and protect your territory." },
-        { name: "The Hierophant", img: "https://upload.wikimedia.org/wikipedia/en/8/8d/RWS_Tarot_05_Hierophant.jpg", msg: "The weight of tradition. Seek counsel from established powers or respect the old laws of the city." },
-        { name: "The Lovers", img: "https://upload.wikimedia.org/wikipedia/en/d/db/RWS_Tarot_06_Lovers.jpg", msg: "The crossroads of the heart. A choice of alignment must be made that will define your moral compass." },
-        { name: "The Chariot", img: "https://upload.wikimedia.org/wikipedia/en/9/9b/RWS_Tarot_07_Chariot.jpg", msg: "Triumph through discipline. Victory is certain if you can balance the opposing forces within your crew." },
-        { name: "Strength", img: "https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg", msg: "Inner resilience. The situation requires the soft touch of persuasion rather than the roar of violence." },
-        { name: "The Hermit", img: "https://upload.wikimedia.org/wikipedia/en/4/4d/RWS_Tarot_09_Hermit.jpg", msg: "The lantern of truth. Solitude will provide the clarity that the crowded streets have obscured." },
-        { name: "The Wheel", img: "https://upload.wikimedia.org/wikipedia/en/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg", msg: "The turn of the cycle. Destiny shifts rapidly; prepare for a reversal that could favor the bold." },
-        { name: "Justice", img: "https://upload.wikimedia.org/wikipedia/en/e/e0/RWS_Tarot_11_Justice.jpg", msg: "The scales of karma. Integrity is paramount; expect an outcome strictly aligned with your past deeds." },
-        { name: "Death", img: "https://upload.wikimedia.org/wikipedia/en/d/d7/RWS_Tarot_13_Death.jpg", msg: "Essential transformation. Do not mourn the ending; it is the necessary soil for a grander rebirth." },
-        { name: "Temperance", img: "https://upload.wikimedia.org/wikipedia/en/f/f8/RWS_Tarot_14_Temperance.jpg", msg: "The alchemy of balance. Patience and moderation will resolve the friction currently surrounding you." },
-        { name: "The Devil", img: "https://upload.wikimedia.org/wikipedia/en/5/55/RWS_Tarot_15_Devil.jpg", msg: "The chains of desire. Beware of toxic dependencies or short-term gains that will lead to long-term bondage." },
-        { name: "The Tower", img: "https://upload.wikimedia.org/wikipedia/en/5/53/RWS_Tarot_16_Tower.jpg", msg: "Total demolition. The false structures must fall to expose the bedrock of truth. Brace for impact." },
-        { name: "The Star", img: "https://upload.wikimedia.org/wikipedia/en/d/db/RWS_Tarot_17_Star.jpg", msg: "Celestial restoration. A period of healing and renewed purpose follows the storm. Keep the faith." },
-        { name: "The Moon", img: "https://upload.wikimedia.org/wikipedia/en/7/7f/RWS_Tarot_18_Moon.jpg", msg: "Shadows and deception. Fears are distorting reality; trust only the instincts that speak in silence." },
-        { name: "The Sun", img: "https://upload.wikimedia.org/wikipedia/en/1/17/RWS_Tarot_19_Sun.jpg", msg: "Absolute illumination. Joy and clarity permeate your current path; the truth is finally revealed." },
-        { name: "The World", img: "https://upload.wikimedia.org/wikipedia/en/f/ff/RWS_Tarot_21_World.jpg", msg: "Ultimate completion. A major cycle has successfully closed. You have reached the pinnacle." }
+    // Particle Background Engine
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2;
+            this.speedX = Math.random() * 0.5 - 0.25;
+            this.speedY = Math.random() * 0.5 - 0.25;
+            this.color = `rgba(255, 183, 213, ${Math.random() * 0.5})`;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x > canvas.width) this.x = 0;
+            if (this.x < 0) this.x = canvas.width;
+            if (this.y > canvas.height) this.y = 0;
+            if (this.y < 0) this.y = canvas.height;
+        }
+        draw() {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function init() {
+        resize();
+        particles = [];
+        for (let i = 0; i < 150; i++) particles.push(new Particle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    init(); animate();
+
+    // Tarot Ritual Engine
+    const deck = [
+        { name: "The Magician", img: "https://upload.wikimedia.org/wikipedia/en/d/de/RWS_Tarot_01_Magician.jpg", msg: "You have all the tools to manifest your vision. Step into your power." },
+        { name: "The High Priestess", img: "https://upload.wikimedia.org/wikipedia/en/8/8d/RWS_Tarot_02_High_Priestess.jpg", msg: "The veil is thin. Trust your intuition over the city's noise." },
+        { name: "The Empress", img: "https://upload.wikimedia.org/wikipedia/en/d/d2/RWS_Tarot_03_Empress.jpg", msg: "Creative abundance flows through you. Nurture your newest projects." },
+        { name: "The Emperor", img: "https://upload.wikimedia.org/wikipedia/en/c/c3/RWS_Tarot_04_Emperor.jpg", msg: "Order and authority are required. Establish your sovereignty firmly." },
+        { name: "Death", img: "https://upload.wikimedia.org/wikipedia/en/d/d7/RWS_Tarot_13_Death.jpg", msg: "Transformation is inevitable. Shed the old skin to make room for rebirth." },
+        { name: "The Star", img: "https://upload.wikimedia.org/wikipedia/en/d/db/RWS_Tarot_17_Star.jpg", msg: "Hope and renewal are shining upon you. Your path is divinely guided." },
+        { name: "The Sun", img: "https://upload.wikimedia.org/wikipedia/en/1/17/RWS_Tarot_19_Sun.jpg", msg: "Absolute clarity and joy. Success is yours to claim under the light of truth." },
+        { name: "Strength", img: "https://upload.wikimedia.org/wikipedia/en/f/f5/RWS_Tarot_08_Strength.jpg", msg: "Tame your inner shadows with compassion. Courage is found in the soft touch." }
     ];
 
-    function executeRitual() {
-        const output = document.getElementById('ritualOutput');
+    function startRitual() {
+        const grid = document.getElementById('cardDisplay');
         const loader = document.getElementById('ritualLoader');
-        const oracle = document.getElementById('oracleBox');
-        const synthesis = document.getElementById('aiSynthesis');
-        const count = parseInt(document.getElementById('drawCount').value);
+        const box = document.getElementById('decreeBox');
+        const decree = document.getElementById('aiDecree');
+        const count = parseInt(document.getElementById('drawDepth').value);
         const style = document.getElementById('spreadType').value;
-        const query = document.getElementById('seekerQuestion').value;
+        const q = document.getElementById('seekerQuestion').value;
 
-        output.innerHTML = "";
-        oracle.style.display = "none";
+        grid.innerHTML = "";
+        box.style.display = "none";
         loader.style.display = "block";
 
-        let posLabels = ["Insight"];
-        if(count === 3) {
-            if(style === "Timeline") posLabels = ["The Past", "The Present", "The Future"];
-            else if(style === "Archetype") posLabels = ["The Mind", "The Body", "The Spirit"];
-            else posLabels = ["The Problem", "The Blockage", "The Solution"];
-        } else if(count === 5) {
-            posLabels = ["Foundation", "Influence", "Action", "Obstacle", "Outcome"];
-        }
+        let labels = ["The Past", "The Present", "The Future"];
+        if(style === "Holistic") labels = ["Mind", "Body", "Spirit"];
+        if(style === "Advice") labels = ["Situation", "Blockage", "Outcome"];
 
         setTimeout(() => {
             loader.style.display = "none";
-            let deck = [...masterDeck].sort(() => 0.5 - Math.random()).slice(0, count);
+            let selection = [...deck].sort(() => 0.5 - Math.random()).slice(0, count);
 
-            deck.forEach((card, i) => {
+            selection.forEach((card, i) => {
                 const slot = document.createElement('div');
                 slot.className = 'card-slot';
                 slot.innerHTML = `
-                    <div class="card-body">
-                        <div class="label">${posLabels[i] || "Arcane Force"}</div>
-                        <div class="card-img-wrap"><img src="${card.img}" alt="${card.name}"></div>
-                        <div class="title">${card.name}</div>
-                        <div class="meaning">${card.msg}</div>
+                    <div class="card-box">
+                        <div class="pos-tag">${labels[i] || "Energy"}</div>
+                        <img src="${card.img}" alt="${card.name}">
+                        <div class="card-title">${card.name}</div>
+                        <div class="card-meaning">${card.msg}</div>
                     </div>
                 `;
-                output.appendChild(slot);
-                setTimeout(() => slot.classList.add('reveal'), i * 300);
+                grid.appendChild(slot);
+                setTimeout(() => slot.classList.add('active'), i * 300);
             });
 
-            oracle.style.display = "block";
-            let intro = query ? `In response to your inquiry: "${query}"... ` : "The spirits have spoken. ";
-            synthesis.innerText = `${intro} The presence of ${deck[0].name} establishes your current reality, while ${deck[deck.length-1].name} marks the inevitable destination of this path.`;
-
-        }, 2500);
+            box.style.display = "block";
+            decree.innerText = q ? `Regarding "${q}"... The spirits speak through ${selection[0].name}. Your destiny is tethered to the power of ${selection[selection.length-1].name}.` : "The spirits have looked into the void. Your journey is clear.";
+        }, 2000);
     }
 </script>
 
