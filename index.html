@@ -65,29 +65,24 @@
         .background-system {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; /* Ensures it stays behind everything */
+            z-index: -1; 
             overflow: hidden;
         }
 
         .aura {
             position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
-            width: 50%; height: 200%;
-            background: linear-gradient(to bottom, #00f8f120, #fe848f40, #ffbd1e20);
-            filter: blur(80px); animation: aura-glow 8s infinite alternate;
-        }
-
-        .tunnel {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 100%; height: 100%;
+            width: 60%; height: 200%;
+            background: linear-gradient(to bottom, #00f8f115, #fe848f25, #ffbd1e15);
+            filter: blur(100px); animation: aura-glow 8s infinite alternate;
         }
 
         .ring {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: ring-pulse 6s infinite linear;
+            border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.08);
+            animation: ring-pulse 8s infinite linear;
         }
 
-        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 150%; height: 150%; opacity: 0; } }
+        @keyframes ring-pulse { 0% { width: 0; height: 0; opacity: 1; } 100% { width: 180%; height: 180%; opacity: 0; } }
 
         /* --- MAIN UI --- */
         .content-container {
@@ -95,84 +90,90 @@
             z-index: 10;
             width: 100%;
             max-width: 1200px;
-            padding: 60px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
 
         .brand-logo {
-            max-width: 350px;
+            max-width: 450px;
+            width: 100%;
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 15px var(--sakura));
+            filter: drop-shadow(0 0 25px var(--sakura));
         }
 
         .ritual-box {
-            background: rgba(10, 10, 12, 0.7);
-            backdrop-filter: blur(25px);
+            background: rgba(10, 10, 12, 0.75);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--glass-border);
             padding: 50px 30px;
             border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            margin: 0 auto 60px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            margin: 0 auto 50px;
         }
 
         input {
-            width: 100%; max-width: 600px; background: transparent; border: none;
+            width: 100%; max-width: 700px; background: transparent; border: none;
             border-bottom: 2px solid var(--sakura); color: #fff; padding: 15px;
-            font-size: 1.6rem; text-align: center; outline: none; margin-bottom: 30px;
+            font-size: 1.8rem; text-align: center; outline: none; margin-bottom: 30px;
             font-family: 'Playfair Display', serif;
         }
 
+        /* NEOMORPHIC BUTTON */
         .btn-invoke {
             background: #0d0d0f;
-            border-radius: 10px;
-            box-shadow: inset 0px -4px 12px rgba(255, 183, 213, 0.2), 0 5px 15px rgba(0,0,0,0.5);
-            border: 1px solid var(--sakura);
-            cursor: pointer; padding: 18px 45px; color: var(--gold);
-            font-family: 'Cinzel Decorative'; font-weight: 700; letter-spacing: 4px;
-            transition: 0.3s;
+            border-radius: 12px;
+            box-shadow: inset 0px -4px 15px rgba(255, 183, 213, 0.15), 0 8px 20px rgba(0,0,0,0.5);
+            border: 1.5px solid var(--sakura);
+            cursor: pointer; padding: 20px 50px; color: var(--gold);
+            font-family: 'Cinzel Decorative'; font-weight: 700; letter-spacing: 5px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .btn-invoke:hover { background: var(--sakura); color: #000; box-shadow: 0 0 30px var(--sakura); }
+        .btn-invoke:hover { background: var(--sakura); color: #000; transform: scale(1.05); box-shadow: 0 0 40px var(--sakura); }
 
-        /* --- CARD SYSTEM (FIXED CLIPPING) --- */
+        /* --- CARD SYSTEM (FIXED CLIPPING & ALIGNMENT) --- */
         .card-grid {
-            display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 40px;
         }
 
         .mystic-card {
-            position: relative; width: 260px; height: 420px;
-            background: #000; border-radius: 20px; cursor: pointer;
+            position: relative; width: 280px; height: 440px;
+            background: #000; border-radius: 24px; cursor: pointer;
             border: 2px solid var(--glass-border);
-            overflow: hidden; /* This keeps the hover text inside the rounded corners */
+            overflow: hidden; /* CRITICAL: Fixed the black corner clipping */
             display: flex; flex-direction: column; align-items: center;
-            opacity: 0; transform: translateY(30px); transition: 0.6s all;
+            opacity: 0; transform: translateY(40px); transition: 0.7s ease-out;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
         }
 
         .mystic-card.active { opacity: 1; transform: translateY(0); }
 
         .mystic-card img {
             width: 100%; height: auto; 
-            padding: 10px; border-radius: 20px; /* Internal rounding for the artwork */
+            padding: 8px; /* Internal margin so card border shows around art */
+            border-radius: 24px; 
+            display: block;
         }
 
         .card-name-text {
             font-family: 'Cinzel Decorative'; color: var(--sakura);
-            font-size: 1.2rem; margin-top: auto; padding-bottom: 20px;
+            font-size: 1.3rem; margin-top: auto; padding-bottom: 25px;
+            text-shadow: 0 0 10px rgba(255, 183, 213, 0.5);
         }
 
-        /* Hover Definition Effect */
+        /* Hover Reveal Definition */
         .mystic-card::before, .mystic-card::after {
             position: absolute; content: ""; width: 0%; height: 0%;
-            background-color: rgba(10, 10, 12, 0.95); transition: 0.5s ease-in-out;
+            background-color: rgba(10, 10, 12, 0.97); transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
             display: flex; align-items: center; justify-content: center;
-            padding: 25px; color: var(--sakura); font-size: 1rem; text-align: center;
-            z-index: 10; font-family: 'Playfair Display'; font-style: italic;
+            padding: 30px; color: var(--sakura); font-size: 1.1rem; text-align: center;
+            z-index: 10; font-family: 'Playfair Display'; font-style: italic; line-height: 1.6;
         }
 
-        .mystic-card::before { top: 0; right: 0; border-radius: 0 20px 0 100%; }
-        .mystic-card::after { bottom: 0; left: 0; border-radius: 0 100% 0 20px; }
+        .mystic-card::before { top: 0; right: 0; border-radius: 0 24px 0 100%; }
+        .mystic-card::after { bottom: 0; left: 0; border-radius: 0 100% 0 24px; }
 
-        .mystic-card:hover::before, .mystic-card:hover::after { width: 100%; height: 100%; border-radius: 20px; }
+        .mystic-card:hover::before, .mystic-card:hover::after { width: 100%; height: 100%; border-radius: 24px; }
         .mystic-card:hover::after { content: attr(data-meaning); }
 
     </style>
@@ -181,7 +182,7 @@
 
     <div id="preloader">
         <div class="loader-wrapper">
-            <span style="letter-spacing:5px">CONJURING</span>
+            <span style="letter-spacing:8px; font-weight:700;">CONJURING</span>
             <div class="loader"></div>
         </div>
     </div>
@@ -193,20 +194,21 @@
 
     <div class="content-container">
         <header>
-            <img src="https://i.imgur.com/1fa74ea5-d908-4362-bdae-46051e4a1c6b.png" class="brand-logo" alt="Mystic Spells">
+            <img src="https://i.imgur.com/6NZVG2f.png" class="brand-logo" alt="Mystic Spells">
         </header>
 
         <div class="ritual-box">
             <input type="text" id="userQuestion" placeholder="Whisper your inquiry to the void...">
-            <div style="margin-bottom: 25px;">
-                <select id="readingType" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:10px; margin-right:10px;">
+            <div style="margin-bottom: 30px;">
+                <select id="readingType" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:12px; border-radius:8px; margin-right:15px;">
                     <option value="Daily">Daily Practice</option>
                     <option value="Love">Love & Connection</option>
-                    <option value="Career">Career & Path</option>
+                    <option value="Career">Career & Success</option>
                 </select>
-                <select id="drawCount" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:10px;">
+                <select id="drawCount" style="background:#000; color:var(--sakura); border:1px solid var(--sakura); padding:12px; border-radius:8px;">
                     <option value="1">1 Card</option>
                     <option value="3" selected>3 Cards</option>
+                    <option value="5">5 Cards</option>
                 </select>
             </div>
             <button class="btn-invoke" onclick="castRitual()">INVOKE THE ARCHETYPES</button>
@@ -216,21 +218,21 @@
     </div>
 
     <script>
-        // Generate Rings
-        const container = document.getElementById('ringContainer');
-        for(let i=0; i<10; i++) {
+        // Generate Rings for Black Hole
+        const ringContainer = document.getElementById('ringContainer');
+        for(let i=0; i<12; i++) {
             let ring = document.createElement('div');
             ring.className = 'ring';
-            ring.style.animationDelay = `${i}s`;
-            container.appendChild(ring);
+            ring.style.animationDelay = `${i * 0.8}s`;
+            ringContainer.appendChild(ring);
         }
 
-        // Loader Timer
+        // Loader Timer (Set to 10s as requested)
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('preloader').style.opacity = '0';
                 setTimeout(() => document.getElementById('preloader').style.display = 'none', 1000);
-            }, 5000); // Set to 5s for better flow, change to 10000 for 10s
+            }, 10000); 
         });
 
         const tarotCards = [
@@ -250,6 +252,7 @@
             const count = parseInt(document.getElementById('drawCount').value);
             display.innerHTML = "";
 
+            // Shuffle and Draw
             let draw = [...tarotCards].sort(() => 0.5 - Math.random()).slice(0, count);
 
             draw.forEach((card, i) => {
@@ -261,7 +264,9 @@
                     <div class="card-name-text">${card.name}</div>
                 `;
                 display.appendChild(el);
-                setTimeout(() => el.classList.add('active'), i * 300);
+                
+                // Entrance animation
+                setTimeout(() => el.classList.add('active'), i * 250);
             });
         }
     </script>
