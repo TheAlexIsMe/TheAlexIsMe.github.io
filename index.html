@@ -3,52 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystic Spells Euphoria | Tarot Portal</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <title>Mystic Spells Euphoria | The Oracle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Raleway:wght@300&family=Charm:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS RESET & THEME */
+        :root {
+            --gold: #d4af37;
+            --deep-purple: #1a001a;
+            --accent-purple: #4b0082;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text: #e0e0e0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1a002a 0%, #050505 100%);
+            color: var(--text);
+            font-family: 'Raleway', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* AMBIENT BACKGROUND STARS */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* MAIN CONTAINER */
+        .portal-frame {
+            width: 90%;
+            max-width: 1100px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(212, 175, 55, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            margin: 0;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            letter-spacing: 5px;
+        }
+
+        .subtitle {
+            font-family: 'Charm', cursive;
+            font-size: 1.4rem;
+            color: #b19cd9;
+            margin-bottom: 30px;
+        }
+
+        /* INTERFACE ELEMENTS */
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+            align-items: center;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--gold);
+            padding: 15px;
+            color: white;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        select {
+            background: #000;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 12px 20px;
+            font-family: 'Cinzel';
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 15px 40px;
+            background: var(--gold);
+            color: black;
+            font-family: 'Cinzel', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+            border-radius: 5px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: #fff;
+            box-shadow: 0 0 30px var(--gold);
+        }
+
+        /* CARD DISPLAY AREA */
+        .reading-area {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            min-height: 350px;
+        }
+
+        .tarot-card {
+            width: 200px;
+            animation: cardEntrance 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        @keyframes cardEntrance {
+            from { transform: translateY(50px) rotateY(90deg); opacity: 0; }
+            to { transform: translateY(0) rotateY(0deg); opacity: 1; }
+        }
+
+        .tarot-card img {
+            width: 100%;
+            border-radius: 12px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+        }
+
+        .card-label {
+            margin-top: 10px;
+            color: var(--gold);
+            font-family: 'Cinzel';
+            font-size: 0.9rem;
+        }
+
+        /* AI INTERPRETATION BOX */
+        .interpretation-box {
+            background: rgba(0,0,0,0.4);
+            border-left: 4px solid var(--gold);
+            padding: 25px;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            display: none; /* Hidden until draw */
+        }
+
+        .interpretation-box h2 {
+            font-family: 'Cinzel';
+            color: var(--gold);
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
+
     <div class="stars"></div>
-    
-    <header>
-        <h1 class="glow-text">MYSTIC SPELLS EUPHORIA</h1>
-        <p class="subtitle">Guided by the Spirits of Los Santos</p>
-    </header>
 
-    <main class="container">
-        <section class="controls">
-            <div class="input-group">
-                <label>Seeker's Question:</label>
-                <input type="text" id="userQuestion" placeholder="What does the veil reveal?">
-            </div>
+    <div class="portal-frame">
+        <header>
+            <h1>MYSTIC SPELLS EUPHORIA</h1>
+            <div class="subtitle">Guided by the Spirits of Los Santos</div>
+        </header>
 
-            <div class="selection-grid">
+        <div class="controls">
+            <input type="text" id="question" placeholder="Speak your truth to the spirits...">
+            
+            <div class="input-row">
                 <select id="readingType">
-                    <option value="general">General Guidance</option>
-                    <option value="relationship">Love & Relationships</option>
-                    <option value="money">Wealth & Fortune</option>
-                    <option value="luck">Luck & Fate</option>
+                    <option value="General">General Guidance</option>
+                    <option value="Relationships">Love & Hearts</option>
+                    <option value="Wealth">Money & Fortune</option>
+                    <option value="Fate">Luck & Destiny</option>
+                    <option value="PastPresentFuture">Past, Present, Future</option>
                 </select>
 
-                <select id="spreadType">
-                    <option value="single">Straight Answer (1 Card)</option>
-                    <option value="triple">Deep Reading (3+ Cards)</option>
+                <select id="depth">
+                    <option value="1">Straight Answer (1 Card)</option>
+                    <option value="3">Deep Reading (3 Cards)</option>
+                    <option value="5">The Grand Reveal (5 Cards)</option>
                 </select>
             </div>
 
-            <button id="drawBtn" onclick="performReading()">Invoke the Cards</button>
-        </section>
+            <button onclick="invokeSpirit()">INVOKE THE SPIRITS</button>
+        </div>
 
-        <section id="readingDisplay" class="reading-display">
-            <!-- Cards will appear here via JS -->
-        </section>
+        <div id="readingArea" class="reading-area">
+            <!-- Cards appear here -->
+        </div>
 
-        <section id="interpretation" class="ai-box">
-            <h3 id="aiTitle"></h3>
-            <p id="aiResponse"></p>
-        </section>
-    </main>
+        <div id="aiBox" class="interpretation-box">
+            <h2 id="aiTitle">The Veil Parts...</h2>
+            <p id="aiText"></p>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <script>
+        // FULL DECK DATA
+        // REPLACE IMAGE URLS WITH YOUR GITHUB PATHS (e.g., "images/death.png")
+        const deck = [
+            { name: "The Fool", meaning: "A new journey begins in Los Santos. Watch your step, but do not fear the cliff.", img: "https://vignette.wikia.nocookie.net/powerlisting/images/0/00/Tarot_The_Fool.jpg" },
+            { name: "The Magician", meaning: "You have all the tools you need to succeed. Manifest your reality.", img: "https://vignette.wikia.nocookie.net/powerlisting/images/f/f6/Tarot_The_Magician.jpg" },
+            { name: "The High Priestess", meaning: "Listen to your intuition. Not everything in the city is as it seems.", img: "https://vignette.wikia.nocookie.net/powerlisting/images/c/ca/Tarot_The_High_Priestess.jpg" },
+            { name: "Death", meaning: "Not an end, but a transformation. Shed the old skin to grow.", img: "https://vignette.wikia.nocookie.net/powerlisting/images/b/b2/Tarot_Death.jpg" },
+            { name: "The Tower", meaning: "Sudden change is coming. The foundation must break for the truth to rise.", img: "https://vignette.wikia.nocookie.net/powerlisting/images/7/75/Tarot_The_Tower.jpg" },
+            { name: "The Sun", meaning: "Success, radiance, and abundance follow your path.", img: "https://vignette.wikia.nocookie.net/powerlisting/images/9/90/Tarot_The_Sun.jpg" }
+            // Add all 78 here in the same format!
+        ];
+
+        function invokeSpirit() {
+            const numCards = parseInt(document.getElementById('depth').value);
+            const type = document.getElementById('readingType').value;
+            const question = document.getElementById('question').value;
+            const area = document.getElementById('readingArea');
+            const aiBox = document.getElementById('aiBox');
+            const aiText = document.getElementById('aiText');
+
+            // Reset UI
+            area.innerHTML = "";
+            aiBox.style.display = "block";
+            
+            // Draw Cards
+            let selected = [];
+            let shuffled = [...deck].sort(() => 0.5 - Math.random());
+            selected = shuffled.slice(0, numCards);
+
+            // Display Cards
+            selected.forEach((card, index) => {
+                setTimeout(() => {
+                    area.innerHTML += `
+                        <div class="tarot-card">
+                            <img src="${card.img}" alt="${card.name}">
+                            <div class="card-label">${card.name}</div>
+                        </div>
+                    `;
+                }, index * 300);
+            });
+
+            // AI Interpretation Logic
+            let intro = question ? `Regarding your question: "${question}"... ` : "The spirits have looked into your soul... ";
+            let body = selected.map(c => c.meaning).join(" ");
+            
+            aiText.innerText = `${intro} The cards for your ${type} reading reveal a powerful message: ${body}`;
+        }
+    </script>
 </body>
 </html>
