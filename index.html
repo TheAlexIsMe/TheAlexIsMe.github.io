@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void City — Official Store</title>
+    <title>Void City — Official Tebex Store</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
@@ -201,7 +201,7 @@
         }
 
         .hero p {
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto 30px auto;
             color: var(--text-muted);
             font-size: 1.2rem;
@@ -246,10 +246,10 @@
             border-color: var(--pink-accent);
         }
 
-        /* --- Quick Stats HUD --- */
-        .hud-stats {
+        /* --- How It Works Steps --- */
+        .how-it-works {
             max-width: 1200px;
-            margin: -30px auto 50px auto;
+            margin: -30px auto 60px auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
@@ -258,31 +258,44 @@
             z-index: 10;
         }
 
-        .stat-card {
+        .step-card {
             background: var(--bg-card);
             border: 1px solid var(--border-hud);
             backdrop-filter: blur(10px);
-            padding: 20px;
+            padding: 22px;
             border-radius: 8px;
             display: flex;
-            align-items: center;
-            gap: 20px;
+            align-items: flex-start;
+            gap: 15px;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        .stat-card i {
-            font-size: 2.2rem;
-            color: var(--pink-accent);
-        }
-
-        .stat-card h3 {
+        .step-num {
+            background: var(--pink-accent);
+            color: #fff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
+            font-weight: 900;
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px var(--pink-glow);
         }
 
-        .stat-card p {
+        .step-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+        }
+
+        .step-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
+            line-height: 1.4;
         }
 
         /* --- Featured Products --- */
@@ -459,10 +472,6 @@
             padding-bottom: 10px;
         }
 
-        .rules-list {
-            margin-bottom: 20px;
-        }
-
         .rules-list h3 {
             font-size: 1.1rem;
             color: #fff;
@@ -562,36 +571,36 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Official FiveM Store</span>
-        <h1>Welcome to Void City</h1>
-        <p>Enhance your roleplay experience with exclusive 1of1 imports, specialized weapon benches, tier perks, custom drug labs, and premium assets.</p>
+        <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Official Void City Store</span>
+        <h1>Support Void City</h1>
+        <p>Purchase custom perks, 1of1 imports, gang packages, and weapon benches for your Void City character. All purchases directly fund server development.</p>
         <div class="hero-actions">
-            <a href="https://discord.gg" target="_blank" class="btn-primary"><i class="fa-brands fa-discord"></i> Join Discord</a>
-            <button class="btn-secondary" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Rules</button>
+            <a href="https://discord.gg" target="_blank" class="btn-primary"><i class="fa-brands fa-discord"></i> Open Claim Ticket</a>
+            <button class="btn-secondary" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Bible & Rules</button>
         </div>
     </section>
 
-    <!-- HUD Stats Quick Bar -->
-    <div class="hud-stats">
-        <div class="stat-card">
-            <i class="fa-solid fa-headset"></i>
+    <!-- How Claiming Works Steps -->
+    <div class="how-it-works">
+        <div class="step-card">
+            <div class="step-num">1</div>
             <div>
-                <h3>24/7 Support</h3>
-                <p>Instant support via Discord ticket system</p>
+                <h3>Select & Purchase</h3>
+                <p>Browse our categories and checkout your desired package or import.</p>
             </div>
         </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-shield-halved"></i>
+        <div class="step-card">
+            <div class="step-num">2</div>
             <div>
-                <h3>Instant Delivery</h3>
-                <p>Assets directly tied to your Tebex account</p>
+                <h3>Join Void Discord</h3>
+                <p>Head to our official Discord server and navigate to the <b>#donations-ticket</b> channel.</p>
             </div>
         </div>
-        <div class="stat-card">
-            <i class="fa-solid fa-city"></i>
+        <div class="step-card">
+            <div class="step-num">3</div>
             <div>
-                <h3>Custom Assets</h3>
-                <p>Tailored clothing, MLOs & 1of1 imports</p>
+                <h3>Provide Proof & Claim</h3>
+                <p>Submit your Tebex transaction ID/receipt. Staff will import or assign your items in-city!</p>
             </div>
         </div>
     </div>
@@ -599,8 +608,8 @@
     <!-- Featured Products Section -->
     <div class="container">
         <div class="section-title">
-            <h2>Featured Imports & Assets</h2>
-            <p>Browse top featured packages available in Void City</p>
+            <h2>Featured City Assets</h2>
+            <p>Popular custom imports and upgrades available for Void City</p>
         </div>
 
         <div class="product-grid">
@@ -614,7 +623,7 @@
                 <div class="product-details">
                     <h3 class="product-title">1of1 Vehicle Import</h3>
                     <div class="product-price">$150.00 USD</div>
-                    <a href="vehicles.html" class="btn-buy">View Details</a>
+                    <a href="vehicles.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -627,7 +636,7 @@
                 <div class="product-details">
                     <h3 class="product-title">1of1 Weapon Import</h3>
                     <div class="product-price">$100.00 USD</div>
-                    <a href="weapons.html" class="btn-buy">View Details</a>
+                    <a href="weapons.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -640,7 +649,7 @@
                 <div class="product-details">
                     <h3 class="product-title">Tier 3 Gang Package</h3>
                     <div class="product-price">$120.00 USD</div>
-                    <a href="gangs.html" class="btn-buy">View Details</a>
+                    <a href="gangs.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -653,7 +662,7 @@
                 <div class="product-details">
                     <h3 class="product-title">Void Weapon Bench</h3>
                     <div class="product-price">$85.00 USD</div>
-                    <a href="weapons.html" class="btn-buy">View Details</a>
+                    <a href="weapons.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -666,7 +675,7 @@
                 <div class="product-details">
                     <h3 class="product-title">Custom Drug Import</h3>
                     <div class="product-price">$75.00 USD</div>
-                    <a href="drugs.html" class="btn-buy">View Details</a>
+                    <a href="drugs.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -679,7 +688,7 @@
                 <div class="product-details">
                     <h3 class="product-title">Custom MLO Import</h3>
                     <div class="product-price">$90.00 USD</div>
-                    <a href="businesses.html" class="btn-buy">View Details</a>
+                    <a href="businesses.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -692,7 +701,7 @@
                 <div class="product-details">
                     <h3 class="product-title">Obsidian Weapon Finish</h3>
                     <div class="product-price">$45.00 USD</div>
-                    <a href="weapons.html" class="btn-buy">View Details</a>
+                    <a href="weapons.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -705,7 +714,7 @@
                 <div class="product-details">
                     <h3 class="product-title">Unban Appeal Fee</h3>
                     <div class="product-price">$50.00 USD</div>
-                    <a href="unban.html" class="btn-buy">View Details</a>
+                    <a href="unban.html" class="btn-buy">Purchase Package</a>
                 </div>
             </div>
 
@@ -720,7 +729,7 @@
             
             <div class="rules-list">
                 <h3>1. Respect Everyone</h3>
-                <p>Treat all members with respect. Zero harassment, bullying, or hate speech permitted.</p>
+                <p>Treat all members with respect. Zero harassment, bullying, or toxicity permitted.</p>
 
                 <h3>2. No Spamming or Flooding</h3>
                 <p>Keep channels clean. Avoid excessive tagging or unnecessary clutter.</p>
@@ -728,7 +737,7 @@
                 <h3>3. Disclaimer</h3>
                 <p>All clothing and graphic deals are between seller and buyer. Void RP is not responsible for external transactions.</p>
 
-                <h3>4. Server Bible & In-City Terminology</h3>
+                <h3>4. In-City Terminology (Bible)</h3>
                 <p>Ensure you maintain proper roleplay immersion at all times. Standard translations:</p>
                 <ul>
                     <li><b>Downed:</b> Needs EMS revival</li>
@@ -742,7 +751,7 @@
                     <li><b>Bahama'd:</b> Banned</li>
                 </ul>
 
-                <h3 style="color: #ff3333; margin-top: 20px;">Strictly Prohibited Terms (IC):</h3>
+                <h3 style="color: #ff3333; margin-top: 20px;">Strictly Prohibited Terms (In-City):</h3>
                 <p style="color: #ff9999;">Banned, Ticket, Staff/Admin, Scene, Clip, 90 seconds, Inject, Greenzone, Game, FiveM, GTA, Scripts, MLO, Metagame, RDM/VDM/FRP.</p>
             </div>
         </div>
@@ -753,7 +762,7 @@
         <div class="footer-content">
             <div class="footer-col">
                 <h4>Void City RP</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Providing high quality roleplay experience with custom imports, assets, and active community engagement.</p>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Official Store for Void City RP. All purchases go directly toward server hosting, custom assets, and community development.</p>
             </div>
             <div class="footer-col">
                 <h4>Navigation</h4>
@@ -765,11 +774,11 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Support & Legal</h4>
+                <h4>Support & Claims</h4>
                 <ul>
+                    <li><a href="https://discord.gg" target="_blank">Open Claim Ticket</a></li>
                     <li><a href="unban.html">Unban Fees</a></li>
                     <li><a href="#" id="rulesFooterBtn">Community Rules</a></li>
-                    <li><a href="https://discord.gg" target="_blank">Discord Support</a></li>
                 </ul>
             </div>
         </div>
