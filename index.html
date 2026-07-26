@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOID CITY RP — Official Store</title>
+    <title>VOID CITY RP — OFFICIAL STORE</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-dark: #040206;
-            --card-bg: rgba(12, 6, 18, 0.85);
+            --bg-black: #030105;
+            --card-hud: rgba(14, 5, 22, 0.75);
             --pink-neon: #ff007f;
             --purple-neon: #bf00ff;
             --pink-glow: rgba(255, 0, 127, 0.6);
-            --purple-glow: rgba(191, 0, 255, 0.4);
-            --text-main: #f8fafc;
-            --text-muted: #a8b2d1;
-            --border-glow: 1px solid rgba(255, 0, 127, 0.4);
+            --purple-glow: rgba(191, 0, 255, 0.5);
+            --border-neon: 1px solid rgba(255, 0, 127, 0.5);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
         }
 
         * {
@@ -27,53 +27,63 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Rajdhani', sans-serif;
+            user-select: none;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-black);
             color: var(--text-main);
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(191, 0, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.1) 0%, transparent 40%),
-                linear-gradient(to bottom, rgba(4, 2, 6, 0.8), rgba(4, 2, 6, 0.98)),
-                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop');
-            background-size: cover;
+            background: 
+                radial-gradient(circle at 50% 0%, rgba(191, 0, 255, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 10% 40%, rgba(255, 0, 127, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(191, 0, 255, 0.15) 0%, transparent 50%),
+                #030105;
             background-attachment: fixed;
-            background-position: center;
         }
 
-        /* --- Scanline Animation Overlay --- */
-        body::before {
-            content: " ";
-            display: block;
+        /* --- Scanlines & Dynamic Ambient Grid --- */
+        .cyber-grid {
             position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 0, 127, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 0, 127, 0.03) 1px, transparent 1px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.4) 51%);
             background-size: 100% 4px;
             z-index: 999;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
-        /* --- Header Navigation --- */
+        /* --- Header Navigation HUD --- */
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(8, 3, 14, 0.92);
-            backdrop-filter: blur(15px);
+            background: rgba(5, 2, 8, 0.9);
+            backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--pink-neon);
-            box-shadow: 0 0 25px var(--pink-glow);
+            box-shadow: 0 0 25px var(--pink-glow), inset 0 -5px 15px rgba(255, 0, 127, 0.2);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 25px;
+            padding: 12px 30px;
+            position: relative;
+            z-index: 2;
         }
 
         .brand-logo {
@@ -84,28 +94,29 @@
         }
 
         .brand-logo img {
-            height: 55px;
-            filter: drop-shadow(0 0 12px var(--pink-neon));
-            transition: transform 0.3s ease;
+            height: 60px;
+            filter: drop-shadow(0 0 15px var(--pink-neon));
+            transition: all 0.3s ease;
         }
 
         .brand-logo:hover img {
-            transform: scale(1.08) rotate(-2deg);
+            transform: scale(1.1) rotate(-3deg);
+            filter: drop-shadow(0 0 25px var(--pink-neon));
         }
 
         .brand-logo span {
             font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 900;
             color: #fff;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--pink-neon), 0 0 20px var(--purple-neon);
+            letter-spacing: 4px;
+            text-shadow: 0 0 12px var(--pink-neon), 0 0 25px var(--purple-neon);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 15px;
+            gap: 10px;
         }
 
         .nav-item { position: relative; }
@@ -114,41 +125,45 @@
             color: #fff;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 800;
             text-transform: uppercase;
-            padding: 10px 14px;
+            padding: 10px 18px;
             display: flex;
             align-items: center;
             gap: 8px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             transition: all 0.3s ease;
-            border-radius: 4px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 0, 127, 0.2);
         }
 
         .nav-link:hover, .nav-link.active {
-            color: var(--pink-neon);
-            background: rgba(255, 0, 127, 0.12);
-            box-shadow: inset 0 0 10px rgba(255, 0, 127, 0.3);
-            text-shadow: 0 0 8px var(--pink-neon);
+            color: #fff;
+            background: var(--pink-neon);
+            box-shadow: 0 0 20px var(--pink-neon);
+            text-shadow: 0 0 8px #fff;
+            border-color: #fff;
         }
 
-        /* Dropdown */
+        /* Dropdown Menu */
         .dropdown {
             position: absolute;
-            top: 100%;
+            top: 110%;
             left: 0;
-            width: 230px;
-            background: rgba(12, 6, 18, 0.98);
-            border: 1px solid var(--pink-neon);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px var(--pink-glow);
+            width: 250px;
+            background: rgba(8, 3, 14, 0.98);
+            border: 2px solid var(--pink-neon);
+            box-shadow: 0 0 30px var(--pink-glow);
             border-radius: 4px;
             opacity: 0;
             visibility: hidden;
             transform: translateY(15px);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             list-style: none;
-            padding: 8px 0;
+            padding: 10px 0;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
         }
 
         .nav-item:hover .dropdown {
@@ -158,243 +173,291 @@
         }
 
         .dropdown a {
-            padding: 12px 20px;
+            padding: 12px 22px;
             color: var(--text-muted);
             text-decoration: none;
             display: block;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 1.05rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             transition: all 0.2s ease;
         }
 
         .dropdown a:hover {
             color: #fff;
-            background: linear-gradient(90deg, rgba(255, 0, 127, 0.3), transparent);
-            padding-left: 25px;
+            background: linear-gradient(90deg, rgba(255, 0, 127, 0.4), transparent);
+            padding-left: 30px;
             border-left: 4px solid var(--pink-neon);
+            text-shadow: 0 0 10px var(--pink-neon);
         }
 
         .cart-btn {
             background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
             color: #fff;
-            padding: 10px 22px;
-            border-radius: 4px;
+            padding: 12px 25px;
             text-decoration: none;
             font-weight: 900;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 18px var(--pink-glow);
+            box-shadow: 0 0 20px var(--pink-glow);
             border: 1px solid #fff;
+            clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
             transition: all 0.3s ease;
         }
 
         .cart-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px var(--pink-neon), 0 0 35px var(--purple-neon);
+            transform: scale(1.08) rotate(-1deg);
+            box-shadow: 0 0 35px var(--pink-neon), 0 0 45px var(--purple-neon);
         }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section with Live HUD --- */
         .hero {
             position: relative;
-            padding: 90px 20px 60px 20px;
+            z-index: 2;
+            padding: 80px 20px 40px 20px;
             text-align: center;
         }
 
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
             color: #fff;
-            text-shadow: 0 0 20px var(--pink-neon), 0 0 40px var(--purple-neon);
-            margin-bottom: 10px;
+            text-shadow: 0 0 20px var(--pink-neon), 0 0 50px var(--purple-neon), 0 0 80px var(--pink-neon);
+            margin-bottom: 5px;
+            line-height: 1;
         }
 
         .hero-subtitle {
             font-family: 'Orbitron', sans-serif;
             color: var(--pink-neon);
-            font-size: 1.2rem;
-            letter-spacing: 3px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            letter-spacing: 5px;
             text-transform: uppercase;
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px var(--pink-glow);
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px var(--pink-glow);
         }
 
-        .hero-desc {
-            max-width: 800px;
-            margin: 0 auto 35px auto;
-            color: var(--text-muted);
-            font-size: 1.25rem;
-            line-height: 1.6;
-            font-weight: 600;
+        /* Live Server Status HUD Widget */
+        .server-hud-widget {
+            display: inline-flex;
+            align-items: center;
+            gap: 25px;
+            background: rgba(14, 5, 22, 0.85);
+            border: 1px solid var(--pink-neon);
+            box-shadow: 0 0 20px var(--pink-glow), inset 0 0 15px rgba(255, 0, 127, 0.2);
+            padding: 12px 30px;
+            border-radius: 40px;
+            margin-bottom: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #00ff88;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #00ff88;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+        }
+
+        .widget-divider {
+            width: 1px;
+            height: 20px;
+            background: rgba(255,0,127,0.4);
         }
 
         .hero-actions {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
         }
 
-        .btn-neon {
-            background: linear-gradient(90deg, var(--pink-neon), #c80062);
+        .btn-cyber {
+            background: linear-gradient(90deg, var(--pink-neon), #a80053);
             color: #fff;
-            padding: 14px 32px;
-            border-radius: 4px;
+            padding: 16px 40px;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 0.95rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 0 20px var(--pink-glow);
-            border: 1px solid rgba(255,255,255,0.4);
+            letter-spacing: 3px;
+            box-shadow: 0 0 25px var(--pink-glow);
+            border: 1px solid #fff;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .btn-outline {
-            background: rgba(12, 6, 18, 0.8);
+        .btn-cyber-outline {
+            background: rgba(14, 5, 22, 0.9);
             border: 1px solid var(--purple-neon);
             color: #fff;
-            padding: 14px 32px;
-            border-radius: 4px;
+            padding: 16px 40px;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 0.95rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 0 15px var(--purple-glow);
+            letter-spacing: 3px;
+            box-shadow: 0 0 20px var(--purple-glow);
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .btn-neon:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 0 30px var(--pink-neon);
+        .btn-cyber:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 0 40px var(--pink-neon);
         }
 
-        .btn-outline:hover {
-            transform: translateY(-3px) scale(1.03);
+        .btn-cyber-outline:hover {
+            transform: translateY(-4px) scale(1.05);
             border-color: var(--pink-neon);
-            box-shadow: 0 0 25px var(--pink-glow);
+            box-shadow: 0 0 35px var(--pink-glow);
         }
 
-        /* --- Claim Steps HUD --- */
-        .claim-hud {
-            max-width: 1300px;
-            margin: 30px auto 60px auto;
+        /* --- How to Claim HUD Step Cards --- */
+        .hud-steps-container {
+            max-width: 1400px;
+            margin: 40px auto 60px auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 25px;
             padding: 0 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        .claim-card {
-            background: var(--card-bg);
+        .hud-step-card {
+            background: var(--card-hud);
             border: 1px solid var(--pink-neon);
-            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
-            border-radius: 6px;
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.25), inset 0 0 15px rgba(191, 0, 255, 0.15);
             padding: 25px;
             position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(15px);
             display: flex;
             align-items: center;
             gap: 20px;
-            transition: transform 0.3s ease;
+            clip-path: polygon(0 0, 92% 0, 100% 25%, 100% 100%, 8% 100%, 0 75%);
+            transition: all 0.3s ease;
         }
 
-        .claim-card:hover {
+        .hud-step-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 25px var(--pink-glow);
+            box-shadow: 0 0 35px var(--pink-glow), inset 0 0 25px rgba(255, 0, 127, 0.3);
         }
 
-        .claim-step {
+        .step-num {
             font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 900;
             color: var(--pink-neon);
-            text-shadow: 0 0 10px var(--pink-glow);
-            min-width: 45px;
+            text-shadow: 0 0 15px var(--pink-glow);
+            line-height: 1;
         }
 
-        .claim-info h3 {
+        .step-details h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #fff;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
         }
 
-        .claim-info p {
+        .step-details p {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.4;
+            font-weight: 600;
         }
 
-        /* --- Main Store Container --- */
-        .container {
-            max-width: 1400px;
+        /* --- Product Grid Section --- */
+        .main-container {
+            max-width: 1500px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        .section-header {
+        .section-title-wrap {
             text-align: center;
             margin-bottom: 50px;
+            position: relative;
         }
 
-        .section-header h2 {
+        .section-title-wrap h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.8rem;
-            letter-spacing: 4px;
+            font-size: 3.2rem;
+            letter-spacing: 6px;
             color: #fff;
-            text-shadow: 0 0 15px var(--pink-neon);
+            text-shadow: 0 0 20px var(--pink-neon), 0 0 40px var(--purple-neon);
             text-transform: uppercase;
         }
 
-        .section-header p {
+        .section-title-wrap p {
             font-family: 'Orbitron', sans-serif;
-            color: var(--text-muted);
+            color: var(--pink-neon);
             font-size: 0.95rem;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             margin-top: 5px;
         }
 
-        /* --- Product Grid & Cards --- */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 35px;
         }
 
         .product-card {
-            background: var(--card-bg);
+            background: var(--card-hud);
             border: 1px solid rgba(255, 0, 127, 0.3);
-            border-radius: 8px;
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: all 0.35s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            backdrop-filter: blur(15px);
+            clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
         }
 
         .product-card:hover {
             border-color: var(--pink-neon);
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 0 30px var(--pink-glow), 0 0 10px var(--purple-neon);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 40px var(--pink-glow), 0 0 20px var(--purple-glow);
         }
 
         .product-thumb {
             width: 100%;
-            height: 280px;
+            height: 310px;
             position: relative;
             overflow: hidden;
             background: #000;
@@ -404,79 +467,82 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .product-card:hover .product-thumb img {
             transform: scale(1.12);
         }
 
-        .badge-tag {
+        .product-tag {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(8, 3, 14, 0.9);
+            top: 15px;
+            right: 15px;
+            background: rgba(3, 1, 5, 0.9);
             border: 1px solid var(--pink-neon);
             color: var(--pink-neon);
-            padding: 4px 12px;
+            padding: 5px 14px;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            border-radius: 3px;
-            box-shadow: 0 0 10px var(--pink-glow);
+            box-shadow: 0 0 12px var(--pink-glow);
+            letter-spacing: 1px;
         }
 
         .product-body {
-            padding: 22px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-            background: linear-gradient(to bottom, rgba(12, 6, 18, 0.9), rgba(4, 2, 6, 0.95));
+            background: linear-gradient(180deg, rgba(14, 5, 22, 0.6) 0%, rgba(5, 2, 8, 0.95) 100%);
+            border-top: 1px solid rgba(255,0,127,0.2);
         }
 
         .product-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 800;
             color: #fff;
             margin-bottom: 10px;
-            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .product-price {
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             font-weight: 900;
             color: var(--pink-neon);
-            text-shadow: 0 0 10px var(--pink-glow);
-            margin-bottom: 18px;
+            text-shadow: 0 0 12px var(--pink-glow);
+            margin-bottom: 20px;
         }
 
         .btn-card {
             margin-top: auto;
             width: 100%;
-            background: rgba(255, 0, 127, 0.15);
+            background: rgba(255, 0, 127, 0.12);
             border: 1px solid var(--pink-neon);
             color: #fff;
-            padding: 12px;
+            padding: 14px;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             cursor: pointer;
-            border-radius: 4px;
             text-align: center;
             text-decoration: none;
             transition: all 0.3s ease;
             display: block;
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
         }
 
         .btn-card:hover {
             background: var(--pink-neon);
             color: #fff;
-            box-shadow: 0 0 20px var(--pink-neon);
+            box-shadow: 0 0 25px var(--pink-neon);
+            text-shadow: 0 0 8px #fff;
         }
 
         /* --- Rules Modal --- */
@@ -486,29 +552,29 @@
             z-index: 2000;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.94);
+            backdrop-filter: blur(12px);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: var(--card-bg);
+            background: var(--card-hud);
             border: 2px solid var(--pink-neon);
-            box-shadow: 0 0 40px var(--pink-glow);
+            box-shadow: 0 0 50px var(--pink-glow);
             width: 90%;
-            max-width: 850px;
+            max-width: 900px;
             max-height: 85vh;
-            border-radius: 8px;
-            padding: 35px;
+            padding: 40px;
             overflow-y: auto;
             position: relative;
+            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
         }
 
         .close-modal {
             position: absolute;
             top: 20px; right: 25px;
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--text-muted);
             cursor: pointer;
             transition: color 0.2s;
@@ -518,84 +584,93 @@
 
         .modal h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2rem;
+            font-size: 2.3rem;
             color: var(--pink-neon);
-            text-shadow: 0 0 10px var(--pink-glow);
-            border-bottom: 1px solid var(--pink-neon);
+            text-shadow: 0 0 15px var(--pink-glow);
+            border-bottom: 2px solid var(--pink-neon);
             padding-bottom: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .rules-body h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #fff;
             margin-top: 20px;
+            letter-spacing: 1px;
         }
 
         .rules-body p, .rules-body ul {
             color: var(--text-muted);
-            margin-top: 6px;
+            margin-top: 8px;
             font-size: 1.05rem;
-            line-height: 1.5;
+            line-height: 1.6;
             padding-left: 15px;
+            font-weight: 600;
         }
 
-        /* --- Footer --- */
+        /* --- Cyber Footer --- */
         footer {
-            background: rgba(4, 2, 6, 0.98);
+            background: rgba(3, 1, 5, 0.98);
             border-top: 2px solid var(--pink-neon);
-            padding: 60px 20px 25px 20px;
-            margin-top: 100px;
-            box-shadow: 0 -10px 25px rgba(255,0,127,0.15);
+            padding: 70px 20px 30px 20px;
+            margin-top: 120px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 -10px 30px rgba(255, 0, 127, 0.2);
         }
 
         .footer-grid {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 45px;
+            margin-bottom: 50px;
         }
 
         .footer-col h4 {
             font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--pink-neon);
-            text-shadow: 0 0 8px var(--pink-glow);
+            text-shadow: 0 0 10px var(--pink-glow);
             margin-bottom: 20px;
+            letter-spacing: 2px;
         }
 
         .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li { margin-bottom: 14px; }
         .footer-col ul a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 1.05rem;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.2s;
         }
 
         .footer-col ul a:hover {
             color: #fff;
-            text-shadow: 0 0 8px var(--pink-neon);
-            padding-left: 5px;
+            text-shadow: 0 0 10px var(--pink-neon);
+            padding-left: 8px;
         }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 25px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- HUD Navigation Bar -->
+    <div class="cyber-grid"></div>
+    <div class="scanline"></div>
+
+    <!-- HUD Navigation -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="brand-logo">
@@ -606,7 +681,7 @@
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i> Imports <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+                    <a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i> Imports <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i></a>
                     <ul class="dropdown">
                         <li><a href="weapons.html">Weapon Imports</a></li>
                         <li><a href="vehicles.html">Vehicle Imports</a></li>
@@ -634,168 +709,181 @@
     <section class="hero">
         <h1 class="hero-title">VOID CITY RP</h1>
         <div class="hero-subtitle">Official Server Store & Custom Imports</div>
-        <p class="hero-desc">Elevate your roleplay with 1-of-1 vehicle imports, custom drug labs, custom chain graphic designs, weapon benches, and exclusive slot upgrades for Void City.</p>
+
+        <!-- Live Server Status Widget -->
+        <div class="server-hud-widget">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>CITY ONLINE</span>
+            </div>
+            <div class="widget-divider"></div>
+            <div class="status-indicator">
+                <i class="fa-solid fa-users" style="color: var(--pink-neon);"></i>
+                <span>PLAYERS: 128 / 200</span>
+            </div>
+        </div>
+
         <div class="hero-actions">
-            <a href="https://discord.gg" target="_blank" class="btn-neon"><i class="fa-brands fa-discord"></i> Open Discord Claim Ticket</a>
-            <button class="btn-outline" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Bible & Rules</button>
+            <a href="https://discord.gg" target="_blank" class="btn-cyber"><i class="fa-brands fa-discord"></i> Open Discord Ticket</a>
+            <button class="btn-cyber-outline" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Rules Bible</button>
         </div>
     </section>
 
-    <!-- Donation Claiming Steps HUD -->
-    <div class="claim-hud">
-        <div class="claim-card">
-            <div class="claim-step">01</div>
-            <div class="claim-info">
+    <!-- Claim Steps HUD -->
+    <div class="hud-steps-container">
+        <div class="hud-step-card">
+            <div class="step-num">01</div>
+            <div class="step-details">
                 <h3>Buy Package</h3>
-                <p>Choose your desired import, weapon skin, or gang tier pass below.</p>
+                <p>Select your desired 1of1 vehicle, weapon, gang tier, or custom asset below.</p>
             </div>
         </div>
-        <div class="claim-card">
-            <div class="claim-step">02</div>
-            <div class="claim-info">
+        <div class="hud-step-card">
+            <div class="step-num">02</div>
+            <div class="step-details">
                 <h3>Open Ticket</h3>
-                <p>Join the Void City Discord and open a ticket in <b>#donation-claims</b>.</p>
+                <p>Join the Void Discord and open a ticket in <b>#donation-claims</b>.</p>
             </div>
         </div>
-        <div class="claim-card">
-            <div class="claim-step">03</div>
-            <div class="claim-info">
+        <div class="hud-step-card">
+            <div class="step-num">03</div>
+            <div class="step-details">
                 <h3>Get Imported</h3>
-                <p>Provide Tebex transaction proof & receive your custom items in-city!</p>
+                <p>Submit your transaction receipt and our team will assign your items in-city!</p>
             </div>
         </div>
     </div>
 
-    <!-- Featured Products Showcase -->
-    <div class="container">
-        <div class="section-header">
-            <h2>Featured Void Imports</h2>
-            <p>Official custom packages crafted specifically for Void City RP</p>
+    <!-- Product Showcase -->
+    <div class="main-container">
+        <div class="section-title-wrap">
+            <h2>Featured Custom Assets</h2>
+            <p>Direct custom packages designed specifically for Void City RP</p>
         </div>
 
         <div class="product-grid">
             
             <!-- 1of1 Vehicle Import -->
             <div class="product-card">
-                <span class="badge-tag">1 OF 1</span>
+                <span class="product-tag">1 OF 1</span>
                 <div class="product-thumb">
                     <img src="1of1_vehicle_import.png" alt="1of1 Vehicle Import">
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">1of1 Vehicle Import</h3>
                     <div class="product-price">$150.00 USD</div>
-                    <a href="vehicles.html" class="btn-card">Purchase Import</a>
+                    <a href="vehicles.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- 1of1 Weapon Import -->
             <div class="product-card">
-                <span class="badge-tag">Custom</span>
+                <span class="product-tag">Custom</span>
                 <div class="product-thumb">
                     <img src="1of1_weapon_import.png" alt="1of1 Weapon Import">
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">1of1 Weapon Import</h3>
                     <div class="product-price">$100.00 USD</div>
-                    <a href="weapons.html" class="btn-card">Purchase Import</a>
+                    <a href="weapons.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- Diamond Weapon -->
             <div class="product-card">
-                <span class="badge-tag">Exclusive</span>
+                <span class="product-tag">Exclusive</span>
                 <div class="product-thumb">
                     <img src="diamond_weapon.png" alt="Diamond Weapon">
                 </div>
                 <div class="product-body">
-                    <h3 class="product-title">Diamond Weapon Finish</h3>
+                    <h3 class="product-title">Diamond Weapon Skin</h3>
                     <div class="product-price">$80.00 USD</div>
-                    <a href="weapons.html" class="btn-card">Purchase Import</a>
+                    <a href="weapons.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- Diamond Glove -->
             <div class="product-card">
-                <span class="badge-tag">Special</span>
+                <span class="product-tag">Special</span>
                 <div class="product-thumb">
                     <img src="diamond_glove.png" alt="Diamond Glove">
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">Diamond Slap Glove</h3>
                     <div class="product-price">$65.00 USD</div>
-                    <a href="clothing.html" class="btn-card">Purchase Import</a>
+                    <a href="clothing.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- Drug Lab -->
             <div class="product-card">
-                <span class="badge-tag">Business</span>
+                <span class="product-tag">Business</span>
                 <div class="product-thumb">
                     <img src="drug_lab.png" alt="Drug Lab">
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">Void Drug Lab</h3>
                     <div class="product-price">$110.00 USD</div>
-                    <a href="drugs.html" class="btn-card">Purchase Import</a>
+                    <a href="drugs.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- Custom Drug Import -->
             <div class="product-card">
-                <span class="badge-tag">Gang Import</span>
+                <span class="product-tag">Gang Import</span>
                 <div class="product-thumb">
                     <img src="custom_drug_import.png" alt="Custom Drug Import">
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">Gang Drug Import</h3>
                     <div class="product-price">$75.00 USD</div>
-                    <a href="drugs.html" class="btn-card">Purchase Import</a>
+                    <a href="drugs.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- Business Import -->
             <div class="product-card">
-                <span class="badge-tag">MLO Property</span>
+                <span class="product-tag">MLO Property</span>
                 <div class="product-thumb">
                     <img src="business_import.png" alt="Business Import">
                 </div>
                 <div class="product-body">
-                    <h3 class="product-title">Custom Business Import</h3>
+                    <h3 class="product-title">Business Import MLO</h3>
                     <div class="product-price">$125.00 USD</div>
-                    <a href="businesses.html" class="btn-card">Purchase Import</a>
+                    <a href="businesses.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
             <!-- Chain Import -->
             <div class="product-card">
-                <span class="badge-tag">Ped Asset</span>
+                <span class="product-tag">Clothing</span>
                 <div class="product-thumb">
                     <img src="chain_import.png" alt="Chain Import">
                 </div>
                 <div class="product-body">
                     <h3 class="product-title">Custom Chain Import</h3>
                     <div class="product-price">$50.00 USD</div>
-                    <a href="clothing.html" class="btn-card">Purchase Import</a>
+                    <a href="clothing.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
-            <!-- Blue Slot Upgrade -->
+            <!-- Blue Slot Pass -->
             <div class="product-card">
-                <span class="badge-tag">Inventory</span>
+                <span class="product-tag">Upgrade</span>
                 <div class="product-thumb">
-                    <img src="blue_slot.png" alt="Blue Slot Upgrade">
+                    <img src="blue_slot.png" alt="Blue Slot Pass">
                 </div>
                 <div class="product-body">
-                    <h3 class="product-title">Blue Inventory Slot Pass</h3>
+                    <h3 class="product-title">Blue Inventory Slot</h3>
                     <div class="product-price">$25.00 USD</div>
-                    <a href="slots.html" class="btn-card">Purchase Upgrade</a>
+                    <a href="slots.html" class="btn-card">Purchase Package</a>
                 </div>
             </div>
 
         </div>
     </div>
 
-    <!-- Rules & Terminology Modal -->
+    <!-- Rules Modal -->
     <div class="modal" id="rulesModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
