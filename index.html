@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOID CITY RP — OFFICIAL STORE</title>
+    <title>VOID CITY RP — EXCLUSIVE STORE</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-black: #030105;
-            --card-hud: rgba(14, 5, 22, 0.75);
+            --bg-black: #020005;
             --pink-neon: #ff007f;
-            --purple-neon: #bf00ff;
-            --pink-glow: rgba(255, 0, 127, 0.6);
-            --purple-glow: rgba(191, 0, 255, 0.5);
-            --border-neon: 1px solid rgba(255, 0, 127, 0.5);
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
+            --purple-neon: #a100ff;
+            --pink-glow: rgba(255, 0, 127, 0.7);
+            --purple-glow: rgba(161, 0, 255, 0.5);
+            --glass-bg: rgba(10, 2, 18, 0.7);
+            --border-glow: rgba(255, 0, 127, 0.4);
+            --text-main: #ffffff;
+            --text-muted: #8e8a9f;
         }
 
         * {
@@ -34,45 +34,33 @@
             background-color: var(--bg-black);
             color: var(--text-main);
             overflow-x: hidden;
-            background: 
-                radial-gradient(circle at 50% 0%, rgba(191, 0, 255, 0.2) 0%, transparent 60%),
-                radial-gradient(circle at 10% 40%, rgba(255, 0, 127, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(191, 0, 255, 0.15) 0%, transparent 50%),
-                #030105;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(255, 0, 127, 0.18) 0%, transparent 50%),
+                radial-gradient(circle at 80% 60%, rgba(161, 0, 255, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 20% 90%, rgba(255, 0, 127, 0.12) 0%, transparent 45%);
             background-attachment: fixed;
         }
 
-        /* --- Scanlines & Dynamic Ambient Grid --- */
-        .cyber-grid {
+        /* --- Ambient Scanline & HUD FX --- */
+        .hud-overlay {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background-size: 40px 40px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 0, 127, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 0, 127, 0.03) 1px, transparent 1px);
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .scanline {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.4) 51%);
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 51%);
             background-size: 100% 4px;
             z-index: 999;
             pointer-events: none;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
-        /* --- Header Navigation HUD --- */
+        /* --- Header Navigation --- */
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(5, 2, 8, 0.9);
+            background: rgba(3, 0, 7, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 2px solid var(--pink-neon);
-            box-shadow: 0 0 25px var(--pink-glow), inset 0 -5px 15px rgba(255, 0, 127, 0.2);
+            box-shadow: 0 0 30px var(--pink-glow);
         }
 
         .nav-container {
@@ -82,8 +70,6 @@
             align-items: center;
             justify-content: space-between;
             padding: 12px 30px;
-            position: relative;
-            z-index: 2;
         }
 
         .brand-logo {
@@ -94,13 +80,13 @@
         }
 
         .brand-logo img {
-            height: 60px;
+            height: 65px;
             filter: drop-shadow(0 0 15px var(--pink-neon));
             transition: all 0.3s ease;
         }
 
         .brand-logo:hover img {
-            transform: scale(1.1) rotate(-3deg);
+            transform: scale(1.08) rotate(-3deg);
             filter: drop-shadow(0 0 25px var(--pink-neon));
         }
 
@@ -110,13 +96,13 @@
             font-weight: 900;
             color: #fff;
             letter-spacing: 4px;
-            text-shadow: 0 0 12px var(--pink-neon), 0 0 25px var(--purple-neon);
+            text-shadow: 0 0 15px var(--pink-neon), 0 0 30px var(--purple-neon);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 10px;
+            gap: 12px;
         }
 
         .nav-item { position: relative; }
@@ -126,7 +112,7 @@
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.85rem;
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
             padding: 10px 18px;
             display: flex;
@@ -134,17 +120,17 @@
             gap: 8px;
             letter-spacing: 1.5px;
             transition: all 0.3s ease;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 0, 127, 0.2);
+            clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%);
+            background: rgba(255, 0, 127, 0.05);
+            border: 1px solid var(--border-glow);
         }
 
         .nav-link:hover, .nav-link.active {
             color: #fff;
             background: var(--pink-neon);
-            box-shadow: 0 0 20px var(--pink-neon);
-            text-shadow: 0 0 8px #fff;
+            box-shadow: 0 0 25px var(--pink-neon);
             border-color: #fff;
+            text-shadow: 0 0 10px #fff;
         }
 
         /* Dropdown Menu */
@@ -153,17 +139,16 @@
             top: 110%;
             left: 0;
             width: 250px;
-            background: rgba(8, 3, 14, 0.98);
+            background: rgba(8, 1, 15, 0.98);
             border: 2px solid var(--pink-neon);
-            box-shadow: 0 0 30px var(--pink-glow);
-            border-radius: 4px;
+            box-shadow: 0 0 35px var(--pink-glow);
             opacity: 0;
             visibility: hidden;
             transform: translateY(15px);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             list-style: none;
             padding: 10px 0;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%);
         }
 
         .nav-item:hover .dropdown {
@@ -186,7 +171,7 @@
 
         .dropdown a:hover {
             color: #fff;
-            background: linear-gradient(90deg, rgba(255, 0, 127, 0.4), transparent);
+            background: linear-gradient(90deg, rgba(255, 0, 127, 0.5), transparent);
             padding-left: 30px;
             border-left: 4px solid var(--pink-neon);
             text-shadow: 0 0 10px var(--pink-neon);
@@ -195,7 +180,7 @@
         .cart-btn {
             background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
             color: #fff;
-            padding: 12px 25px;
+            padding: 12px 26px;
             text-decoration: none;
             font-weight: 900;
             font-family: 'Orbitron', sans-serif;
@@ -203,7 +188,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 20px var(--pink-glow);
+            box-shadow: 0 0 25px var(--pink-glow);
             border: 1px solid #fff;
             clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
             transition: all 0.3s ease;
@@ -211,25 +196,25 @@
 
         .cart-btn:hover {
             transform: scale(1.08) rotate(-1deg);
-            box-shadow: 0 0 35px var(--pink-neon), 0 0 45px var(--purple-neon);
+            box-shadow: 0 0 40px var(--pink-neon);
         }
 
-        /* --- Hero Section with Live HUD --- */
+        /* --- Cinematic Hero Header --- */
         .hero {
             position: relative;
             z-index: 2;
-            padding: 80px 20px 40px 20px;
+            padding: 90px 20px 40px 20px;
             text-align: center;
         }
 
         .hero-title {
             font-family: 'Cinzel', serif;
-            font-size: 5rem;
+            font-size: 5.5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 8px;
+            letter-spacing: 10px;
             color: #fff;
-            text-shadow: 0 0 20px var(--pink-neon), 0 0 50px var(--purple-neon), 0 0 80px var(--pink-neon);
+            text-shadow: 0 0 20px var(--pink-neon), 0 0 50px var(--purple-neon), 0 0 90px var(--pink-neon);
             margin-bottom: 5px;
             line-height: 1;
         }
@@ -237,26 +222,25 @@
         .hero-subtitle {
             font-family: 'Orbitron', sans-serif;
             color: var(--pink-neon);
-            font-size: 1.3rem;
-            font-weight: 800;
-            letter-spacing: 5px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 6px;
             text-transform: uppercase;
             margin-bottom: 30px;
             text-shadow: 0 0 15px var(--pink-glow);
         }
 
-        /* Live Server Status HUD Widget */
+        /* Live HUD Widget */
         .server-hud-widget {
             display: inline-flex;
             align-items: center;
             gap: 25px;
-            background: rgba(14, 5, 22, 0.85);
+            background: rgba(10, 2, 18, 0.9);
             border: 1px solid var(--pink-neon);
-            box-shadow: 0 0 20px var(--pink-glow), inset 0 0 15px rgba(255, 0, 127, 0.2);
-            padding: 12px 30px;
-            border-radius: 40px;
+            box-shadow: 0 0 25px var(--pink-glow), inset 0 0 15px rgba(255, 0, 127, 0.2);
+            padding: 12px 35px;
+            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
             margin-bottom: 35px;
-            backdrop-filter: blur(10px);
         }
 
         .status-indicator {
@@ -274,13 +258,13 @@
             height: 12px;
             background: #00ff88;
             border-radius: 50%;
-            box-shadow: 0 0 12px #00ff88;
+            box-shadow: 0 0 15px #00ff88;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
+            70% { transform: scale(1.15); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
         }
 
@@ -299,14 +283,14 @@
         .btn-cyber {
             background: linear-gradient(90deg, var(--pink-neon), #a80053);
             color: #fff;
-            padding: 16px 40px;
+            padding: 16px 42px;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            box-shadow: 0 0 25px var(--pink-glow);
+            box-shadow: 0 0 30px var(--pink-glow);
             border: 1px solid #fff;
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
             transition: all 0.3s ease;
@@ -314,17 +298,17 @@
         }
 
         .btn-cyber-outline {
-            background: rgba(14, 5, 22, 0.9);
+            background: rgba(10, 2, 18, 0.9);
             border: 1px solid var(--purple-neon);
             color: #fff;
-            padding: 16px 40px;
+            padding: 16px 42px;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
             font-size: 1rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            box-shadow: 0 0 20px var(--purple-glow);
+            box-shadow: 0 0 25px var(--purple-glow);
             clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
             transition: all 0.3s ease;
             cursor: pointer;
@@ -332,7 +316,7 @@
 
         .btn-cyber:hover {
             transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 0 40px var(--pink-neon);
+            box-shadow: 0 0 45px var(--pink-neon);
         }
 
         .btn-cyber-outline:hover {
@@ -343,47 +327,47 @@
 
         /* --- How to Claim HUD Step Cards --- */
         .hud-steps-container {
-            max-width: 1400px;
-            margin: 40px auto 60px auto;
+            max-width: 1500px;
+            margin: 40px auto 70px auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            gap: 30px;
             padding: 0 20px;
             position: relative;
             z-index: 2;
         }
 
         .hud-step-card {
-            background: var(--card-hud);
+            background: var(--glass-bg);
             border: 1px solid var(--pink-neon);
-            box-shadow: 0 0 20px rgba(255, 0, 127, 0.25), inset 0 0 15px rgba(191, 0, 255, 0.15);
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.25);
             padding: 25px;
             position: relative;
             backdrop-filter: blur(15px);
             display: flex;
             align-items: center;
             gap: 20px;
-            clip-path: polygon(0 0, 92% 0, 100% 25%, 100% 100%, 8% 100%, 0 75%);
+            clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 10% 100%, 0 75%);
             transition: all 0.3s ease;
         }
 
         .hud-step-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 35px var(--pink-glow), inset 0 0 25px rgba(255, 0, 127, 0.3);
+            box-shadow: 0 0 40px var(--pink-glow);
         }
 
         .step-num {
             font-family: 'Cinzel', serif;
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 900;
             color: var(--pink-neon);
-            text-shadow: 0 0 15px var(--pink-glow);
+            text-shadow: 0 0 18px var(--pink-glow);
             line-height: 1;
         }
 
         .step-details h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             color: #fff;
             letter-spacing: 1.5px;
             text-transform: uppercase;
@@ -397,7 +381,7 @@
             font-weight: 600;
         }
 
-        /* --- Product Grid Section --- */
+        /* --- Custom Graphic Product Showcases --- */
         .main-container {
             max-width: 1500px;
             margin: 0 auto;
@@ -408,56 +392,56 @@
 
         .section-title-wrap {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             position: relative;
         }
 
         .section-title-wrap h2 {
             font-family: 'Cinzel', serif;
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             letter-spacing: 6px;
             color: #fff;
-            text-shadow: 0 0 20px var(--pink-neon), 0 0 40px var(--purple-neon);
+            text-shadow: 0 0 25px var(--pink-neon), 0 0 50px var(--purple-neon);
             text-transform: uppercase;
         }
 
         .section-title-wrap p {
             font-family: 'Orbitron', sans-serif;
             color: var(--pink-neon);
-            font-size: 0.95rem;
-            letter-spacing: 3px;
+            font-size: 1rem;
+            letter-spacing: 4px;
             text-transform: uppercase;
             margin-top: 5px;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 40px;
         }
 
+        /* Asymmetrical Cyber Frame for Products */
         .product-card {
-            background: var(--card-hud);
-            border: 1px solid rgba(255, 0, 127, 0.3);
+            background: var(--glass-bg);
+            border: 2px solid rgba(255, 0, 127, 0.3);
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             backdrop-filter: blur(15px);
-            clip-path: polygon(0 0, 88% 0, 100% 12%, 100% 100%, 12% 100%, 0 88%);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.9);
+            clip-path: polygon(0 0, 85% 0, 100% 12%, 100% 100%, 15% 100%, 0 88%);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.95);
         }
 
         .product-card:hover {
             border-color: var(--pink-neon);
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 0 40px var(--pink-glow), 0 0 20px var(--purple-glow);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 0 50px var(--pink-glow), 0 0 25px var(--purple-glow);
         }
 
         .product-thumb {
             width: 100%;
-            height: 310px;
+            height: 340px;
             position: relative;
             overflow: hidden;
             background: #000;
@@ -478,16 +462,17 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: rgba(3, 1, 5, 0.9);
+            background: rgba(2, 0, 5, 0.92);
             border: 1px solid var(--pink-neon);
             color: var(--pink-neon);
             padding: 5px 14px;
             font-family: 'Orbitron', sans-serif;
             font-size: 0.75rem;
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
-            box-shadow: 0 0 12px var(--pink-glow);
+            box-shadow: 0 0 15px var(--pink-glow);
             letter-spacing: 1px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
 
         .product-body {
@@ -495,14 +480,14 @@
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-            background: linear-gradient(180deg, rgba(14, 5, 22, 0.6) 0%, rgba(5, 2, 8, 0.95) 100%);
-            border-top: 1px solid rgba(255,0,127,0.2);
+            background: linear-gradient(180deg, rgba(10, 2, 18, 0.7) 0%, rgba(3, 0, 7, 0.98) 100%);
+            border-top: 2px solid rgba(255,0,127,0.3);
         }
 
         .product-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 800;
+            font-size: 1.3rem;
+            font-weight: 900;
             color: #fff;
             margin-bottom: 10px;
             text-transform: uppercase;
@@ -511,17 +496,17 @@
 
         .product-price {
             font-family: 'Cinzel', serif;
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: var(--pink-neon);
-            text-shadow: 0 0 12px var(--pink-glow);
+            text-shadow: 0 0 15px var(--pink-glow);
             margin-bottom: 20px;
         }
 
         .btn-card {
             margin-top: auto;
             width: 100%;
-            background: rgba(255, 0, 127, 0.12);
+            background: rgba(255, 0, 127, 0.15);
             border: 1px solid var(--pink-neon);
             color: #fff;
             padding: 14px;
@@ -541,7 +526,7 @@
         .btn-card:hover {
             background: var(--pink-neon);
             color: #fff;
-            box-shadow: 0 0 25px var(--pink-neon);
+            box-shadow: 0 0 30px var(--pink-neon);
             text-shadow: 0 0 8px #fff;
         }
 
@@ -552,16 +537,16 @@
             z-index: 2000;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.94);
-            backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: var(--card-hud);
+            background: var(--glass-bg);
             border: 2px solid var(--pink-neon);
-            box-shadow: 0 0 50px var(--pink-glow);
+            box-shadow: 0 0 60px var(--pink-glow);
             width: 90%;
             max-width: 900px;
             max-height: 85vh;
@@ -584,9 +569,9 @@
 
         .modal h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             color: var(--pink-neon);
-            text-shadow: 0 0 15px var(--pink-glow);
+            text-shadow: 0 0 20px var(--pink-glow);
             border-bottom: 2px solid var(--pink-neon);
             padding-bottom: 12px;
             margin-bottom: 25px;
@@ -594,7 +579,7 @@
 
         .rules-body h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             color: #fff;
             margin-top: 20px;
             letter-spacing: 1px;
@@ -611,13 +596,13 @@
 
         /* --- Cyber Footer --- */
         footer {
-            background: rgba(3, 1, 5, 0.98);
+            background: rgba(2, 0, 5, 0.98);
             border-top: 2px solid var(--pink-neon);
             padding: 70px 20px 30px 20px;
             margin-top: 120px;
             position: relative;
             z-index: 2;
-            box-shadow: 0 -10px 30px rgba(255, 0, 127, 0.2);
+            box-shadow: 0 -10px 35px rgba(255, 0, 127, 0.25);
         }
 
         .footer-grid {
@@ -633,7 +618,7 @@
             font-family: 'Cinzel', serif;
             font-size: 1.5rem;
             color: var(--pink-neon);
-            text-shadow: 0 0 10px var(--pink-glow);
+            text-shadow: 0 0 12px var(--pink-glow);
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
@@ -667,10 +652,9 @@
 </head>
 <body>
 
-    <div class="cyber-grid"></div>
-    <div class="scanline"></div>
+    <div class="hud-overlay"></div>
 
-    <!-- HUD Navigation -->
+    <!-- HUD Navigation Bar -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="brand-logo">
@@ -708,7 +692,7 @@
     <!-- Hero Header -->
     <section class="hero">
         <h1 class="hero-title">VOID CITY RP</h1>
-        <div class="hero-subtitle">Official Server Store & Custom Imports</div>
+        <div class="hero-subtitle">Official Store & Custom Imports</div>
 
         <!-- Live Server Status Widget -->
         <div class="server-hud-widget">
