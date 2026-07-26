@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VOID CITY RP — EXCLUSIVE STORE</title>
+    <title>VOID CITY RP — OFFICIAL STORE</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@800;900&family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-black: #020005;
-            --pink-neon: #ff007f;
-            --purple-neon: #a100ff;
-            --pink-glow: rgba(255, 0, 127, 0.7);
-            --purple-glow: rgba(161, 0, 255, 0.5);
-            --glass-bg: rgba(10, 2, 18, 0.7);
-            --border-glow: rgba(255, 0, 127, 0.4);
+            --bg-dark: #030005;
+            --pink-accent: #ff007f;
+            --purple-accent: #b000ff;
+            --pink-glow: rgba(255, 0, 127, 0.8);
+            --purple-glow: rgba(176, 0, 255, 0.6);
             --text-main: #ffffff;
-            --text-muted: #8e8a9f;
+            --text-muted: #888098;
         }
 
         * {
@@ -31,45 +29,35 @@
         }
 
         body {
-            background-color: var(--bg-black);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
+            /* Atmospheric Pink & Purple Ambient Lighting Background */
             background-image: 
-                radial-gradient(circle at 50% 10%, rgba(255, 0, 127, 0.18) 0%, transparent 50%),
-                radial-gradient(circle at 80% 60%, rgba(161, 0, 255, 0.15) 0%, transparent 45%),
-                radial-gradient(circle at 20% 90%, rgba(255, 0, 127, 0.12) 0%, transparent 45%);
+                radial-gradient(circle at 50% -10%, rgba(255, 0, 127, 0.25) 0%, transparent 60%),
+                radial-gradient(circle at 20% 50%, rgba(176, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 127, 0.15) 0%, transparent 50%);
             background-attachment: fixed;
         }
 
-        /* --- Ambient Scanline & HUD FX --- */
-        .hud-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 51%);
-            background-size: 100% 4px;
-            z-index: 999;
-            pointer-events: none;
-            opacity: 0.6;
-        }
-
-        /* --- Header Navigation --- */
+        /* --- Minimal HUD Top Header --- */
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(3, 0, 7, 0.92);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid var(--pink-neon);
-            box-shadow: 0 0 30px var(--pink-glow);
+            background: rgba(3, 0, 5, 0.85);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 0, 127, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
         }
 
         .nav-container {
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 30px;
+            padding: 15px 40px;
         }
 
         .brand-logo {
@@ -80,454 +68,291 @@
         }
 
         .brand-logo img {
-            height: 65px;
-            filter: drop-shadow(0 0 15px var(--pink-neon));
-            transition: all 0.3s ease;
+            height: 55px;
+            filter: drop-shadow(0 0 10px var(--pink-glow));
+            transition: transform 0.3s ease;
         }
 
         .brand-logo:hover img {
-            transform: scale(1.08) rotate(-3deg);
-            filter: drop-shadow(0 0 25px var(--pink-neon));
+            transform: scale(1.05);
         }
 
         .brand-logo span {
             font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 900;
             color: #fff;
-            letter-spacing: 4px;
-            text-shadow: 0 0 15px var(--pink-neon), 0 0 30px var(--purple-neon);
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px var(--pink-accent), 0 0 30px var(--purple-accent);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 12px;
+            gap: 25px;
         }
 
-        .nav-item { position: relative; }
-
         .nav-link {
-            color: #fff;
+            color: var(--text-muted);
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 900;
+            font-size: 0.9rem;
+            font-weight: 800;
             text-transform: uppercase;
-            padding: 10px 18px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            letter-spacing: 1.5px;
+            padding: 8px 12px;
+            letter-spacing: 2px;
             transition: all 0.3s ease;
-            clip-path: polygon(12% 0, 100% 0, 88% 100%, 0 100%);
-            background: rgba(255, 0, 127, 0.05);
-            border: 1px solid var(--border-glow);
         }
 
         .nav-link:hover, .nav-link.active {
             color: #fff;
-            background: var(--pink-neon);
-            box-shadow: 0 0 25px var(--pink-neon);
-            border-color: #fff;
-            text-shadow: 0 0 10px #fff;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
-            position: absolute;
-            top: 110%;
-            left: 0;
-            width: 250px;
-            background: rgba(8, 1, 15, 0.98);
-            border: 2px solid var(--pink-neon);
-            box-shadow: 0 0 35px var(--pink-glow);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(15px);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            list-style: none;
-            padding: 10px 0;
-            clip-path: polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%);
-        }
-
-        .nav-item:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown a {
-            padding: 12px 22px;
-            color: var(--text-muted);
-            text-decoration: none;
-            display: block;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            transition: all 0.2s ease;
-        }
-
-        .dropdown a:hover {
-            color: #fff;
-            background: linear-gradient(90deg, rgba(255, 0, 127, 0.5), transparent);
-            padding-left: 30px;
-            border-left: 4px solid var(--pink-neon);
-            text-shadow: 0 0 10px var(--pink-neon);
+            text-shadow: 0 0 12px var(--pink-accent);
         }
 
         .cart-btn {
-            background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
+            background: linear-gradient(135deg, var(--pink-accent), var(--purple-accent));
             color: #fff;
-            padding: 12px 26px;
+            padding: 12px 28px;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 900;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 25px var(--pink-glow);
-            border: 1px solid #fff;
-            clip-path: polygon(15% 0, 100% 0, 85% 100%, 0 100%);
+            box-shadow: 0 0 20px var(--pink-glow);
             transition: all 0.3s ease;
+            letter-spacing: 1px;
         }
 
         .cart-btn:hover {
-            transform: scale(1.08) rotate(-1deg);
-            box-shadow: 0 0 40px var(--pink-neon);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--pink-accent);
         }
 
-        /* --- Cinematic Hero Header --- */
+        /* --- Hero Section --- */
         .hero {
             position: relative;
             z-index: 2;
-            padding: 90px 20px 40px 20px;
+            padding: 70px 20px 40px 20px;
             text-align: center;
         }
 
-        .hero-title {
-            font-family: 'Cinzel', serif;
-            font-size: 5.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            color: #fff;
-            text-shadow: 0 0 20px var(--pink-neon), 0 0 50px var(--purple-neon), 0 0 90px var(--pink-neon);
-            margin-bottom: 5px;
-            line-height: 1;
+        .hero-logo {
+            max-width: 380px;
+            width: 100%;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 35px var(--pink-glow));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .hero-subtitle {
             font-family: 'Orbitron', sans-serif;
-            color: var(--pink-neon);
-            font-size: 1.4rem;
-            font-weight: 900;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 800;
             letter-spacing: 6px;
             text-transform: uppercase;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px var(--pink-glow);
-        }
-
-        /* Live HUD Widget */
-        .server-hud-widget {
-            display: inline-flex;
-            align-items: center;
-            gap: 25px;
-            background: rgba(10, 2, 18, 0.9);
-            border: 1px solid var(--pink-neon);
-            box-shadow: 0 0 25px var(--pink-glow), inset 0 0 15px rgba(255, 0, 127, 0.2);
-            padding: 12px 35px;
-            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
-            margin-bottom: 35px;
-        }
-
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 800;
-            font-size: 0.9rem;
-            color: #fff;
-        }
-
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            background: #00ff88;
-            border-radius: 50%;
-            box-shadow: 0 0 15px #00ff88;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
-            70% { transform: scale(1.15); box-shadow: 0 0 0 10px rgba(0, 255, 136, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
-        }
-
-        .widget-divider {
-            width: 1px;
-            height: 20px;
-            background: rgba(255,0,127,0.4);
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px var(--pink-glow);
         }
 
         .hero-actions {
             display: flex;
             justify-content: center;
-            gap: 25px;
-        }
-
-        .btn-cyber {
-            background: linear-gradient(90deg, var(--pink-neon), #a80053);
-            color: #fff;
-            padding: 16px 42px;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            box-shadow: 0 0 30px var(--pink-glow);
-            border: 1px solid #fff;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-cyber-outline {
-            background: rgba(10, 2, 18, 0.9);
-            border: 1px solid var(--purple-neon);
-            color: #fff;
-            padding: 16px 42px;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            box-shadow: 0 0 25px var(--purple-glow);
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .btn-cyber:hover {
-            transform: translateY(-4px) scale(1.05);
-            box-shadow: 0 0 45px var(--pink-neon);
-        }
-
-        .btn-cyber-outline:hover {
-            transform: translateY(-4px) scale(1.05);
-            border-color: var(--pink-neon);
-            box-shadow: 0 0 35px var(--pink-glow);
-        }
-
-        /* --- How to Claim HUD Step Cards --- */
-        .hud-steps-container {
-            max-width: 1500px;
-            margin: 40px auto 70px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hud-step-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--pink-neon);
-            box-shadow: 0 0 25px rgba(255, 0, 127, 0.25);
-            padding: 25px;
-            position: relative;
-            backdrop-filter: blur(15px);
-            display: flex;
-            align-items: center;
             gap: 20px;
-            clip-path: polygon(0 0, 90% 0, 100% 25%, 100% 100%, 10% 100%, 0 75%);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.5);
             transition: all 0.3s ease;
         }
 
-        .hud-step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 40px var(--pink-glow);
-        }
-
-        .step-num {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            font-weight: 900;
-            color: var(--pink-neon);
-            text-shadow: 0 0 18px var(--pink-glow);
-            line-height: 1;
-        }
-
-        .step-details h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+        .btn-rules {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 0, 127, 0.5);
             color: #fff;
-            letter-spacing: 1.5px;
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .step-details p {
+        .btn-discord:hover, .btn-rules:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px var(--pink-accent);
+            border-color: var(--pink-accent);
+        }
+
+        /* --- Claim Steps Banner --- */
+        .claim-banner {
+            max-width: 1400px;
+            margin: 30px auto 60px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .claim-box {
+            background: rgba(10, 2, 18, 0.6);
+            border-left: 4px solid var(--pink-accent);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .claim-box h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            color: var(--pink-accent);
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .claim-box p {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.4;
-            font-weight: 600;
         }
 
-        /* --- Custom Graphic Product Showcases --- */
+        /* --- Pure Image Poster Store Grid --- */
         .main-container {
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 2;
         }
 
-        .section-title-wrap {
+        .section-header {
             text-align: center;
-            margin-bottom: 60px;
-            position: relative;
+            margin-bottom: 50px;
         }
 
-        .section-title-wrap h2 {
+        .section-header h2 {
             font-family: 'Cinzel', serif;
-            font-size: 3.5rem;
+            font-size: 3rem;
             letter-spacing: 6px;
             color: #fff;
-            text-shadow: 0 0 25px var(--pink-neon), 0 0 50px var(--purple-neon);
+            text-shadow: 0 0 25px var(--pink-accent);
             text-transform: uppercase;
         }
 
-        .section-title-wrap p {
+        .section-header p {
             font-family: 'Orbitron', sans-serif;
-            color: var(--pink-neon);
-            font-size: 1rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
             margin-top: 5px;
+            text-transform: uppercase;
         }
 
-        .product-grid {
+        /* Grid for Full Graphic Posters */
+        .poster-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 45px;
         }
 
-        /* Asymmetrical Cyber Frame for Products */
-        .product-card {
-            background: var(--glass-bg);
-            border: 2px solid rgba(255, 0, 127, 0.3);
+        .poster-card {
             position: relative;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(15px);
-            clip-path: polygon(0 0, 85% 0, 100% 12%, 100% 100%, 15% 100%, 0 88%);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.95);
-        }
-
-        .product-card:hover {
-            border-color: var(--pink-neon);
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 0 50px var(--pink-glow), 0 0 25px var(--purple-glow);
-        }
-
-        .product-thumb {
-            width: 100%;
-            height: 340px;
-            position: relative;
+            border-radius: 12px;
             overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9);
             background: #000;
         }
 
-        .product-thumb img {
+        .poster-card img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .product-card:hover .product-thumb img {
-            transform: scale(1.12);
-        }
-
-        .product-tag {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(2, 0, 5, 0.92);
-            border: 1px solid var(--pink-neon);
-            color: var(--pink-neon);
-            padding: 5px 14px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px var(--pink-glow);
-            letter-spacing: 1px;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-        }
-
-        .product-body {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            background: linear-gradient(180deg, rgba(10, 2, 18, 0.7) 0%, rgba(3, 0, 7, 0.98) 100%);
-            border-top: 2px solid rgba(255,0,127,0.3);
-        }
-
-        .product-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .product-price {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--pink-neon);
-            text-shadow: 0 0 15px var(--pink-glow);
-            margin-bottom: 20px;
-        }
-
-        .btn-card {
-            margin-top: auto;
-            width: 100%;
-            background: rgba(255, 0, 127, 0.15);
-            border: 1px solid var(--pink-neon);
-            color: #fff;
-            padding: 14px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            transition: all 0.3s ease;
+            height: auto;
             display: block;
-            clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: brightness(0.9);
         }
 
-        .btn-card:hover {
-            background: var(--pink-neon);
+        /* Hover Effect: Pure Graphic Polish */
+        .poster-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 0 40px var(--pink-glow), 0 0 20px var(--purple-glow);
+        }
+
+        .poster-card:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        /* Quick Overlay Action Bar */
+        .poster-action {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+
+        .poster-card:hover .poster-action {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .poster-price {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
             color: #fff;
-            box-shadow: 0 0 30px var(--pink-neon);
-            text-shadow: 0 0 8px #fff;
+            text-shadow: 0 0 10px var(--pink-accent);
+        }
+
+        .btn-buy-now {
+            background: var(--pink-accent);
+            color: #fff;
+            padding: 10px 22px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            box-shadow: 0 0 15px var(--pink-glow);
+            transition: all 0.2s ease;
+        }
+
+        .btn-buy-now:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 25px #fff;
         }
 
         /* --- Rules Modal --- */
@@ -544,16 +369,16 @@
         }
 
         .modal-content {
-            background: var(--glass-bg);
-            border: 2px solid var(--pink-neon);
-            box-shadow: 0 0 60px var(--pink-glow);
+            background: #08020f;
+            border: 2px solid var(--pink-accent);
+            box-shadow: 0 0 50px var(--pink-glow);
             width: 90%;
-            max-width: 900px;
+            max-width: 850px;
             max-height: 85vh;
             padding: 40px;
+            border-radius: 12px;
             overflow-y: auto;
             position: relative;
-            clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
         }
 
         .close-modal {
@@ -562,99 +387,83 @@
             font-size: 2.2rem;
             color: var(--text-muted);
             cursor: pointer;
-            transition: color 0.2s;
         }
 
-        .close-modal:hover { color: var(--pink-neon); }
+        .close-modal:hover { color: var(--pink-accent); }
 
         .modal h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            color: var(--pink-neon);
-            text-shadow: 0 0 20px var(--pink-glow);
-            border-bottom: 2px solid var(--pink-neon);
+            font-size: 2.3rem;
+            color: var(--pink-accent);
+            text-shadow: 0 0 15px var(--pink-glow);
+            border-bottom: 1px solid var(--pink-accent);
             padding-bottom: 12px;
             margin-bottom: 25px;
         }
 
         .rules-body h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: #fff;
             margin-top: 20px;
-            letter-spacing: 1px;
         }
 
         .rules-body p, .rules-body ul {
             color: var(--text-muted);
             margin-top: 8px;
-            font-size: 1.05rem;
+            font-size: 1rem;
             line-height: 1.6;
             padding-left: 15px;
-            font-weight: 600;
         }
 
-        /* --- Cyber Footer --- */
+        /* --- Footer --- */
         footer {
-            background: rgba(2, 0, 5, 0.98);
-            border-top: 2px solid var(--pink-neon);
-            padding: 70px 20px 30px 20px;
-            margin-top: 120px;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 -10px 35px rgba(255, 0, 127, 0.25);
+            background: #020004;
+            border-top: 1px solid rgba(255, 0, 127, 0.3);
+            padding: 60px 20px 30px 20px;
+            margin-top: 100px;
         }
 
         .footer-grid {
-            max-width: 1500px;
+            max-width: 1600px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 45px;
-            margin-bottom: 50px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
         .footer-col h4 {
             font-family: 'Cinzel', serif;
-            font-size: 1.5rem;
-            color: var(--pink-neon);
-            text-shadow: 0 0 12px var(--pink-glow);
+            font-size: 1.4rem;
+            color: var(--pink-accent);
             margin-bottom: 20px;
-            letter-spacing: 2px;
         }
 
         .footer-col ul { list-style: none; }
-        .footer-col ul li { margin-bottom: 14px; }
+        .footer-col ul li { margin-bottom: 12px; }
         .footer-col ul a {
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 1.05rem;
-            font-weight: 700;
-            transition: all 0.2s;
+            font-size: 1rem;
+            transition: color 0.2s;
         }
 
-        .footer-col ul a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px var(--pink-neon);
-            padding-left: 8px;
-        }
+        .footer-col ul a:hover { color: #fff; }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="hud-overlay"></div>
-
-    <!-- HUD Navigation Bar -->
+    <!-- Minimal HUD Header -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="brand-logo">
@@ -663,24 +472,11 @@
             </a>
 
             <ul class="nav-menu">
-                <li class="nav-item"><a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i> Imports <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem;"></i></a>
-                    <ul class="dropdown">
-                        <li><a href="weapons.html">Weapon Imports</a></li>
-                        <li><a href="vehicles.html">Vehicle Imports</a></li>
-                        <li><a href="gangs.html">Gang Tiers</a></li>
-                        <li><a href="drugs.html">Drug Imports</a></li>
-                        <li><a href="businesses.html">Businesses & MLOs</a></li>
-                        <li><a href="clothing.html">Clothing & Chains</a></li>
-                        <li><a href="slots.html">Slot Passes</a></li>
-                        <li><a href="unban.html">Unban Appeals</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a href="weapons.html" class="nav-link"><i class="fa-solid fa-gun"></i> Weapons</a></li>
-                <li class="nav-item"><a href="vehicles.html" class="nav-link"><i class="fa-solid fa-car"></i> Vehicles</a></li>
-                <li class="nav-item"><a href="gangs.html" class="nav-link"><i class="fa-solid fa-users"></i> Gangs</a></li>
-                <li class="nav-item"><a href="unban.html" class="nav-link"><i class="fa-solid fa-gavel"></i> Unbans</a></li>
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="weapons.html" class="nav-link">Weapons</a></li>
+                <li><a href="vehicles.html" class="nav-link">Vehicles</a></li>
+                <li><a href="gangs.html" class="nav-link">Gangs</a></li>
+                <li><a href="unban.html" class="nav-link">Unbans</a></li>
             </ul>
 
             <a href="basket.html" class="cart-btn">
@@ -691,176 +487,118 @@
 
     <!-- Hero Header -->
     <section class="hero">
-        <h1 class="hero-title">VOID CITY RP</h1>
-        <div class="hero-subtitle">Official Store & Custom Imports</div>
-
-        <!-- Live Server Status Widget -->
-        <div class="server-hud-widget">
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span>CITY ONLINE</span>
-            </div>
-            <div class="widget-divider"></div>
-            <div class="status-indicator">
-                <i class="fa-solid fa-users" style="color: var(--pink-neon);"></i>
-                <span>PLAYERS: 128 / 200</span>
-            </div>
-        </div>
+        <img src="C05A29C9-A0AF-48FE-80EC-93ACF3A8378C.png" alt="Void Logo" class="hero-logo">
+        <div class="hero-subtitle">Official City Imports & Packages</div>
 
         <div class="hero-actions">
-            <a href="https://discord.gg" target="_blank" class="btn-cyber"><i class="fa-brands fa-discord"></i> Open Discord Ticket</a>
-            <button class="btn-cyber-outline" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Rules Bible</button>
+            <a href="https://discord.gg" target="_blank" class="btn-discord"><i class="fa-brands fa-discord"></i> Open Claim Ticket</a>
+            <button class="btn-rules" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Rules</button>
         </div>
     </section>
 
-    <!-- Claim Steps HUD -->
-    <div class="hud-steps-container">
-        <div class="hud-step-card">
-            <div class="step-num">01</div>
-            <div class="step-details">
-                <h3>Buy Package</h3>
-                <p>Select your desired 1of1 vehicle, weapon, gang tier, or custom asset below.</p>
-            </div>
+    <!-- How Claiming Works -->
+    <div class="claim-banner">
+        <div class="claim-box">
+            <h3>1. SELECT & PURCHASE</h3>
+            <p>Click any graphic package below to add it to your basket and complete checkout.</p>
         </div>
-        <div class="hud-step-card">
-            <div class="step-num">02</div>
-            <div class="step-details">
-                <h3>Open Ticket</h3>
-                <p>Join the Void Discord and open a ticket in <b>#donation-claims</b>.</p>
-            </div>
+        <div class="claim-box">
+            <h3>2. OPEN DISCORD TICKET</h3>
+            <p>Head over to the Void City Discord and open a ticket under <b>#donation-claims</b>.</p>
         </div>
-        <div class="hud-step-card">
-            <div class="step-num">03</div>
-            <div class="step-details">
-                <h3>Get Imported</h3>
-                <p>Submit your transaction receipt and our team will assign your items in-city!</p>
-            </div>
+        <div class="claim-box">
+            <h3>3. IN-CITY DELIVERY</h3>
+            <p>Provide your Tebex receipt code and staff will import your custom assets in-game!</p>
         </div>
     </div>
 
-    <!-- Product Showcase -->
+    <!-- Graphic Store Showcase -->
     <div class="main-container">
-        <div class="section-title-wrap">
-            <h2>Featured Custom Assets</h2>
-            <p>Direct custom packages designed specifically for Void City RP</p>
+        <div class="section-header">
+            <h2>AVAILABLE IMPORTS</h2>
+            <p>Select a package to view details and purchase</p>
         </div>
 
-        <div class="product-grid">
+        <div class="poster-grid">
             
             <!-- 1of1 Vehicle Import -->
-            <div class="product-card">
-                <span class="product-tag">1 OF 1</span>
-                <div class="product-thumb">
-                    <img src="1of1_vehicle_import.png" alt="1of1 Vehicle Import">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">1of1 Vehicle Import</h3>
-                    <div class="product-price">$150.00 USD</div>
-                    <a href="vehicles.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="1of1_vehicle_import.png" alt="1of1 Vehicle Import">
+                <div class="poster-action">
+                    <span class="poster-price">$150.00 USD</span>
+                    <a href="vehicles.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- 1of1 Weapon Import -->
-            <div class="product-card">
-                <span class="product-tag">Custom</span>
-                <div class="product-thumb">
-                    <img src="1of1_weapon_import.png" alt="1of1 Weapon Import">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">1of1 Weapon Import</h3>
-                    <div class="product-price">$100.00 USD</div>
-                    <a href="weapons.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="1of1_weapon_import.png" alt="1of1 Weapon Import">
+                <div class="poster-action">
+                    <span class="poster-price">$100.00 USD</span>
+                    <a href="weapons.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Diamond Weapon -->
-            <div class="product-card">
-                <span class="product-tag">Exclusive</span>
-                <div class="product-thumb">
-                    <img src="diamond_weapon.png" alt="Diamond Weapon">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Diamond Weapon Skin</h3>
-                    <div class="product-price">$80.00 USD</div>
-                    <a href="weapons.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="diamond_weapon.png" alt="Diamond Weapon">
+                <div class="poster-action">
+                    <span class="poster-price">$80.00 USD</span>
+                    <a href="weapons.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Diamond Glove -->
-            <div class="product-card">
-                <span class="product-tag">Special</span>
-                <div class="product-thumb">
-                    <img src="diamond_glove.png" alt="Diamond Glove">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Diamond Slap Glove</h3>
-                    <div class="product-price">$65.00 USD</div>
-                    <a href="clothing.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="diamond_glove.png" alt="Diamond Glove">
+                <div class="poster-action">
+                    <span class="poster-price">$65.00 USD</span>
+                    <a href="clothing.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Drug Lab -->
-            <div class="product-card">
-                <span class="product-tag">Business</span>
-                <div class="product-thumb">
-                    <img src="drug_lab.png" alt="Drug Lab">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Void Drug Lab</h3>
-                    <div class="product-price">$110.00 USD</div>
-                    <a href="drugs.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="drug_lab.png" alt="Drug Lab">
+                <div class="poster-action">
+                    <span class="poster-price">$110.00 USD</span>
+                    <a href="drugs.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Custom Drug Import -->
-            <div class="product-card">
-                <span class="product-tag">Gang Import</span>
-                <div class="product-thumb">
-                    <img src="custom_drug_import.png" alt="Custom Drug Import">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Gang Drug Import</h3>
-                    <div class="product-price">$75.00 USD</div>
-                    <a href="drugs.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="custom_drug_import.png" alt="Custom Drug Import">
+                <div class="poster-action">
+                    <span class="poster-price">$75.00 USD</span>
+                    <a href="drugs.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Business Import -->
-            <div class="product-card">
-                <span class="product-tag">MLO Property</span>
-                <div class="product-thumb">
-                    <img src="business_import.png" alt="Business Import">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Business Import MLO</h3>
-                    <div class="product-price">$125.00 USD</div>
-                    <a href="businesses.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="business_import.png" alt="Business Import">
+                <div class="poster-action">
+                    <span class="poster-price">$125.00 USD</span>
+                    <a href="businesses.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Chain Import -->
-            <div class="product-card">
-                <span class="product-tag">Clothing</span>
-                <div class="product-thumb">
-                    <img src="chain_import.png" alt="Chain Import">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Custom Chain Import</h3>
-                    <div class="product-price">$50.00 USD</div>
-                    <a href="clothing.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="chain_import.png" alt="Chain Import">
+                <div class="poster-action">
+                    <span class="poster-price">$50.00 USD</span>
+                    <a href="clothing.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
             <!-- Blue Slot Pass -->
-            <div class="product-card">
-                <span class="product-tag">Upgrade</span>
-                <div class="product-thumb">
-                    <img src="blue_slot.png" alt="Blue Slot Pass">
-                </div>
-                <div class="product-body">
-                    <h3 class="product-title">Blue Inventory Slot</h3>
-                    <div class="product-price">$25.00 USD</div>
-                    <a href="slots.html" class="btn-card">Purchase Package</a>
+            <div class="poster-card">
+                <img src="blue_slot.png" alt="Blue Slot Pass">
+                <div class="poster-action">
+                    <span class="poster-price">$25.00 USD</span>
+                    <a href="slots.html" class="btn-buy-now">Purchase</a>
                 </div>
             </div>
 
@@ -893,7 +631,7 @@
                     <li><b>Bahama'd:</b> In-game ban</li>
                 </ul>
 
-                <h3 style="color: var(--pink-neon); margin-top: 25px;">Strictly Banned Terms In-City:</h3>
+                <h3 style="color: var(--pink-accent); margin-top: 25px;">Strictly Banned Terms In-City:</h3>
                 <p style="color: #ff80bf;">Banned, Ticket, Staff, Admin, Scene, Clip, 90 seconds, Inject, Greenzone, Game, FiveM, GTA, Scripts, MLO, Metagame, RDM/VDM/FRP.</p>
             </div>
         </div>
@@ -904,28 +642,28 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>VOID CITY RP</h4>
-                <p style="color: var(--text-muted); line-height: 1.6;">Official Store for Void City Roleplay. Every transaction helps expand server performance, custom scripts, and original assets.</p>
+                <p style="color: var(--text-muted); line-height: 1.6;">Official Store for Void City Roleplay. All donations directly fund server hosting and custom development.</p>
             </div>
             <div class="footer-col">
-                <h4>Quick Navigation</h4>
+                <h4>Quick Links</h4>
                 <ul>
-                    <li><a href="index.html">Home Page</a></li>
-                    <li><a href="weapons.html">Weapons & Skins</a></li>
-                    <li><a href="vehicles.html">1-of-1 Vehicle Imports</a></li>
-                    <li><a href="gangs.html">Gang Tier Packages</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="weapons.html">Weapons</a></li>
+                    <li><a href="vehicles.html">Vehicles</a></li>
+                    <li><a href="gangs.html">Gangs</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Support & Claims</h4>
+                <h4>Support</h4>
                 <ul>
-                    <li><a href="https://discord.gg" target="_blank">Open Claim Ticket</a></li>
-                    <li><a href="unban.html">Unban Appeal Fee</a></li>
-                    <li><a href="#" id="rulesFooterBtn">Server Rules Bible</a></li>
+                    <li><a href="https://discord.gg" target="_blank">Discord Claim Ticket</a></li>
+                    <li><a href="unban.html">Unban Fees</a></li>
+                    <li><a href="#" id="rulesFooterBtn">Server Rules</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 VOID CITY RP. ALL RIGHTS RESERVED. NOT AFFILIATED WITH ROCKSTAR GAMES OR TAKE-TWO INTERACTIVE.</p>
+            <p>&copy; 2026 VOID CITY RP. ALL RIGHTS RESERVED.</p>
         </div>
     </footer>
 
