@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Void City — Official Tebex Store</title>
+    <title>VOID CITY RP — Official Store</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-main: #07070a;
-            --bg-card: rgba(18, 15, 25, 0.75);
-            --pink-accent: #ff007f;
-            --pink-glow: rgba(255, 0, 127, 0.4);
-            --purple-dark: #12091c;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --border-hud: rgba(255, 0, 127, 0.25);
+            --bg-dark: #040206;
+            --card-bg: rgba(12, 6, 18, 0.85);
+            --pink-neon: #ff007f;
+            --purple-neon: #bf00ff;
+            --pink-glow: rgba(255, 0, 127, 0.6);
+            --purple-glow: rgba(191, 0, 255, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #a8b2d1;
+            --border-glow: 1px solid rgba(255, 0, 127, 0.4);
         }
 
         * {
@@ -29,102 +30,125 @@
         }
 
         body {
-            background-color: var(--bg-main);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
             background-image: 
-                radial-gradient(circle at 15% 15%, rgba(255, 0, 127, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(18, 9, 28, 0.8) 0%, transparent 50%);
+                radial-gradient(circle at 50% 0%, rgba(191, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 127, 0.1) 0%, transparent 40%),
+                linear-gradient(to bottom, rgba(4, 2, 6, 0.8), rgba(4, 2, 6, 0.98)),
+                url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
             background-attachment: fixed;
+            background-position: center;
         }
 
-        /* --- Navigation HUD --- */
+        /* --- Scanline Animation Overlay --- */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* --- Header Navigation --- */
         header {
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(7, 7, 10, 0.85);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-hud);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            background: rgba(8, 3, 14, 0.92);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--pink-neon);
+            box-shadow: 0 0 25px var(--pink-glow);
         }
 
         .nav-container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 24px;
+            padding: 10px 25px;
         }
 
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             text-decoration: none;
         }
 
         .brand-logo img {
-            height: 50px;
-            filter: drop-shadow(0 0 8px var(--pink-glow));
+            height: 55px;
+            filter: drop-shadow(0 0 12px var(--pink-neon));
+            transition: transform 0.3s ease;
+        }
+
+        .brand-logo:hover img {
+            transform: scale(1.08) rotate(-2deg);
         }
 
         .brand-logo span {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
             font-weight: 900;
             color: #fff;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--pink-neon), 0 0 20px var(--purple-neon);
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 20px;
+            gap: 15px;
         }
 
-        .nav-item {
-            position: relative;
-        }
+        .nav-item { position: relative; }
 
         .nav-link {
-            color: var(--text-main);
+            color: #fff;
             text-decoration: none;
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
             text-transform: uppercase;
-            padding: 8px 12px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s ease;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
         }
 
         .nav-link:hover, .nav-link.active {
-            color: var(--pink-accent);
-            text-shadow: 0 0 10px var(--pink-glow);
+            color: var(--pink-neon);
+            background: rgba(255, 0, 127, 0.12);
+            box-shadow: inset 0 0 10px rgba(255, 0, 127, 0.3);
+            text-shadow: 0 0 8px var(--pink-neon);
         }
 
-        /* Dropdown Menu */
+        /* Dropdown */
         .dropdown {
             position: absolute;
             top: 100%;
             left: 0;
-            width: 220px;
-            background: rgba(18, 15, 25, 0.95);
-            border: 1px solid var(--border-hud);
-            backdrop-filter: blur(10px);
-            border-radius: 6px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+            width: 230px;
+            background: rgba(12, 6, 18, 0.98);
+            border: 1px solid var(--pink-neon);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9), 0 0 15px var(--pink-glow);
+            border-radius: 4px;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
+            transform: translateY(15px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             list-style: none;
-            padding: 10px 0;
+            padding: 8px 0;
         }
 
         .nav-item:hover .dropdown {
@@ -134,295 +158,325 @@
         }
 
         .dropdown a {
-            padding: 10px 20px;
+            padding: 12px 20px;
             color: var(--text-muted);
             text-decoration: none;
             display: block;
-            font-weight: 600;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-transform: uppercase;
             transition: all 0.2s ease;
         }
 
         .dropdown a:hover {
             color: #fff;
-            background: rgba(255, 0, 127, 0.15);
-            border-left: 3px solid var(--pink-accent);
+            background: linear-gradient(90deg, rgba(255, 0, 127, 0.3), transparent);
+            padding-left: 25px;
+            border-left: 4px solid var(--pink-neon);
         }
 
         .cart-btn {
-            background: linear-gradient(135deg, var(--pink-accent), #99004d);
+            background: linear-gradient(135deg, var(--pink-neon), var(--purple-neon));
             color: #fff;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 4px;
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 900;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 0 15px var(--pink-glow);
-            transition: transform 0.2s ease;
+            box-shadow: 0 0 18px var(--pink-glow);
+            border: 1px solid #fff;
+            transition: all 0.3s ease;
         }
 
         .cart-btn:hover {
-            transform: translateY(-2px);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--pink-neon), 0 0 35px var(--purple-neon);
         }
 
-        /* --- Hero Banner Section --- */
+        /* --- Hero Section --- */
         .hero {
             position: relative;
-            padding: 80px 20px;
+            padding: 90px 20px 60px 20px;
             text-align: center;
-            background: radial-gradient(circle at center, rgba(255, 0, 127, 0.15) 0%, transparent 70%);
-            border-bottom: 1px solid var(--border-hud);
         }
 
-        .hero-badge {
-            display: inline-block;
-            background: rgba(255, 0, 127, 0.1);
-            border: 1px solid var(--pink-accent);
-            color: var(--pink-accent);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(0,0,0,0.8);
+            letter-spacing: 5px;
+            color: #fff;
+            text-shadow: 0 0 20px var(--pink-neon), 0 0 40px var(--purple-neon);
+            margin-bottom: 10px;
         }
 
-        .hero p {
-            max-width: 750px;
-            margin: 0 auto 30px auto;
-            color: var(--text-muted);
+        .hero-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--pink-neon);
             font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px var(--pink-glow);
+        }
+
+        .hero-desc {
+            max-width: 800px;
+            margin: 0 auto 35px auto;
+            color: var(--text-muted);
+            font-size: 1.25rem;
             line-height: 1.6;
+            font-weight: 600;
         }
 
         .hero-actions {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
         }
 
-        .btn-primary {
-            background: var(--pink-accent);
+        .btn-neon {
+            background: linear-gradient(90deg, var(--pink-neon), #c80062);
             color: #fff;
-            padding: 12px 28px;
+            padding: 14px 32px;
             border-radius: 4px;
             text-decoration: none;
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+            font-weight: 900;
+            font-size: 0.95rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
             box-shadow: 0 0 20px var(--pink-glow);
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 12px 28px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.4);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-3px);
-            border-color: var(--pink-accent);
-        }
-
-        /* --- How It Works Steps --- */
-        .how-it-works {
-            max-width: 1200px;
-            margin: -30px auto 60px auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .step-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-hud);
-            backdrop-filter: blur(10px);
-            padding: 22px;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .step-num {
-            background: var(--pink-accent);
+        .btn-outline {
+            background: rgba(12, 6, 18, 0.8);
+            border: 1px solid var(--purple-neon);
             color: #fff;
+            padding: 14px 32px;
+            border-radius: 4px;
+            text-decoration: none;
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 1.2rem;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px var(--purple-glow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 0 30px var(--pink-neon);
+        }
+
+        .btn-outline:hover {
+            transform: translateY(-3px) scale(1.03);
+            border-color: var(--pink-neon);
+            box-shadow: 0 0 25px var(--pink-glow);
+        }
+
+        /* --- Claim Steps HUD --- */
+        .claim-hud {
+            max-width: 1300px;
+            margin: 30px auto 60px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 0 20px;
+        }
+
+        .claim-card {
+            background: var(--card-bg);
+            border: 1px solid var(--pink-neon);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.2);
+            border-radius: 6px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 0 10px var(--pink-glow);
+            gap: 20px;
+            transition: transform 0.3s ease;
         }
 
-        .step-card h3 {
+        .claim-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--pink-glow);
+        }
+
+        .claim-step {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--pink-neon);
+            text-shadow: 0 0 10px var(--pink-glow);
+            min-width: 45px;
+        }
+
+        .claim-info h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.05rem;
-            margin-bottom: 4px;
+            font-size: 1.1rem;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
         }
 
-        .step-card p {
+        .claim-info p {
             color: var(--text-muted);
             font-size: 0.95rem;
             line-height: 1.4;
         }
 
-        /* --- Featured Products --- */
+        /* --- Main Store Container --- */
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .section-title h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.2rem;
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 15px var(--pink-neon);
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .section-title p {
+        .section-header p {
+            font-family: 'Orbitron', sans-serif;
             color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
             margin-top: 5px;
         }
 
+        /* --- Product Grid & Cards --- */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+            gap: 30px;
         }
 
         .product-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 0, 127, 0.3);
             border-radius: 8px;
             overflow: hidden;
-            transition: all 0.3s ease;
             position: relative;
             display: flex;
             flex-direction: column;
+            transition: all 0.35s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .product-card:hover {
-            border-color: var(--pink-accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 0, 127, 0.2);
+            border-color: var(--pink-neon);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0 30px var(--pink-glow), 0 0 10px var(--purple-neon);
         }
 
-        .product-image {
+        .product-thumb {
             width: 100%;
-            height: 220px;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 280px;
             position: relative;
             overflow: hidden;
+            background: #000;
         }
 
-        .product-image img {
+        .product-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .product-card:hover .product-image img {
-            transform: scale(1.08);
+        .product-card:hover .product-thumb img {
+            transform: scale(1.12);
         }
 
-        .product-badge {
+        .badge-tag {
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--pink-accent);
-            color: var(--pink-accent);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
+            background: rgba(8, 3, 14, 0.9);
+            border: 1px solid var(--pink-neon);
+            color: var(--pink-neon);
+            padding: 4px 12px;
             font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--pink-glow);
         }
 
-        .product-details {
-            padding: 20px;
+        .product-body {
+            padding: 22px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            background: linear-gradient(to bottom, rgba(12, 6, 18, 0.9), rgba(4, 2, 6, 0.95));
         }
 
         .product-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
             color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
         }
 
         .product-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--pink-accent);
-            margin-bottom: 15px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--pink-neon);
+            text-shadow: 0 0 10px var(--pink-glow);
+            margin-bottom: 18px;
         }
 
-        .btn-buy {
+        .btn-card {
             margin-top: auto;
             width: 100%;
             background: rgba(255, 0, 127, 0.15);
-            border: 1px solid var(--pink-accent);
+            border: 1px solid var(--pink-neon);
             color: #fff;
-            padding: 10px;
-            border-radius: 4px;
+            padding: 12px;
             font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
+            font-size: 0.85rem;
+            font-weight: 900;
             text-transform: uppercase;
+            letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            border-radius: 4px;
             text-align: center;
             text-decoration: none;
+            transition: all 0.3s ease;
             display: block;
         }
 
-        .btn-buy:hover {
-            background: var(--pink-accent);
-            box-shadow: 0 0 15px var(--pink-glow);
+        .btn-card:hover {
+            background: var(--pink-neon);
+            color: #fff;
+            box-shadow: 0 0 20px var(--pink-neon);
         }
 
         /* --- Rules Modal --- */
@@ -430,122 +484,129 @@
             display: none;
             position: fixed;
             z-index: 2000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
             justify-content: center;
             align-items: center;
         }
 
         .modal-content {
-            background: var(--purple-dark);
-            border: 1px solid var(--pink-accent);
+            background: var(--card-bg);
+            border: 2px solid var(--pink-neon);
+            box-shadow: 0 0 40px var(--pink-glow);
             width: 90%;
-            max-width: 800px;
-            max-height: 80vh;
+            max-width: 850px;
+            max-height: 85vh;
             border-radius: 8px;
-            padding: 30px;
+            padding: 35px;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 0 30px rgba(255, 0, 127, 0.3);
         }
 
         .close-modal {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 1.8rem;
+            top: 20px; right: 25px;
+            font-size: 2rem;
             color: var(--text-muted);
             cursor: pointer;
+            transition: color 0.2s;
         }
 
-        .close-modal:hover { color: var(--pink-accent); }
+        .close-modal:hover { color: var(--pink-neon); }
 
         .modal h2 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--pink-accent);
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--pink-neon);
+            text-shadow: 0 0 10px var(--pink-glow);
+            border-bottom: 1px solid var(--pink-neon);
+            padding-bottom: 12px;
             margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-hud);
-            padding-bottom: 10px;
         }
 
-        .rules-list h3 {
+        .rules-body h3 {
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.1rem;
             color: #fff;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
-        .rules-list p, .rules-list ul {
+        .rules-body p, .rules-body ul {
             color: var(--text-muted);
-            margin-left: 15px;
-            margin-top: 5px;
+            margin-top: 6px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            padding-left: 15px;
         }
 
         /* --- Footer --- */
         footer {
-            background: #030305;
-            border-top: 1px solid var(--border-hud);
-            padding: 50px 20px 20px 20px;
-            margin-top: 80px;
+            background: rgba(4, 2, 6, 0.98);
+            border-top: 2px solid var(--pink-neon);
+            padding: 60px 20px 25px 20px;
+            margin-top: 100px;
+            box-shadow: 0 -10px 25px rgba(255,0,127,0.15);
         }
 
-        .footer-content {
-            max-width: 1300px;
+        .footer-grid {
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 40px;
             margin-bottom: 40px;
         }
 
         .footer-col h4 {
-            font-family: 'Orbitron', sans-serif;
-            margin-bottom: 15px;
-            color: var(--pink-accent);
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--pink-neon);
+            text-shadow: 0 0 8px var(--pink-glow);
+            margin-bottom: 20px;
         }
 
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 10px;
-        }
-
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
         .footer-col ul a {
             color: var(--text-muted);
             text-decoration: none;
-            transition: color 0.2s;
+            font-size: 1.05rem;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .footer-col ul a:hover { color: #fff; }
+        .footer-col ul a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px var(--pink-neon);
+            padding-left: 5px;
+        }
 
         .footer-bottom {
             text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header / HUD Navigation -->
+    <!-- HUD Navigation Bar -->
     <header>
         <div class="nav-container">
             <a href="index.html" class="brand-logo">
                 <img src="C05A29C9-A0AF-48FE-80EC-93ACF3A8378C.png" alt="Void City Logo">
-                <span>Void City</span>
+                <span>VOID CITY</span>
             </a>
 
             <ul class="nav-menu">
                 <li class="nav-item"><a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a></li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i> All Packages <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i></a>
+                    <a href="#" class="nav-link"><i class="fa-solid fa-boxes-stacked"></i> Imports <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i></a>
                     <ul class="dropdown">
                         <li><a href="weapons.html">Weapon Imports</a></li>
                         <li><a href="vehicles.html">Vehicle Imports</a></li>
@@ -554,13 +615,13 @@
                         <li><a href="businesses.html">Businesses & MLOs</a></li>
                         <li><a href="clothing.html">Clothing & Chains</a></li>
                         <li><a href="slots.html">Slot Passes</a></li>
-                        <li><a href="unban.html">Unban Fees</a></li>
+                        <li><a href="unban.html">Unban Appeals</a></li>
                     </ul>
                 </li>
                 <li class="nav-item"><a href="weapons.html" class="nav-link"><i class="fa-solid fa-gun"></i> Weapons</a></li>
                 <li class="nav-item"><a href="vehicles.html" class="nav-link"><i class="fa-solid fa-car"></i> Vehicles</a></li>
                 <li class="nav-item"><a href="gangs.html" class="nav-link"><i class="fa-solid fa-users"></i> Gangs</a></li>
-                <li class="nav-item"><a href="unban.html" class="nav-link"><i class="fa-solid fa-gavel"></i> Unban</a></li>
+                <li class="nav-item"><a href="unban.html" class="nav-link"><i class="fa-solid fa-gavel"></i> Unbans</a></li>
             </ul>
 
             <a href="basket.html" class="cart-btn">
@@ -569,152 +630,165 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Header -->
     <section class="hero">
-        <span class="hero-badge"><i class="fa-solid fa-bolt"></i> Official Void City Store</span>
-        <h1>Support Void City</h1>
-        <p>Purchase custom perks, 1of1 imports, gang packages, and weapon benches for your Void City character. All purchases directly fund server development.</p>
+        <h1 class="hero-title">VOID CITY RP</h1>
+        <div class="hero-subtitle">Official Server Store & Custom Imports</div>
+        <p class="hero-desc">Elevate your roleplay with 1-of-1 vehicle imports, custom drug labs, custom chain graphic designs, weapon benches, and exclusive slot upgrades for Void City.</p>
         <div class="hero-actions">
-            <a href="https://discord.gg" target="_blank" class="btn-primary"><i class="fa-brands fa-discord"></i> Open Claim Ticket</a>
-            <button class="btn-secondary" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Bible & Rules</button>
+            <a href="https://discord.gg" target="_blank" class="btn-neon"><i class="fa-brands fa-discord"></i> Open Discord Claim Ticket</a>
+            <button class="btn-outline" id="rulesBtn"><i class="fa-solid fa-book"></i> Server Bible & Rules</button>
         </div>
     </section>
 
-    <!-- How Claiming Works Steps -->
-    <div class="how-it-works">
-        <div class="step-card">
-            <div class="step-num">1</div>
-            <div>
-                <h3>Select & Purchase</h3>
-                <p>Browse our categories and checkout your desired package or import.</p>
+    <!-- Donation Claiming Steps HUD -->
+    <div class="claim-hud">
+        <div class="claim-card">
+            <div class="claim-step">01</div>
+            <div class="claim-info">
+                <h3>Buy Package</h3>
+                <p>Choose your desired import, weapon skin, or gang tier pass below.</p>
             </div>
         </div>
-        <div class="step-card">
-            <div class="step-num">2</div>
-            <div>
-                <h3>Join Void Discord</h3>
-                <p>Head to our official Discord server and navigate to the <b>#donations-ticket</b> channel.</p>
+        <div class="claim-card">
+            <div class="claim-step">02</div>
+            <div class="claim-info">
+                <h3>Open Ticket</h3>
+                <p>Join the Void City Discord and open a ticket in <b>#donation-claims</b>.</p>
             </div>
         </div>
-        <div class="step-card">
-            <div class="step-num">3</div>
-            <div>
-                <h3>Provide Proof & Claim</h3>
-                <p>Submit your Tebex transaction ID/receipt. Staff will import or assign your items in-city!</p>
+        <div class="claim-card">
+            <div class="claim-step">03</div>
+            <div class="claim-info">
+                <h3>Get Imported</h3>
+                <p>Provide Tebex transaction proof & receive your custom items in-city!</p>
             </div>
         </div>
     </div>
 
-    <!-- Featured Products Section -->
+    <!-- Featured Products Showcase -->
     <div class="container">
-        <div class="section-title">
-            <h2>Featured City Assets</h2>
-            <p>Popular custom imports and upgrades available for Void City</p>
+        <div class="section-header">
+            <h2>Featured Void Imports</h2>
+            <p>Official custom packages crafted specifically for Void City RP</p>
         </div>
 
         <div class="product-grid">
             
             <!-- 1of1 Vehicle Import -->
             <div class="product-card">
-                <span class="product-badge">Exclusive</span>
-                <div class="product-image">
+                <span class="badge-tag">1 OF 1</span>
+                <div class="product-thumb">
                     <img src="1of1_vehicle_import.png" alt="1of1 Vehicle Import">
                 </div>
-                <div class="product-details">
+                <div class="product-body">
                     <h3 class="product-title">1of1 Vehicle Import</h3>
                     <div class="product-price">$150.00 USD</div>
-                    <a href="vehicles.html" class="btn-buy">Purchase Package</a>
+                    <a href="vehicles.html" class="btn-card">Purchase Import</a>
                 </div>
             </div>
 
             <!-- 1of1 Weapon Import -->
             <div class="product-card">
-                <span class="product-badge">Hot</span>
-                <div class="product-image">
+                <span class="badge-tag">Custom</span>
+                <div class="product-thumb">
                     <img src="1of1_weapon_import.png" alt="1of1 Weapon Import">
                 </div>
-                <div class="product-details">
+                <div class="product-body">
                     <h3 class="product-title">1of1 Weapon Import</h3>
                     <div class="product-price">$100.00 USD</div>
-                    <a href="weapons.html" class="btn-buy">Purchase Package</a>
+                    <a href="weapons.html" class="btn-card">Purchase Import</a>
                 </div>
             </div>
 
-            <!-- Tier 3 Gang Package -->
+            <!-- Diamond Weapon -->
             <div class="product-card">
-                <span class="product-badge">Gang Tier</span>
-                <div class="product-image">
-                    <img src="tier_3_gang.png" alt="Tier 3 Gang Package">
+                <span class="badge-tag">Exclusive</span>
+                <div class="product-thumb">
+                    <img src="diamond_weapon.png" alt="Diamond Weapon">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title">Tier 3 Gang Package</h3>
-                    <div class="product-price">$120.00 USD</div>
-                    <a href="gangs.html" class="btn-buy">Purchase Package</a>
+                <div class="product-body">
+                    <h3 class="product-title">Diamond Weapon Finish</h3>
+                    <div class="product-price">$80.00 USD</div>
+                    <a href="weapons.html" class="btn-card">Purchase Import</a>
                 </div>
             </div>
 
-            <!-- Void Weapon Bench -->
+            <!-- Diamond Glove -->
             <div class="product-card">
-                <span class="product-badge">Crafting</span>
-                <div class="product-image">
-                    <img src="void_weapon_bench.png" alt="Void Weapon Bench">
+                <span class="badge-tag">Special</span>
+                <div class="product-thumb">
+                    <img src="diamond_glove.png" alt="Diamond Glove">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title">Void Weapon Bench</h3>
-                    <div class="product-price">$85.00 USD</div>
-                    <a href="weapons.html" class="btn-buy">Purchase Package</a>
+                <div class="product-body">
+                    <h3 class="product-title">Diamond Slap Glove</h3>
+                    <div class="product-price">$65.00 USD</div>
+                    <a href="clothing.html" class="btn-card">Purchase Import</a>
+                </div>
+            </div>
+
+            <!-- Drug Lab -->
+            <div class="product-card">
+                <span class="badge-tag">Business</span>
+                <div class="product-thumb">
+                    <img src="drug_lab.png" alt="Drug Lab">
+                </div>
+                <div class="product-body">
+                    <h3 class="product-title">Void Drug Lab</h3>
+                    <div class="product-price">$110.00 USD</div>
+                    <a href="drugs.html" class="btn-card">Purchase Import</a>
                 </div>
             </div>
 
             <!-- Custom Drug Import -->
             <div class="product-card">
-                <span class="product-badge">Business</span>
-                <div class="product-image">
+                <span class="badge-tag">Gang Import</span>
+                <div class="product-thumb">
                     <img src="custom_drug_import.png" alt="Custom Drug Import">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title">Custom Drug Import</h3>
+                <div class="product-body">
+                    <h3 class="product-title">Gang Drug Import</h3>
                     <div class="product-price">$75.00 USD</div>
-                    <a href="drugs.html" class="btn-buy">Purchase Package</a>
+                    <a href="drugs.html" class="btn-card">Purchase Import</a>
                 </div>
             </div>
 
-            <!-- MLO Import -->
+            <!-- Business Import -->
             <div class="product-card">
-                <span class="product-badge">Property</span>
-                <div class="product-image">
-                    <img src="mlo_import.png" alt="MLO Import">
+                <span class="badge-tag">MLO Property</span>
+                <div class="product-thumb">
+                    <img src="business_import.png" alt="Business Import">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title">Custom MLO Import</h3>
-                    <div class="product-price">$90.00 USD</div>
-                    <a href="businesses.html" class="btn-buy">Purchase Package</a>
+                <div class="product-body">
+                    <h3 class="product-title">Custom Business Import</h3>
+                    <div class="product-price">$125.00 USD</div>
+                    <a href="businesses.html" class="btn-card">Purchase Import</a>
                 </div>
             </div>
 
-            <!-- Obsidian Weapon -->
+            <!-- Chain Import -->
             <div class="product-card">
-                <span class="product-badge">Skin</span>
-                <div class="product-image">
-                    <img src="obsidian_weapon.png" alt="Obsidian Weapon">
+                <span class="badge-tag">Ped Asset</span>
+                <div class="product-thumb">
+                    <img src="chain_import.png" alt="Chain Import">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title">Obsidian Weapon Finish</h3>
-                    <div class="product-price">$45.00 USD</div>
-                    <a href="weapons.html" class="btn-buy">Purchase Package</a>
-                </div>
-            </div>
-
-            <!-- Unban Fee -->
-            <div class="product-card">
-                <span class="product-badge">Support</span>
-                <div class="product-image">
-                    <img src="unban_fee.png" alt="Unban Fee">
-                </div>
-                <div class="product-details">
-                    <h3 class="product-title">Unban Appeal Fee</h3>
+                <div class="product-body">
+                    <h3 class="product-title">Custom Chain Import</h3>
                     <div class="product-price">$50.00 USD</div>
-                    <a href="unban.html" class="btn-buy">Purchase Package</a>
+                    <a href="clothing.html" class="btn-card">Purchase Import</a>
+                </div>
+            </div>
+
+            <!-- Blue Slot Upgrade -->
+            <div class="product-card">
+                <span class="badge-tag">Inventory</span>
+                <div class="product-thumb">
+                    <img src="blue_slot.png" alt="Blue Slot Upgrade">
+                </div>
+                <div class="product-body">
+                    <h3 class="product-title">Blue Inventory Slot Pass</h3>
+                    <div class="product-price">$25.00 USD</div>
+                    <a href="slots.html" class="btn-card">Purchase Upgrade</a>
                 </div>
             </div>
 
@@ -725,69 +799,65 @@
     <div class="modal" id="rulesModal">
         <div class="modal-content">
             <span class="close-modal" id="closeModal">&times;</span>
-            <h2><i class="fa-solid fa-book-skull"></i> Void RP Community Guidelines</h2>
+            <h2>VOID RP — BIBLE & RULES</h2>
             
-            <div class="rules-list">
-                <h3>1. Respect Everyone</h3>
-                <p>Treat all members with respect. Zero harassment, bullying, or toxicity permitted.</p>
+            <div class="rules-body">
+                <h3>1. Respect & Behavior</h3>
+                <p>Treat all members with respect. Zero toxicity, harassment, or non-RP clutter in public chats.</p>
 
-                <h3>2. No Spamming or Flooding</h3>
-                <p>Keep channels clean. Avoid excessive tagging or unnecessary clutter.</p>
+                <h3>2. Claiming Purchases</h3>
+                <p>Void RP is not responsible for external scam deals. All official packages bought here are claimed strictly via Discord support tickets.</p>
 
-                <h3>3. Disclaimer</h3>
-                <p>All clothing and graphic deals are between seller and buyer. Void RP is not responsible for external transactions.</p>
-
-                <h3>4. In-City Terminology (Bible)</h3>
-                <p>Ensure you maintain proper roleplay immersion at all times. Standard translations:</p>
+                <h3>3. Server Terminology (Bible)</h3>
+                <p>Maintain character immersion at all times. In-city translations:</p>
                 <ul>
-                    <li><b>Downed:</b> Needs EMS revival</li>
-                    <li><b>Scuffed:</b> Glitched/broken mechanics</li>
+                    <li><b>Downed:</b> Needs medical assistance / EMS</li>
+                    <li><b>Scuffed:</b> Experiencing a game glitch</li>
                     <li><b>Headache:</b> Frame drops / Lag</li>
-                    <li><b>Head Pop:</b> Disconnected / Game Crash</li>
-                    <li><b>Tsunami:</b> Server Restart</li>
-                    <li><b>In City:</b> Online in server</li>
+                    <li><b>Head Pop:</b> Disconnected or crashed</li>
+                    <li><b>Tsunami:</b> Daily scheduled server restart</li>
+                    <li><b>In City:</b> Logged into Void City</li>
                     <li><b>Taking the Train:</b> Server Queue</li>
-                    <li><b>Bible:</b> Server Rules</li>
-                    <li><b>Bahama'd:</b> Banned</li>
+                    <li><b>Bahama'd:</b> In-game ban</li>
                 </ul>
 
-                <h3 style="color: #ff3333; margin-top: 20px;">Strictly Prohibited Terms (In-City):</h3>
-                <p style="color: #ff9999;">Banned, Ticket, Staff/Admin, Scene, Clip, 90 seconds, Inject, Greenzone, Game, FiveM, GTA, Scripts, MLO, Metagame, RDM/VDM/FRP.</p>
+                <h3 style="color: var(--pink-neon); margin-top: 25px;">Strictly Banned Terms In-City:</h3>
+                <p style="color: #ff80bf;">Banned, Ticket, Staff, Admin, Scene, Clip, 90 seconds, Inject, Greenzone, Game, FiveM, GTA, Scripts, MLO, Metagame, RDM/VDM/FRP.</p>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-grid">
             <div class="footer-col">
-                <h4>Void City RP</h4>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Official Store for Void City RP. All purchases go directly toward server hosting, custom assets, and community development.</p>
+                <h4>VOID CITY RP</h4>
+                <p style="color: var(--text-muted); line-height: 1.6;">Official Store for Void City Roleplay. Every transaction helps expand server performance, custom scripts, and original assets.</p>
             </div>
             <div class="footer-col">
-                <h4>Navigation</h4>
+                <h4>Quick Navigation</h4>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="weapons.html">Weapons Category</a></li>
-                    <li><a href="vehicles.html">Vehicles Category</a></li>
-                    <li><a href="gangs.html">Gang Packages</a></li>
+                    <li><a href="index.html">Home Page</a></li>
+                    <li><a href="weapons.html">Weapons & Skins</a></li>
+                    <li><a href="vehicles.html">1-of-1 Vehicle Imports</a></li>
+                    <li><a href="gangs.html">Gang Tier Packages</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Support & Claims</h4>
                 <ul>
                     <li><a href="https://discord.gg" target="_blank">Open Claim Ticket</a></li>
-                    <li><a href="unban.html">Unban Fees</a></li>
-                    <li><a href="#" id="rulesFooterBtn">Community Rules</a></li>
+                    <li><a href="unban.html">Unban Appeal Fee</a></li>
+                    <li><a href="#" id="rulesFooterBtn">Server Rules Bible</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Void City RP. All rights reserved. Not affiliated with Rockstar Games or Take-Two Interactive.</p>
+            <p>&copy; 2026 VOID CITY RP. ALL RIGHTS RESERVED. NOT AFFILIATED WITH ROCKSTAR GAMES OR TAKE-TWO INTERACTIVE.</p>
         </div>
     </footer>
 
-    <!-- Interactive Scripts -->
+    <!-- Modal Script -->
     <script>
         const modal = document.getElementById("rulesModal");
         const btn = document.getElementById("rulesBtn");
@@ -798,9 +868,7 @@
         footerBtn.onclick = function(e) { e.preventDefault(); modal.style.display = "flex"; }
         span.onclick = function() { modal.style.display = "none"; }
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+            if (event.target == modal) { modal.style.display = "none"; }
         }
     </script>
 </body>
