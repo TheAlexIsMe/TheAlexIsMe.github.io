@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTX Luxe Studio — Affordable Portrait Photography, Houston TX</title>
+<meta name="description" content="HTX Luxe Studio is a Houston portrait photography studio offering affordable session packages. Holiday special: 25% off all sessions. Book a consultation.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* =========================================================
+     HTX LUXE STUDIO — design tokens
+     Palette is a warm "darkroom at dusk" espresso + brass +
+     Houston-dusk rust, deliberately avoiding the generic
+     cream/terracotta and near-black/neon AI defaults.
+     ========================================================= */
+  :root{
+    --ink:        #1b1712;   /* base espresso background */
+    --ink-2:      #241f18;   /* raised panel */
+    --ink-3:      #2c2620;   /* borders on dark */
+    --paper:      #efe7d8;   /* warm bone (light panel bg) */
+    --paper-2:    #e4d9c4;
+    --text-hi:    #f3ecdf;   /* headline text on dark */
+    --text-lo:    #b9ac98;   /* body text on dark */
+    --text-dark:  #241f18;   /* body text on light panels */
+    --text-dark-lo:#5f5748;
+    --brass:      #b9874c;
+    --brass-lite: #d8ac74;
+    --rust:       #8a3b28;
+    --rust-lite:  #b4553a;
+
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans:  "Work Sans", -apple-system, "Segoe UI", sans-serif;
+
+    --wrap: 1180px;
+    --pad: clamp(24px, 5vw, 64px);
+    --radius: 2px;
+    --dur: 0.6s;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--text-lo);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img, svg{ display:block; max-width:100%; }
+  a{ color: inherit; text-decoration: none; }
+  button{ font: inherit; }
+
+  ::selection{ background: var(--brass); color: var(--ink); }
+
+  :focus-visible{
+    outline: 2px solid var(--brass-lite);
+    outline-offset: 3px;
+  }
+
+  h1,h2,h3,h4{
+    font-family: var(--serif);
+    color: var(--text-hi);
+    font-weight: 450;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .wrap{
+    max-width: var(--wrap);
+    margin: 0 auto;
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+  }
+
+  .section{ padding: clamp(72px, 10vw, 140px) 0; position: relative; }
+  .section-light{ background: var(--paper); color: var(--text-dark-lo); }
+  .section-light h2, .section-light h3{ color: var(--text-dark); }
+
+  .kicker{
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    color: var(--brass-lite);
+    margin: 0 0 14px;
+  }
+  .section-light .kicker{ color: var(--rust); }
+
+  .lede{
+    max-width: 46ch;
+    font-size: 1.08rem;
+    line-height: 1.75;
+  }
+
+  /* ---------- sprocket rule: a thin brass line perforated like
+     35mm film, used as the site's one recurring structural motif ---------- */
+  .sprocket-rule{
+    height: 14px;
+    background-image: repeating-linear-gradient(
+      to right, var(--ink-3) 0 6px, transparent 6px 18px
+    );
+    background-position: center;
+    background-size: 18px 2px;
+    background-repeat: repeat-x;
+    border-top: 1px solid var(--ink-3);
+    border-bottom: 1px solid var(--ink-3);
+    opacity: 0.55;
+  }
+  .section-light .sprocket-rule{
+    background-image: repeating-linear-gradient(
+      to right, var(--paper-2) 0 6px, transparent 6px 18px
+    );
+    border-color: var(--paper-2);
+  }
+
+  /* ---------- holiday announcement bar ---------- */
+  .announce{
+    position: fixed; top:0; left:0; right:0; z-index: 95;
+    background: var(--rust);
+    color: var(--text-hi);
+    text-align:center;
+    font-size: 0.86rem;
+    padding: 10px var(--pad);
+    letter-spacing: 0.01em;
+  }
+  .announce strong{ color: #fff; }
+  .announce{ height: 40px; display:flex; align-items:center; justify-content:center; }
+
+  /* =========================== NAV =========================== */
+  header{
+    position: fixed; top:40px; left:0; right:0; z-index: 90;
+    padding: 26px var(--pad);
+    display:flex; align-items:center; justify-content:space-between;
+    transition: padding var(--dur) var(--ease), background var(--dur) var(--ease), box-shadow var(--dur) var(--ease), top var(--dur) var(--ease);
+  }
+  header.scrolled{
+    padding-top: 14px; padding-bottom: 14px;
+    background: rgba(27,23,18,0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 1px 0 var(--ink-3);
+  }
+  .wordmark{
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--text-hi);
+    display:flex; align-items:baseline; gap: 8px;
+  }
+  .wordmark em{
+    font-style: italic; color: var(--brass-lite); font-weight: 500;
+  }
+  nav.links{ display:flex; align-items:center; gap: 34px; }
+  nav.links a{
+    font-size: 0.92rem; color: var(--text-lo);
+    position:relative; padding-bottom: 4px;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1px;
+    background: var(--brass-lite); transition: right var(--dur) var(--ease);
+  }
+  nav.links a:hover::after, nav.links a:focus-visible::after{ right:0; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding: 13px 26px; font-size: 0.92rem; border-radius: var(--radius);
+    border: 1px solid var(--brass); white-space: nowrap;
+    transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .btn-solid{ background: var(--brass); color: var(--ink); font-weight:500; }
+  .btn-solid:hover{ background: var(--brass-lite); border-color: var(--brass-lite); transform: translateY(-1px); }
+  .btn-line{ background:transparent; color: var(--text-hi); }
+  .btn-line:hover{ background: rgba(185,135,76,0.12); transform: translateY(-1px); }
+
+  .menu-btn{
+    display:none; background:none; border:1px solid var(--ink-3); color: var(--text-hi);
+    width:42px; height:42px; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .menu-btn span, .menu-btn::before, .menu-btn::after{ content:""; display:block; width:18px; height:1px; background: var(--text-hi); }
+  .menu-btn{ flex-direction:column; gap:4px; }
+
+  /* =========================== HERO =========================== */
+  .hero{
+    min-height: 100vh;
+    display:flex; align-items:center;
+    padding-top: 160px;
+    background:
+      radial-gradient(ellipse at 78% 18%, rgba(185,135,76,0.16), transparent 55%),
+      linear-gradient(180deg, #1b1712 0%, #1e1a14 100%);
+    position: relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items:center;
+    width:100%;
+  }
+  .hero-copy .kicker{ opacity:0; transform: translateY(10px); }
+  .hero h1{
+    font-size: clamp(2.6rem, 5.4vw, 4.6rem);
+    line-height: 1.04;
+    opacity:0; transform: translateY(16px);
+  }
+  .hero h1 i{ font-style: italic; color: var(--brass-lite); font-weight: 400; }
+  .hero p.lede{ margin-top: 22px; color: var(--text-lo); opacity:0; transform: translateY(14px); }
+  .hero-ctas{ margin-top: 34px; display:flex; gap: 16px; flex-wrap:wrap; opacity:0; transform: translateY(14px); }
+
+  .hero.is-ready .kicker,
+  .hero.is-ready h1,
+  .hero.is-ready p.lede,
+  .hero.is-ready .hero-ctas{ opacity:1; transform:none; }
+  .hero.is-ready .kicker{ transition: opacity .7s var(--ease) .15s, transform .7s var(--ease) .15s; }
+  .hero.is-ready h1{ transition: opacity .8s var(--ease) .3s, transform .8s var(--ease) .3s; }
+  .hero.is-ready p.lede{ transition: opacity .8s var(--ease) .5s, transform .8s var(--ease) .5s; }
+  .hero.is-ready .hero-ctas{ transition: opacity .8s var(--ease) .65s, transform .8s var(--ease) .65s; }
+
+  .frame{
+    position: relative;
+    border: 1px solid var(--ink-3);
+    padding: 10px;
+    background: var(--ink-2);
+  }
+  .frame .plate{
+    aspect-ratio: 4 / 5;
+    background-size: cover; background-position:center;
+    position:relative; overflow:hidden;
+  }
+  .frame .plate::after{ /* subtle film grain */
+    content:""; position:absolute; inset:0; opacity:0.18; mix-blend-mode:overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .frame .tag{
+    position:absolute; left:10px; bottom:10px; font-size:0.72rem; color: var(--brass-lite);
+    background: rgba(27,23,18,0.7); padding: 4px 9px; letter-spacing:0.02em;
+  }
+  .hero-frame .plate{
+    background-image: linear-gradient(155deg, rgba(185,135,76,0.16), rgba(27,23,18,0.05) 60%), url("images/portfolio/portrait-evening-02.jpg");
+  }
+
+  .hero-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:30px; }
+  .hero-tags span{
+    font-size: 0.82rem; color: var(--text-lo); border:1px solid var(--ink-3);
+    padding: 7px 14px;
+  }
+
+  /* =========================== PORTFOLIO =========================== */
+  .head-row{
+    display:flex; justify-content:space-between; align-items:flex-end; gap: 30px; margin-bottom: 46px; flex-wrap:wrap;
+  }
+  .filters{ display:flex; gap: 8px; flex-wrap:wrap; }
+  .filters button{
+    background:transparent; border:1px solid var(--ink-3); color: var(--text-lo);
+    padding: 9px 18px; cursor:pointer; transition: all .3s var(--ease); font-size:0.88rem;
+  }
+  .filters button:hover{ border-color: var(--brass); color: var(--text-hi); }
+  .filters button.active{ background: var(--brass); border-color: var(--brass); color: var(--ink); }
+
+  .contact-sheet{
+    display:grid; grid-template-columns: repeat(6, 1fr); gap: 10px;
+  }
+  .contact-sheet .frame{
+    grid-column: span 2;
+    opacity:0; transform: translateY(18px) scale(0.98);
+    transition: opacity .6s var(--ease), transform .6s var(--ease);
+    cursor:default;
+  }
+  .contact-sheet .frame.visible{ opacity:1; transform:none; }
+  .contact-sheet .frame:nth-child(3n+1){ grid-column: span 3; }
+  .contact-sheet .frame .plate{ transition: filter .5s var(--ease); }
+  .contact-sheet .frame:hover .plate{ filter: saturate(1.15) brightness(1.05); }
+  .contact-sheet .frame .plate img{ display:none; }
+  .frame-cap{ display:flex; justify-content:space-between; padding: 8px 2px 0; font-size:0.76rem; color: var(--text-lo); }
+  .frame-cap b{ color: var(--brass-lite); font-weight:500; }
+
+  @media (max-width: 760px){
+    .contact-sheet{ grid-template-columns: repeat(2,1fr); }
+    .contact-sheet .frame, .contact-sheet .frame:nth-child(3n+1){ grid-column: span 1; }
+  }
+
+  /* =========================== ABOUT =========================== */
+  .about-grid{
+    display:grid; grid-template-columns: 0.85fr 1.15fr; gap: 64px; align-items:center;
+  }
+  .about-grid .frame{ border-color: var(--paper-2); background: var(--paper); }
+  .about-grid .plate{
+    background-image: linear-gradient(160deg, rgba(201,160,106,0.14), rgba(44,28,20,0.05) 65%), url("images/portfolio/portrait-agave-04.jpg");
+    aspect-ratio: 3/4;
+  }
+  .pull{
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem); color: var(--text-dark); line-height:1.35;
+    margin: 22px 0 26px;
+  }
+  .signature{ font-family: var(--serif); font-size:1.15rem; color: var(--rust); }
+  .signature small{ display:block; font-family: var(--sans); font-size:0.82rem; color: var(--text-dark-lo); margin-top:4px; }
+
+  /* =========================== SERVICES =========================== */
+  .plans{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .plan{
+    border: 1px solid var(--ink-3);
+    padding: 38px 30px;
+    position: relative;
+    background: linear-gradient(180deg, var(--ink-2), var(--ink));
+  }
+  .plan::before, .plan::after{
+    content:""; position:absolute; width:14px; height:14px; border: 1px solid var(--ink-3);
+  }
+  .plan::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .plan::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .plan.featured{ border-color: var(--brass); }
+  .plan.featured::before, .plan.featured::after{ border-color: var(--brass); }
+  .plan .flag{ font-size:0.76rem; color: var(--brass-lite); margin-bottom: 14px; }
+  .plan h3{ font-size: 1.5rem; }
+  .plan .price{ font-family: var(--serif); font-size: 2.1rem; color: var(--text-hi); margin: 14px 0 4px; }
+  .plan .price span{ font-family: var(--sans); font-size: 0.85rem; color: var(--text-lo); }
+  .plan p.desc{ font-size:0.92rem; margin: 14px 0 22px; color: var(--text-lo); }
+  .plan ul{ list-style:none; margin:0 0 28px; padding:0; display:flex; flex-direction:column; gap:11px; }
+  .plan ul li{ font-size: 0.92rem; padding-left: 20px; position:relative; }
+  .plan ul li::before{ content:"—"; position:absolute; left:0; color: var(--brass); }
+  .plan .btn{ width:100%; }
+
+  @media (max-width: 900px){ .plans{ grid-template-columns: 1fr; } .about-grid{ grid-template-columns:1fr; } .hero-grid{ grid-template-columns:1fr; } }
+
+  /* =========================== CONSULTATION =========================== */
+  .consult{ background: var(--ink-2); }
+  .consult-grid{ display:grid; grid-template-columns: 1fr 0.85fr; gap: 60px; }
+  form{ display:grid; gap: 20px; }
+  .field{ display:flex; flex-direction:column; gap:8px; }
+  .field label{ font-size:0.86rem; color: var(--text-lo); }
+  .field input, .field select, .field textarea{
+    background: transparent; border:none; border-bottom: 1px solid var(--ink-3);
+    color: var(--text-hi); font-family: var(--sans); font-size:1rem; padding: 10px 2px;
+  }
+  .field select option{ background: var(--ink-2); color: var(--text-hi); }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color: var(--brass); outline:none; }
+  .row-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width:640px){ .row-2{ grid-template-columns:1fr; } .consult-grid{ grid-template-columns:1fr; } }
+  textarea{ resize: vertical; min-height: 96px; }
+  .form-note{ font-size:0.8rem; color: var(--text-lo); margin-top:-4px; }
+  .submit-msg{ font-size:0.9rem; color: var(--brass-lite); min-height: 1.2em; }
+
+  .info-card{ border:1px solid var(--ink-3); padding: 34px; height:fit-content; }
+  .info-card h3{ font-size:1.25rem; margin-bottom: 18px; }
+  .info-line{ display:flex; justify-content:space-between; padding: 13px 0; border-top:1px solid var(--ink-3); font-size:0.92rem; }
+  .info-line:first-of-type{ border-top:none; }
+  .info-line span:first-child{ color: var(--text-lo); }
+  .info-line span:last-child{ color: var(--text-hi); }
+
+  /* =========================== TESTIMONIALS =========================== */
+  .quote-wrap{ max-width: 780px; margin: 0 auto; text-align:center; position:relative; min-height: 220px; }
+  .quote{
+    position:absolute; inset:0; opacity:0; transition: opacity .7s var(--ease); display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  .quote.active{ opacity:1; position:relative; }
+  .quote p{ font-family: var(--serif); font-style:italic; font-size: clamp(1.25rem, 2.4vw, 1.7rem); color: var(--text-hi); line-height:1.5; }
+  .quote .who{ margin-top:20px; font-size:0.88rem; color: var(--brass-lite); }
+  .dots{ display:flex; gap:10px; justify-content:center; margin-top: 36px; }
+  .dots button{ width:8px; height:8px; border-radius:50%; border:1px solid var(--brass); background:transparent; cursor:pointer; padding:0; }
+  .dots button.active{ background: var(--brass); }
+
+  /* =========================== FOOTER =========================== */
+  footer{ background: var(--ink); border-top: 1px solid var(--ink-3); padding: 56px 0 30px; }
+  .foot-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap: 30px; margin-bottom: 40px; }
+  .foot-links{ display:flex; gap: 26px; flex-wrap:wrap; }
+  .foot-links a{ font-size:0.9rem; color: var(--text-lo); }
+  .foot-links a:hover{ color: var(--brass-lite); }
+  .social{ display:flex; gap:16px; }
+  .social a{ width:36px; height:36px; border:1px solid var(--ink-3); display:flex; align-items:center; justify-content:center; transition: border-color .3s; }
+  .social a:hover{ border-color: var(--brass); }
+  .fine{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.78rem; color: #6d6355; padding-top: 24px; border-top: 1px solid var(--ink-3); }
+
+  @media (max-width: 860px){
+    .announce{ font-size: 0.74rem; padding-left: 14px; padding-right: 14px; height:auto; min-height:40px; line-height:1.3; }
+    nav.links{ display:none; }
+    .menu-btn{ display:flex; }
+    header.open nav.links{
+      display:flex; position:fixed; inset:0; top:118px; background: var(--ink);
+      flex-direction:column; padding: 40px var(--pad); gap: 26px; align-items:flex-start;
+    }
+    header.open nav.links a{ font-size:1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">Holiday Special — <strong>25% off every session</strong></div>
+
+<header id="site-header">
+  <a href="#home" class="wordmark">HTX <em>Luxe</em> Studio</a>
+  <nav class="links" id="nav-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#consult" class="btn btn-solid">Book a consultation</a>
+  </nav>
+  <button class="menu-btn" id="menu-btn" aria-label="Toggle menu" aria-expanded="false"><span></span></button>
+</header>
+
+<main id="home">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">Houston, Texas — portrait photography</p>
+        <h1>Portraits that feel like <i>you</i>, at a price that feels fair.</h1>
+        <p class="lede">HTX Luxe Studio is a Houston portrait studio built on care, not overhead. Every session gets full attention and a real edit — no rush, no upsell maze. Right now booking portrait sessions, with weddings and editorial work on the way.</p>
+        <div class="hero-ctas">
+          <a href="#consult" class="btn btn-solid">Book a consultation</a>
+          <a href="#portfolio" class="btn btn-line">See the work</a>
+        </div>
+        <div class="hero-tags">
+          <span>Portrait Sessions</span>
+          <span>Golden Hour &amp; Outdoor</span>
+          <span>Evening &amp; Editorial</span>
+          <span style="opacity:.6;">Weddings — coming soon</span>
+        </div>
+      </div>
+      <div class="frame hero-frame">
+        <div class="plate"></div>
+        <div class="tag">No. 001 — evening portrait session</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sprocket-rule" role="presentation"></div>
+
+  <!-- ============ PORTFOLIO ============ -->
+  <section class="section" id="portfolio">
+    <div class="wrap">
+      <div class="head-row">
+        <div>
+          <p class="kicker">Selected work</p>
+          <h2>A contact sheet of recent sessions</h2>
+          <p class="lede" style="margin-top:14px;">Currently booking portrait sessions. Weddings, editorial, and events are coming as the studio grows.</p>
+        </div>
+        <div class="filters" id="filters">
+          <button class="active" data-filter="all">All</button>
+          <button data-filter="golden-hour">Golden Hour</button>
+          <button data-filter="evening">Evening &amp; Editorial</button>
+        </div>
+      </div>
+
+      <div class="contact-sheet" id="gallery"><!-- populated by JS --></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section section-light" id="about">
+    <div class="wrap about-grid">
+      <div class="frame">
+        <div class="plate"></div>
+        <div class="tag" style="color:#3a2a1c;background:rgba(239,231,216,0.85);">No. 014 — recent session</div>
+      </div>
+      <div>
+        <p class="kicker">The studio</p>
+        <h2>Just getting started, and doing it right from session one.</h2>
+        <p class="pull">"A photograph should feel like the moment before you said 'wait, take another' — a little unguarded, a little proud."</p>
+        <p style="max-width:52ch;">HTX Luxe Studio is a new Houston portrait studio built around one idea: professional photography shouldn't require a luxury budget. Every session is shot and edited personally — no outsourced batches, no assembly line. Portraits are the focus today, with weddings and editorial sessions coming as the studio grows.</p>
+        <p class="signature">— Founder &amp; Photographer<span>HTX Luxe Studio, Houston, TX</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="head-row">
+        <div>
+          <p class="kicker">Investment</p>
+          <h2>Sessions &amp; pricing</h2>
+        </div>
+        <p class="lede" style="margin:0;">Straightforward portrait pricing — no hidden fees. Every session includes a pre-shoot consultation and a private online gallery. Prices below already reflect the current holiday discount.</p>
+      </div>
+
+      <div class="plans">
+        <div class="plan">
+          <p class="flag">Just testing the waters</p>
+          <h3>The Mini Session</h3>
+          <p class="price"><span style="text-decoration:line-through;color:var(--text-lo);font-size:1.1rem;font-family:var(--sans);">$45</span> $34 <span>/ session</span></p>
+          <p class="desc">A short, sweet session — great for a quick refresh or trying the studio out.</p>
+          <ul>
+            <li>20-minute on-location session</li>
+            <li>One outfit</li>
+            <li>10 fully edited digital images</li>
+            <li>Private online gallery within 1 week</li>
+          </ul>
+          <a href="#consult" class="btn btn-line">Start with this</a>
+        </div>
+
+        <div class="plan featured">
+          <p class="flag">Most booked</p>
+          <h3>The Signature Portrait</h3>
+          <p class="price"><span style="text-decoration:line-through;color:var(--text-lo);font-size:1.1rem;font-family:var(--sans);">$85</span> $64 <span>/ session</span></p>
+          <p class="desc">The full HTX Luxe experience — plenty of time to get comfortable and get great shots.</p>
+          <ul>
+            <li>45-minute session, one location</li>
+            <li>Up to 2 outfit changes</li>
+            <li>25 fully edited digital images</li>
+            <li>Private online gallery within 1 week</li>
+            <li>Print-release rights included</li>
+          </ul>
+          <a href="#consult" class="btn btn-solid">Start with this</a>
+        </div>
+
+        <div class="plan">
+          <p class="flag">Go all out</p>
+          <h3>The Extended Session</h3>
+          <p class="price"><span style="text-decoration:line-through;color:var(--text-lo);font-size:1.1rem;font-family:var(--sans);">$130</span> $98 <span>/ session</span></p>
+          <p class="desc">More time, more looks — ideal for milestone portraits or multiple locations.</p>
+          <ul>
+            <li>90-minute session, up to 2 locations</li>
+            <li>Up to 3 outfit changes</li>
+            <li>45 fully edited digital images</li>
+            <li>Private online gallery within 1 week</li>
+            <li>Print-release rights included</li>
+          </ul>
+          <a href="#consult" class="btn btn-line">Start with this</a>
+        </div>
+      </div>
+      <p class="lede" style="margin-top:28px;">Interested in a wedding, editorial shoot, or event before it's officially offered? Reach out anyway — early bookings are welcome while the studio expands.</p>
+    </div>
+  </section>
+
+  <div class="sprocket-rule" role="presentation"></div>
+
+  <!-- ============ CONSULTATION ============ -->
+  <section class="section consult" id="consult">
+    <div class="wrap consult-grid">
+      <div>
+        <p class="kicker">Get in touch</p>
+        <h2>Book your consultation</h2>
+        <p class="lede" style="margin-bottom:32px;">Tell us about the day, the people, or the brand you want captured. We reply within one business day with availability and next steps.</p>
+
+        <form id="consult-form">
+          <div class="row-2">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input id="name" name="name" type="text" required autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email">
+            </div>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="session">Session type</label>
+              <select id="session" name="session" required>
+                <option value="">Select one</option>
+                <option>Mini Session</option>
+                <option>Signature Portrait</option>
+                <option>Extended Session</option>
+                <option>Wedding / editorial (early inquiry)</option>
+                <option>Something custom</option>
+              </select>
+            </div>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="date">Preferred date</label>
+              <input id="date" name="date" type="date">
+            </div>
+            <div class="field">
+              <label for="location">Location in mind</label>
+              <input id="location" name="location" type="text" placeholder="e.g. The Heights, Memorial Park">
+            </div>
+          </div>
+          <div class="field">
+            <label for="vision">Tell us about your vision</label>
+            <textarea id="vision" name="vision" placeholder="Who's involved, the feeling you're after, any dates that matter."></textarea>
+          </div>
+          <p class="form-note">This form is set up to email HTX Luxe Studio directly — no account or backend required. Swap the placeholder endpoint in the code with your own before launch (see README).</p>
+          <button type="submit" class="btn btn-solid" style="justify-self:start;">Request consultation</button>
+          <p class="submit-msg" id="form-msg" role="status"></p>
+        </form>
+      </div>
+
+      <div class="info-card">
+        <h3>Studio details</h3>
+        <div class="info-line"><span>Location</span><span>Houston, Texas</span></div>
+        <div class="info-line"><span>Service area</span><span>Greater Houston &amp; travel</span></div>
+        <div class="info-line"><span>Consultations</span><span>Tue – Sat, by appointment</span></div>
+        <div class="info-line"><span>Turnaround</span><span>About 1 week</span></div>
+        <div class="info-line"><span>Email</span><span>hello@htxluxestudio.com</span></div>
+        <div class="info-line"><span>Instagram</span><span>@htxluxestudio</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section section-light" id="testimonials">
+    <div class="wrap">
+      <p class="kicker" style="text-align:center;">Kind words</p>
+      <div class="quote-wrap" id="quote-wrap">
+        <div class="quote active">
+          <p>"They spent the first twenty minutes just talking to us before a single photo was taken. The gallery still makes my mother cry, in the good way."</p>
+          <p class="who">Danielle R. — Signature Story, engagement session</p>
+        </div>
+        <div class="quote">
+          <p>"Our wedding day photos look like they belong in a magazine, but nothing about the day felt staged. That's a hard balance to strike."</p>
+          <p class="who">Marcus &amp; Priya T. — Full Day Archive</p>
+        </div>
+        <div class="quote">
+          <p>"I've done corporate headshots before. This was the first time I actually liked how I looked in one."</p>
+          <p class="who">Alan K. — Portrait Session, branding headshots</p>
+        </div>
+      </div>
+      <div class="dots" id="quote-dots"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#home" class="wordmark">HTX <em>Luxe</em> Studio</a>
+        <p style="margin-top:14px;max-width:32ch;font-size:0.9rem;">Fine art photography for portraits, weddings, and brands across Houston, Texas.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#consult">Consultation</a>
+      </div>
+      <div class="social">
+        <a href="#" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="Pinterest">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 21c1-3 2-7 2-9a3 3 0 1 1 6 0c0 2-1 5-2 5s-1.5-1-1.5-2"/><circle cx="12" cy="12" r="10"/></svg>
+        </a>
+        <a href="#" aria-label="Email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 6 8 7 8-7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="fine">
+      <span>© <span id="year"></span> HTX Luxe Studio. All rights reserved.</span>
+      <span>Houston, Texas</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---- header shrink on scroll ---- */
+  var header = document.getElementById('site-header');
+  var onScroll = function(){
+    if (window.scrollY > 40) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+
+  /* ---- mobile menu ---- */
+  var menuBtn = document.getElementById('menu-btn');
+  menuBtn.addEventListener('click', function(){
+    var open = header.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.getElementById('nav-links').addEventListener('click', function(e){
+    if (e.target.tagName === 'A') header.classList.remove('open');
+  });
+
+  /* ---- hero load-in sequence (one orchestrated moment, not per-section) ---- */
+  requestAnimationFrame(function(){
+    document.getElementById('hero').classList.add('is-ready');
+  });
+
+  /* =========================================================
+     PORTFOLIO DATA
+     Real session photos live in images/portfolio/. To add more,
+     drop a new file in that folder and add a matching line here
+     with a category of 'golden-hour' or 'evening'.
+     ========================================================= */
+  var photos = [
+    { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-01.jpg' },
+    { cat:'evening',     label:'Evening portrait session',      img:'images/portfolio/portrait-evening-02.jpg' },
+    { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-03.jpg' },
+    { cat:'evening',     label:'Candlelit evening portrait',    img:'images/portfolio/portrait-evening-01.jpg' },
+    { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-02.jpg' },
+    { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-04.jpg' },
+    { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-05.jpg' },
+    { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-06.jpg' }
+  ];
+
+  var gallery = document.getElementById('gallery');
+  photos.forEach(function(p, i){
+    var num = String(i + 2).padStart(3, '0');
+    var el = document.createElement('div');
+    el.className = 'frame';
+    el.dataset.cat = p.cat;
+    var catLabel = p.cat === 'golden-hour' ? 'golden hour' : p.cat;
+    el.innerHTML =
+      '<div class="plate" style="background-image:linear-gradient(160deg, rgba(185,135,76,.12), rgba(27,23,18,.04)), url(\'' + p.img + '\');" title="' + p.label + '"></div>' +
+      '<div class="frame-cap"><span>No. ' + num + '</span><b>' + catLabel + '</b></div>';
+    gallery.appendChild(el);
+  });
+
+  /* ---- filter ---- */
+  var filterBtns = document.querySelectorAll('#filters button');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.filter;
+      gallery.querySelectorAll('.frame').forEach(function(fr){
+        fr.style.display = (f === 'all' || fr.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+
+  /* ---- scroll reveal for the contact sheet (tiles "developing" in) ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.contact-sheet .frame').forEach(function(fr, i){
+    fr.style.transitionDelay = (i % 6) * 0.06 + 's';
+    io.observe(fr);
+  });
+
+  /* ---- testimonial rotator ---- */
+  var quotes = document.querySelectorAll('.quote');
+  var dotsWrap = document.getElementById('quote-dots');
+  var current = 0, timer;
+  quotes.forEach(function(_, i){
+    var d = document.createElement('button');
+    if (i === 0) d.classList.add('active');
+    d.setAttribute('aria-label', 'Show testimonial ' + (i + 1));
+    d.addEventListener('click', function(){ show(i); reset(); });
+    dotsWrap.appendChild(d);
+  });
+  function show(i){
+    quotes[current].classList.remove('active');
+    dotsWrap.children[current].classList.remove('active');
+    current = i;
+    quotes[current].classList.add('active');
+    dotsWrap.children[current].classList.add('active');
+  }
+  function reset(){
+    clearInterval(timer);
+    timer = setInterval(function(){ show((current + 1) % quotes.length); }, 6000);
+  }
+  reset();
+
+  /* =========================================================
+     CONSULTATION FORM
+     No backend is wired up yet. Replace ACTION_URL below with a
+     free Formspree endpoint (https://formspree.io) or your own
+     handler — full instructions are in README.md.
+     ========================================================= */
+  var ACTION_URL = ''; // e.g. 'https://formspree.io/f/yourFormId'
+  var form = document.getElementById('consult-form');
+  var msg = document.getElementById('form-msg');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()){
+      form.reportValidity();
+      return;
+    }
+    if (ACTION_URL){
+      fetch(ACTION_URL, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      }).then(function(res){
+        if (res.ok){
+          msg.textContent = 'Thank you — your request has been sent. We\'ll reply within one business day.';
+          form.reset();
+        } else {
+          msg.textContent = 'Something went wrong sending that. Please email hello@htxluxestudio.com directly.';
+        }
+      }).catch(function(){
+        msg.textContent = 'Something went wrong sending that. Please email hello@htxluxestudio.com directly.';
+      });
+    } else {
+      // Fallback while no ACTION_URL is configured: open a pre-filled email.
+      var data = new FormData(form);
+      var body = encodeURIComponent(
+        'Name: ' + data.get('name') + '\n' +
+        'Email: ' + data.get('email') + '\n' +
+        'Phone: ' + data.get('phone') + '\n' +
+        'Session type: ' + data.get('session') + '\n' +
+        'Preferred date: ' + data.get('date') + '\n' +
+        'Location: ' + data.get('location') + '\n\n' +
+        data.get('vision')
+      );
+      window.location.href = 'mailto:hello@htxluxestudio.com?subject=Consultation%20request&body=' + body;
+      msg.textContent = 'Opening your email client to send this request…';
+    }
+  });
+})();
+</script>
+</body>
+</html>
