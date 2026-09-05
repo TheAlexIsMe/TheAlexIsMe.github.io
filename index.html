@@ -652,6 +652,7 @@
 
   <div class="sprocket-rule" role="presentation"></div>
 
+  <!-- ============ CONSULTATION ============ -->
   <section class="section consult" id="consult">
     <div class="wrap consult-grid">
       <div>
@@ -659,7 +660,7 @@
         <h2>Book your outdoor session</h2>
         <p class="lede" style="margin-bottom:28px;">Let us know your date, target Houston area, and visual concept. We respond within 24 hours.</p>
 
-        <form id="consult-form">
+        <form id="consult-form" action="https://formspree.io/f/mnpqzlyk" method="POST">
           <div class="row-2">
             <div class="field">
               <label for="name">Full Name *</label>
@@ -777,7 +778,6 @@
 (function(){
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* Header scroll effect */
   var header = document.getElementById('site-header');
   var onScroll = function(){
     if (window.scrollY > 40) header.classList.add('scrolled');
@@ -786,7 +786,6 @@
   document.addEventListener('scroll', onScroll, { passive:true });
   onScroll();
 
-  /* Mobile Nav */
   var menuBtn = document.getElementById('menu-btn');
   menuBtn.addEventListener('click', function(){
     var open = header.classList.toggle('open');
@@ -796,12 +795,10 @@
     if (e.target.tagName === 'A') header.classList.remove('open');
   });
 
-  /* Hero load-in */
   requestAnimationFrame(function(){
     document.getElementById('hero').classList.add('is-ready');
   });
 
-  /* Portfolio items */
   var photos = [
     { cat:'golden-hour', label:'Golden hour portrait session', img:'images/portfolio/portrait-agave-01.jpg' },
     { cat:'evening',     label:'Evening portrait session',      img:'images/portfolio/portrait-evening-02.jpg' },
@@ -826,7 +823,6 @@
     gallery.appendChild(el);
   });
 
-  /* Gallery filtering */
   var filterBtns = document.querySelectorAll('#filters button');
   filterBtns.forEach(function(btn){
     btn.addEventListener('click', function(){
@@ -839,7 +835,6 @@
     });
   });
 
-  /* Intersection reveal */
   var io = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
       if (entry.isIntersecting){
@@ -853,7 +848,6 @@
     io.observe(fr);
   });
 
-  /* Testimonials */
   var quotes = document.querySelectorAll('.quote');
   var dotsWrap = document.getElementById('quote-dots');
   var current = 0, timer;
@@ -878,11 +872,9 @@
   reset();
 
   /* ==========================================
-     Form Handling
-     Replace ACTION_URL with your Formspree endpoint
-     or leave blank to route directly to Proton Mail client.
+     Form Handling via Formspree AJAX
      ========================================== */
-  var ACTION_URL = '';
+  var ACTION_URL = 'https://formspree.io/f/mnpqzlyk';
   var TARGET_EMAIL = 'HTXLuxeVisuals@proton.me';
   var form = document.getElementById('consult-form');
   var msg = document.getElementById('form-msg');
@@ -893,40 +885,27 @@
       form.reportValidity();
       return;
     }
-    if (ACTION_URL){
-      fetch(ACTION_URL, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(form)
-      }).then(function(res){
-        if (res.ok){
-          msg.textContent = 'Thank you — your request has been sent. We will reply within 24 hours.';
-          form.reset();
-        } else {
-          msg.textContent = 'Something went wrong sending that. Please email ' + TARGET_EMAIL + ' directly.';
-        }
-      }).catch(function(){
+
+    var submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    msg.textContent = 'Sending consultation request…';
+
+    fetch(ACTION_URL, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    }).then(function(res){
+      submitBtn.disabled = false;
+      if (res.ok){
+        msg.textContent = 'Thank you — your request has been sent! We will reply within 24 hours.';
+        form.reset();
+      } else {
         msg.textContent = 'Something went wrong sending that. Please email ' + TARGET_EMAIL + ' directly.';
-      });
-    } else {
-      var data = new FormData(form);
-      var bodyText =
-        'Client Name: ' + data.get('name') + '\n' +
-        'Client Email: ' + data.get('email') + '\n' +
-        'Client Phone: ' + (data.get('phone') || 'Not provided') + '\n' +
-        'Package: ' + data.get('session') + '\n' +
-        'Requested Date: ' + (data.get('date') || 'Flexible') + '\n' +
-        'Location: ' + (data.get('location') || 'To be determined') + '\n' +
-        'Acknowledged Policy: ' + (data.get('policy_ack') ? 'Yes' : 'No') + '\n\n' +
-        'Vision Details:\n' + data.get('vision');
-
-      var mailtoUrl = 'mailto:' + TARGET_EMAIL +
-        '?subject=' + encodeURIComponent('Consultation Request: ' + data.get('name') + ' (' + data.get('session') + ')') +
-        '&body=' + encodeURIComponent(bodyText);
-
-      window.location.href = mailtoUrl;
-      msg.textContent = 'Opening your email client to send request to ' + TARGET_EMAIL + '…';
-    }
+      }
+    }).catch(function(){
+      submitBtn.disabled = false;
+      msg.textContent = 'Something went wrong sending that. Please email ' + TARGET_EMAIL + ' directly.';
+    });
   });
 })();
 </script>
